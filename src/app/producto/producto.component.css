@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+.producto {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 30px;
+    border-radius: 20px;
+    background-color: #ededed;
+    height: 100%;
+}
+
+.producto img {
+    width: 500px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.contenedor-botones {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.producto > div:nth-child(2) { /* div del boton agregar al carrito */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+mat-button-toggle {
+    color: white;
+    border-radius: 5px !important;
+    width: 50%;
+    height: auto;
+}
