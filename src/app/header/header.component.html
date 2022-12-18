@@ -1,0 +1,43 @@
+<mat-toolbar>
+
+    <div>
+        <a href="">
+            <img src="/assets/img/LOGO.png" alt="Logo de ALASK HOME IMPORTER">
+            ALASK HOME IMPORTER
+        </a>
+    </div>
+
+    <div>
+        <div *ngIf="active">Hola, {{[username]}}!</div>
+        <div *ngIf="active; then thenBlock else elseBlock"></div>
+
+        <ng-template #thenBlock>
+            <div>
+                <button mat-icon-button matTooltip="Carrito de compras que abre un Sidenav">
+                    <mat-icon matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge"
+                        matBadgeColor="warn">
+                        shopping_cart</mat-icon>
+                </button>
+
+                <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>arrow_drop_down</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="irPerfil()">
+                        <mat-icon>account_circle</mat-icon>
+                        <span>Perfil</span>
+                    </button>
+                    <button mat-menu-item (click)="logout()">
+                        <mat-icon>logout</mat-icon>
+                        <span>Cerrar sesión</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </ng-template>
+
+        <ng-template #elseBlock>
+            <button mat-raised-button (click)="openDialogSesion()">Iniciar Sesion</button>
+        </ng-template>
+    </div>
+
+</mat-toolbar>
