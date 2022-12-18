@@ -25,3 +25,25 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+------------------------------------------------------------------------------------------------------------------
+
+- INSTALAR ANGULAR MATERIALS
+ng add @angular/material
+
+
+- INSTALAR SERVICIO DE COOKIES
+npm install ngx-cookie-service --save
+
+
+PALETA DE COLORES DE REFERENCIA 
+
+Color claro (logo)
+#ECCC7E 
+
+Color oscuro (header-footer)
+#74340F 
+
+Color alternativo
+#a57f27 
