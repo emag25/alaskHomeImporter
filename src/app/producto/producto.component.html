@@ -1,1 +1,33 @@
-<p>producto works!</p>
+<div class="producto">
+    <div>
+      <img [src]="producto.imagen" alt="imagen del producto {{producto.nombre}}">
+      <h2>{{producto.nombreProducto}}</h2>
+      <p>{{producto.descripcion}}</p>
+      <p>$ {{producto.precio}}</p>
+      
+    </div>
+  
+    <!-- <div class="contenedor-botones">
+      <button mat-raised-button color="primary" (click)="irEditar(pelicula.id)">EDITAR</button>
+      <button mat-raised-button color="warn" (click)="eliminar(pelicula.id)">ELIMINAR</button>
+    </div> -->
+  
+    <div>
+      <mat-button-toggle (click)="onClick()" (change)="checked = $event.source.checked" 
+      [style.background]="checked ? '#848589' : '#3f51b5'">
+        <mat-icon>{{icono}}</mat-icon> {{btnNombre}} 
+      </mat-button-toggle>
+      
+      
+      <!-- 
+      <button mat-fab extended  color="primary" (click)="addPelicula()" [disabled]="disabledAdd">Agregar al carrito
+        <mat-icon>add_shopping_cart</mat-icon>
+      </button>
+  
+      <button mat-fab extended color="primary" (click)="removePelicula()" [disabled]="disabledRemove">Quitar del carrito
+        <mat-icon>remove_shopping_cart</mat-icon>
+      </button> -->
+  
+  
+    </div>
+  </div>

@@ -1,1 +1,27 @@
-<p>productos works!</p>
+<div class="contenedor-principal" *ngIf="active else elseBlock">
+
+    <div class="contenedor-generos">
+        <mat-button-toggle-group>
+            <mat-button-toggle color="primary" (click)="clasificarProductos(0)" checked="true">
+                Todas
+            </mat-button-toggle>
+            <mat-button-toggle color="primary" *ngFor="let categoria of categorias" (click)="clasificarProductos(categoria.id)">
+                {{categoria.nombre}}
+            </mat-button-toggle>
+        </mat-button-toggle-group>
+    </div>
+    
+
+    <!-- <button mat-raised-button color="primary" (click)="irAgregar()">AGREGAR PELICULA</button>      -->
+    <div *ngIf="productos.length !== 0 else elseBlock2" class="contenedor-peliculas">
+        <app-producto *ngFor="let producto of productos" [producto]="producto"></app-producto>
+    </div>
+    <ng-template #elseBlock2>
+        <h1>No hay productos en esta categoria. Pronto subiremos más!</h1>
+    </ng-template>
+
+</div>
+
+<ng-template #elseBlock>
+    <app-error403></app-error403>
+</ng-template>
