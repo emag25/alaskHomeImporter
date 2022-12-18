@@ -1,1 +1,35 @@
-<p>perfil works!</p>
+
+<div class="contenedor-principal"  *ngIf="active else elseBlock">
+<br>
+<br>
+  <h1><div *ngIf="active">Bienvenid@, {{[username]}}!</div> </h1> 
+
+  <div>
+    <img [src]="perfil.jpg" alt="imagen del perfil {{perfil.jpg}}">
+
+  </div>
+
+  <br>
+
+    <div class="datospersonales">
+    <p>Nombre: {{[nombre]}} </p>
+    <p>Apellido: {{[apellido]}}</p>
+    <p>Celular: {{[celular]}}</p>
+    <p>Dirección: {{[direccion]}} </p>
+    <p>Email:{{[email]}} </p>
+
+  </div>
+<br>
+<br>
+
+    <p>
+      <a href="https://www.mozilla.org/es-ES/">¿Deseas recuperar tu contraseña?</a>.
+    </p>
+
+  
+  
+  </div>
+  
+  <ng-template #elseBlock>
+    <app-error403></app-error403>
+  </ng-template>
