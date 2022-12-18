@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Categoria } from '../models/categoria.model';
+import { Categoria } from '../productos/categoria.modelo';
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +10,27 @@ export class DataCategoriasService {
   private categorias: Categoria[] = [
     {
       id: 1,
-      nombre: 'Fantasia'
+      nombre: 'Technologia'
     },
     {
       id: 2,
-      nombre: 'Animacion'
+      nombre: 'ElectroHogar'
     },
     {
       id: 3,
-      nombre: 'Superheroes'
+      nombre: 'Hogar'
     },
     {
       id: 4,
-      nombre: 'Terror'
+      nombre: 'Muebles'
+    },
+    {
+      id: 5,
+      nombre: 'Ferreteria'
+    },
+    {
+      id: 6,
+      nombre: 'Movilidad'
     }
   ];
 
