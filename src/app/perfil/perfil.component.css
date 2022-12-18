@@ -1,0 +1,25 @@
+.datospersonales{
+    padding: 50px;
+    margin-top: 40px;
+    margin-left: 50px;
+    margin-right: 50px;
+
+
+
+}
+
+p{
+
+    font-weight: bold;
+}
+h1{
+
+    font-weight: bold;
+    font-style: italic;
+    font-size: xx-large;
+
+}
+
+a{
+    font-style: normal;
+     display:inline-block}
