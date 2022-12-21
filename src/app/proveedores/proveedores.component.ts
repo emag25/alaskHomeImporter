@@ -9,6 +9,9 @@ import { Proveedor } from '../models/proveedor.model';
 import { ModificarProveedorComponent } from '../modificar-proveedor/modificar-proveedor.component';
 import { DataProveedoresService } from '../servicios/dataProveedores.service';
 import { DataUsuariosService } from '../servicios/dataUsuarios.service';
+import { FiltrarProveedorComponent } from '../filtrar-proveedor/filtrar-proveedor.component';
+
+
 
 @Component({
   selector: 'app-proveedores',
@@ -57,7 +60,7 @@ export class ProveedoresComponent implements OnInit {
     this.dialog.open(AgregarProveedorComponent, { disableClose: true })
   }
   openDialogFiltrar() {
-    this.dialog.open(AgregarProveedorComponent, { disableClose: true })
+    this.dialog.open(FiltrarProveedorComponent, { disableClose: true })
   }
 
   openDialogModificar(proveedor: Proveedor) {

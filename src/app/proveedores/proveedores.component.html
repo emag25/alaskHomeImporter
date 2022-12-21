@@ -3,7 +3,8 @@
   <h1>PROVEEDORES</h1>
 
   <button mat-raised-button color="accent" (click)="openDialogAgregar()"><mat-icon>domain_add</mat-icon>Agregar</button>
-  <button mat-raised-button color="accent" (click)="openDialogFiltrar()"><mat-icon>domain_add</mat-icon>Filtrar</button>
+  <input type="text" class="form-control" name="filterPost" placeholder="Search...">
+
 
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
