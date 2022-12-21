@@ -1,10 +1,10 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-.formulario{
-    display: flex;
-    flex-direction: column;
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-content: center;
     padding: 40px;
@@ -12,16 +12,19 @@
 }
 
 .acciones {
-    width: 100%;
     display: flex;
     justify-content: space-around;
-    margin-top: 20px;
-}
-
-input{
-    width: 100%;
+    grid-column: span 2;
 }
 
 mat-card {
     padding: 40px;
+}
+
+.btnEnviar {
+    margin-top: 20px;
+}
+
+input {
+    width: 100%;
 }

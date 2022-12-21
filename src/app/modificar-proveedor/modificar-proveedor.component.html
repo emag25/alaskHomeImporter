@@ -1,0 +1,57 @@
+<mat-card>
+  <div style="text-align:center;">
+    <mat-card-title>Modificar Proveedor</mat-card-title>
+  </div>
+  <br>
+  <form [formGroup]="proveedorModificado">
+    <mat-form-field class="campos-field">
+      <mat-label>RUC</mat-label>
+      <input matInput readonly="true" formControlName="ruc"/>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre"/>
+      <mat-error *ngIf="proveedorModificado.controls['nombre'].hasError('required')">Nombre es requerido.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['nombre'].hasError('pattern')">Nombre no válido.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['nombre'].hasError('maxLength')">Nombre no puede tener mas de 150
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email"/>
+      <mat-error *ngIf="proveedorModificado.controls['email'].hasError('required')">Email es requerido.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['email'].hasError('email')">Email no válido.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['email'].hasError('maxLength')">Email no puede tener mas de 150
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono"/>
+      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('required')">Teléfono es requerido.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('email')">Teléfono no válido.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('maxLength')">Teléfono no puede tener mas de 10
+        caracteres.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('minLength')">Teléfono debe tener al menos 9
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field" style="grid-column: span 2;">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="direccion"/>
+      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('required')">Dirección es requerida.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('email')">Dirección no válida.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('maxLength')">Dirección no puede tener mas de 150
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <div class="acciones">
+      <button mat-raised-button color="accent" [disabled]="!proveedorModificado.valid" (click)="onSubmit()">Aceptar</button>
+      <button mat-raised-button (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+
+</mat-card>

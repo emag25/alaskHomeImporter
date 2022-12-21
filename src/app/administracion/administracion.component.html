@@ -1,0 +1,33 @@
+<div class="contenedor-principal" *ngIf="(active && (rol === 2)) else elseBlock">
+  
+  <h1>ADMINISTRACION</h1>
+  
+  <div class="contenedor-botones">
+    
+    <div (click)="irAdminUsuarios()" class="boton">
+      <mat-icon>group</mat-icon>
+      <h1>Usuarios</h1>
+    </div>
+    
+    <div (click)="irAdminProductos()" class="boton">
+      <mat-icon>inventory_2</mat-icon>
+      <h1>Productos</h1>
+    </div>
+    
+    <div (click)="irAdminProveedores()" class="boton">
+      <mat-icon>domain</mat-icon>
+      <h1>Proveedores</h1>
+    </div>
+    
+    <div (click)="irAdminVentas()" class="boton">
+      <mat-icon>shopping_cart</mat-icon>
+      <h1>Ventas</h1>
+    </div>
+
+  </div>
+
+</div>
+
+<ng-template #elseBlock>
+  <app-error403></app-error403>
+</ng-template>

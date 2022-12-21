@@ -13,52 +13,23 @@ import { ListenerService } from '../servicios/listener.service';
 export class PerfilComponent {
 
   username: string = '';
+  active: boolean = false;
+  id: number = 0;
   nombre: string = '';
   apellido: string = '';
   celular: string = '';
   direccion: string = '';
   email: string = '';
 
-
-
-  
-
-  active: boolean = false;
-  matBadge: number = 0;
-
-  constructor(private listener: ListenerService, private cookie: CookieService, private dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
-  }
-
-  ngOnInit(): void {
-    this.listener.customState.subscribe(active => this.active = active);
-    this.listener.customUsername.subscribe(username => this.username = username);
-    this.listener.customMatBadge.subscribe(matBadge => this.matBadge = matBadge);
-  }
-
-  /* ngOnChanges(changes: SimpleChanges) {
-    console.log(changes + ' - ONCHANGES');
-    this.username = this.cookie.get('username');
+  constructor(private cookie: CookieService) {
     this.active = this.cookie.get('active') === 'true' ? true : false;
-  } */
+    this.username = this.cookie.get('username');
+    this.id = Number(this.cookie.get('id'));
+    // usar el servicio dataUsuario para obtener los datos del usuario por medio del id
 
-  openDialogSesion(): void {
-    this.dialog.open(LoginComponent);
+
   }
 
-  logout() {
-    this.active = false;
-    this.cookie.set('active', 'false');
-    this.cookie.set('username', '');
-    this.cookie.set('id', '');
-    this.router.navigate(['']);
-  }
-
-  irPerfil() {
-    this.router.navigate(['/perfil']);
-  }
-
-  irCarrito() {
-    this.router.navigate(['/carrito']);
-  }
+  ngOnInit(): void {  }
 
 }

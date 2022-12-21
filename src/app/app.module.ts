@@ -14,6 +14,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatTableModule } from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,9 +31,13 @@ import { Error404Component } from './error404/error404.component';
 import { DataUsuariosService } from './servicios/dataUsuarios.service';
 import { CookieService } from 'ngx-cookie-service';
 import { ListenerService } from './servicios/listener.service';
+import { ProveedoresComponent } from './proveedores/proveedores.component';
+import { AgregarProveedorComponent } from './agregar-proveedor/agregar-proveedor.component';
+import { ModificarProveedorComponent } from './modificar-proveedor/modificar-proveedor.component';
+import { AdministracionComponent } from './administracion/administracion.component';
 
 @NgModule({
-  declarations: [		
+  declarations: [							
     AppComponent,
     HeaderComponent,
     FooterComponent,
@@ -40,8 +46,12 @@ import { ListenerService } from './servicios/listener.service';
     PerfilComponent,
     ProductosComponent,
     ProductoComponent,
-      Error403Component,
-      Error404Component
+    Error403Component,
+    Error404Component,
+    ProveedoresComponent,
+    AgregarProveedorComponent,
+    ModificarProveedorComponent,
+      AdministracionComponent
    ],
   imports: [
     BrowserModule,
@@ -59,7 +69,9 @@ import { ListenerService } from './servicios/listener.service';
     MatMenuModule,
     MatTooltipModule,
     MatBadgeModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatTableModule,
+    MatSnackBarModule
   ],
 
   providers: [DataUsuariosService, CookieService, ListenerService],
