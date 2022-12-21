@@ -12,7 +12,7 @@ div {
     flex-direction: row;
 }
 
-a {
+a,p {
     text-decoration: none;
     color: #fff;
 }
