@@ -22,7 +22,11 @@ img {
     margin-right: 10px;
 }
 
-.mat-icon {
-
-    color: #fff;
+.mat-icon{
+    color: #ffffff;
 }
+
+#mat-menu-item{
+    color: black;
+}
+  

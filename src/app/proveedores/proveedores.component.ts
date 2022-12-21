@@ -56,6 +56,9 @@ export class ProveedoresComponent implements OnInit {
   openDialogAgregar() {
     this.dialog.open(AgregarProveedorComponent, { disableClose: true })
   }
+  openDialogFiltrar() {
+    this.dialog.open(AgregarProveedorComponent, { disableClose: true })
+  }
 
   openDialogModificar(proveedor: Proveedor) {
     this.dialog.open(ModificarProveedorComponent, {
