@@ -8,15 +8,14 @@
     </div>
 
     <div>
-        <div *ngIf="active">Hola, {{[username]}}!</div>
+        <p *ngIf="active">Hola, {{[username]}}!</p>
         <div *ngIf="active; then thenBlock else elseBlock"></div>
 
         <ng-template #thenBlock>
             <div>
                 <button mat-icon-button matTooltip="Carrito de compras, mira aquí tus productos">
                     <mat-icon matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge"
-                        matBadgeColor="warn">
-                        shopping_cart</mat-icon>
+                        matBadgeColor="warn">shopping_cart</mat-icon>
                 </button>
 
                 <button mat-icon-button [matMenuTriggerFor]="menu">
@@ -30,6 +29,10 @@
                     <button mat-menu-item (click)="logout()">
                         <mat-icon>logout</mat-icon>
                         <span>Cerrar sesión</span>
+                    </button>
+                    <button *ngIf="false" mat-menu-item (click)="irAdministracion()">
+                        <mat-icon>settings</mat-icon>
+                        <span>Administración</span>
                     </button>
                 </mat-menu>
             </div>

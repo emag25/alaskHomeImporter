@@ -1,0 +1,44 @@
+.contenedor-principal{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+}
+
+.contenedor-botones {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+}
+
+.boton{
+    border-radius: 5px;
+    border: 1px solid #000;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-width: 200px;
+    min-height: 200px;
+}
+
+.boton:hover{
+    background-color: #000;
+    color: #fff;
+    cursor: pointer;
+}
+
+.boton .mat-icon{
+    font-size: 48pt;
+    width: auto;
+    height: auto;
+}
+
+h1{
+    margin: 0;
+}

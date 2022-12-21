@@ -25,14 +25,8 @@ export class HeaderComponent {
     this.listener.customMatBadge.subscribe(matBadge => this.matBadge = matBadge);
   }
 
-  /* ngOnChanges(changes: SimpleChanges) {
-    console.log(changes + ' - ONCHANGES');
-    this.username = this.cookie.get('username');
-    this.active = this.cookie.get('active') === 'true' ? true : false;
-  } */
-
   openDialogSesion(): void {
-    this.dialog.open(LoginComponent);
+    this.dialog.open(LoginComponent, { disableClose: true });
   }
 
   logout() {
@@ -45,6 +39,10 @@ export class HeaderComponent {
 
   irPerfil() {
     this.router.navigate(['/perfil']);
+  }
+
+  irAdministracion() {
+    this.router.navigate(['/administracion']);
   }
 
   irCarrito() {

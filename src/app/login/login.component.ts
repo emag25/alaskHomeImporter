@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { DataUsuariosService } from '../servicios/dataUsuarios.service';
 import { ListenerService } from '../servicios/listener.service';
 import { Usuario } from '../models/usuario.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-login',
@@ -16,11 +17,10 @@ import { Usuario } from '../models/usuario.model';
 
 export class LoginComponent {
 
-  temp: Usuario = new Usuario(0, '0', '0', '0', '0', '0', '0', '0');
   hide = true;
   active: boolean = false;
   
-  constructor(private listener:ListenerService, private cookie: CookieService, private router: Router, private dialogRef: MatDialogRef<LoginComponent>, private dataUsuarios: DataUsuariosService) {
+  constructor(private listener: ListenerService, private cookie: CookieService, private router: Router, private dialogRef: MatDialogRef<LoginComponent>, private dataUsuarios: DataUsuariosService, private snackbar: MatSnackBar) {
   }
   
   ngOnInit(): void {  
@@ -31,26 +31,6 @@ export class LoginComponent {
     contrasena: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(20)])
   });
 
-  /* 
-
-  getErrorMessage() {
-
-    if (this.contrasena.hasError('required')) {
-      return 'Contraseña es requerida';
-    }
-
-    if (this.contrasena.hasError('minlength')) {
-      return 'Contraseña debe tener al menos 8 caracteres';
-    }
-
-    if (this.contrasena.hasError('maxlength')) {
-      return 'Contraseña no puede tener mas de 20 caracteres';
-    }
-
-    return '';
-  }  */
-
-
   onSubmit() {
 
     let txtemail = this.formLogin.value.email ?? '';
@@ -58,7 +38,7 @@ export class LoginComponent {
       
     if (this.dataUsuarios.findUserbyEmailPass(txtemail, txtcontrasena) !== undefined) {
       
-      let user: Usuario = this.dataUsuarios.findUserbyEmailPass(txtemail, txtcontrasena) ?? this.temp;
+      let user: any = this.dataUsuarios.findUserbyEmailPass(txtemail, txtcontrasena);
       this.active = true;
       this.listener.changeState(this.active, user.nombre + ' ' + user.apellido);
       this.cookie.set('active', 'true');
@@ -69,10 +49,14 @@ export class LoginComponent {
       this.dialogRef.close();
 
     } else {
-      alert('Usuario o contraseña incorrecta'); // lanzar un SNACKBAR
+      this.snackbar.open('Usuario o contraseña incorrecta.', 'OK', { duration: 5000 });
     }
       
   }  
+
+  cancelar() {
+    this.dialogRef.close();
+  }
 
 }
 
