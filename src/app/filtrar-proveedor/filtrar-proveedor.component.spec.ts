@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FiltrarProveedorComponent } from './filtrar-proveedor.component';
 
+
 describe('FiltrarProveedorComponent', () => {
   let component: FiltrarProveedorComponent;
   let fixture: ComponentFixture<FiltrarProveedorComponent>;
@@ -21,3 +22,4 @@ describe('FiltrarProveedorComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+

@@ -20,6 +20,9 @@ import { FiltrarProveedorComponent } from '../filtrar-proveedor/filtrar-proveedo
 })
 export class ProveedoresComponent implements OnInit {
 
+  filterPost = '';
+
+
   active: boolean = false;
   rol: number = 0;
   dataSource: any = [];
