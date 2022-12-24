@@ -76,5 +76,8 @@ export class ProveedoresComponent implements OnInit {
   random(min:number, max:number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

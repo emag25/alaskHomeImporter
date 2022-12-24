@@ -4,8 +4,7 @@
 
   <button mat-raised-button color="accent" (click)="openDialogAgregar()"><mat-icon>domain_add</mat-icon>Agregar</button>
 <div>
-  <input type="text" class="form-control" name="filterPost" placeholder="Search..." [(ngModel)]="filterPost">
-
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search columns" #input>
 </div>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" >
