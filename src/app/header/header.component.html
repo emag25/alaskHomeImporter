@@ -1,14 +1,15 @@
-<mat-toolbar>
+<nav class="navbar navbar-dark" [style.color]="color">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="/assets/img/icono.png" alt="Logo de ALASK HOME IMPORTER" width="30" height="24" class="d-inline-block align-text-top">
+        ALASK HOME IMPORTER
+      </a>
 
-    <div>
-        <a href="">
-            <img src="/assets/img/LOGO.png" alt="Logo de ALASK HOME IMPORTER">
-            ALASK HOME IMPORTER
-        </a>
-    </div>
-
-    <div>
-        <p *ngIf="active">Hola, {{[username]}}!</p>
+      <div>
+        <span class="navbar-text d-flex align-items-center" *ngIf="active">
+            Hola, {{[username]}}!
+        </span>
+        
         <div *ngIf="active; then thenBlock else elseBlock"></div>
 
         <ng-template #thenBlock>
@@ -39,8 +40,12 @@
         </ng-template>
 
         <ng-template #elseBlock>
-            <button mat-raised-button (click)="openDialogSesion()">Iniciar Sesion</button>
+            <div class="d-flex align-items-start">
+                <div class="altura" style="height: 48px; width: 48px;"></div>
+                <button mat-raised-button (click)="openDialogSesion()">Iniciar Sesion</button>
+            </div>
         </ng-template>
-    </div>
+      </div>
 
-</mat-toolbar>
+    </div>
+  </nav>

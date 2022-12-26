@@ -2,7 +2,31 @@
     box-sizing: border-box;
 }
 
-.producto {
+.card {
+    overflow: hidden;
+}
+
+.card img {
+    min-height: 300px;
+    max-height: 300px;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.card img:hover {
+    transform: scale(1.2);
+}
+
+mat-button-toggle {
+    color: white;
+    border: #2bbbad;
+}
+
+mat-button-toggle:hover {
+    border: #2bbbad;
+}
+
+/* .producto {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -25,7 +49,7 @@
     gap: 10px;
 }
 
-.producto > div:nth-child(2) { /* div del boton agregar al carrito */
+.producto > div:nth-child(2) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,4 +60,4 @@ mat-button-toggle {
     border-radius: 5px !important;
     width: 50%;
     height: auto;
-}
+} */

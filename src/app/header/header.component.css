@@ -12,17 +12,10 @@ div {
     flex-direction: row;
 }
 
-a {
-    text-decoration: none;
-    color: #fff;
+mat-icon {
+    color: white;
 }
 
-img {
-    width: 30px;
-    margin-right: 10px;
-}
-
-.mat-icon {
-
-    color: #fff;
+.navbar-text {
+    color: white;
 }

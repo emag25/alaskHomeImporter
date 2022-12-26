@@ -1,20 +1,49 @@
-.contenedor-principal {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.imagen {
+    height: 100vh;
+    background-size: 100% 100%;
+    background-repeat:no-repeat;
+    background-image: url(../../assets/img/Fondo3.jpg);
+    background-size: cover;
+    background-position: center;
+    margin-top: -64px;
+}
+
+.separador {
+    height: 150px;
+}
+
+.opcion {
+    background-color: #2bbbad;
+    border: #2bbbad;
+}
+
+.card {
+    overflow: hidden;
+}
+
+.card img {
+    transition: 0.5s;
+    object-fit: cover;
+}
+
+.card img:hover {
+    transform: scale(1.2);
+}
+
+.title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.extra {
+    background-color: #2bbbad;
     padding: 20px;
-    height: 77%;
-    gap: 20px;
+    height: 25vh;
 }
 
-h1 {
-    font-size: 3rem;
-}
-
-img {
-    width: 150px;
-}
-.promo img {
-    width: 550px;
+.extra mat-icon {
+    height: 60px;
+    width: 60px;
+    font-size: 60px;
 }

@@ -1,18 +1,27 @@
 * {
-    box-sizing: border-box;
-  }
+  box-sizing: border-box;
+}
   
-  .contenedor-principal {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    padding: 20px;
-  }
+.contenedor-principal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  border-top: 1px solid #a9a9a9;
+}
   
-  .contenedor-productos {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-  } 
-  
+.contenedor-productos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.mat-button-toggle-group {
+  border-radius: 15px;
+}
+
+.mat-button-toggle-checked {
+  background-color: #2bbbad;
+  color: white !important;
+}

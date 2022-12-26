@@ -36,6 +36,46 @@ export class DataProductosService {
       cuotas: 12,
       descuento: 15,
       categoria: 4
+    },    
+    {
+      id: 4,
+      nombreProducto: 'Televisor LG',
+      descripcion: 'Televisor LG de 86 pulgadas, 4K Full HD',
+      imagen: '../assets/img/televisor2.png',
+      precio: 850,
+      cuotas: 12,
+      descuento: 15,
+      categoria: 1
+    },    
+    {
+      id: 5,
+      nombreProducto: 'Aromatizante Glade',
+      descripcion: 'Aromatizante Glade Paraíso Azul automático',
+      imagen: '../assets/img/aromatizante.png',
+      precio: 20,
+      cuotas: 12,
+      descuento: 15,
+      categoria: 3
+    },    
+    {
+      id: 6,
+      nombreProducto: 'Alicate',
+      descripcion: 'Alicate doble servicio 7 pulgadas Jonnesway',
+      imagen: '../assets/img/alicate.jpg',
+      precio: 25,
+      cuotas: 12,
+      descuento: 15,
+      categoria: 5
+    },    
+    {
+      id: 7,
+      nombreProducto: 'Bicicleta montañera',
+      descripcion: 'Bicicleta montañera 29 GER STAGE 7.2',
+      imagen: '../assets/img/bicicleta2.png',
+      precio: 300,
+      cuotas: 12,
+      descuento: 15,
+      categoria: 6
     }
   ]
 
