@@ -72,7 +72,7 @@ export class DataProductosService {
       nombreProducto: 'Bicicleta montañera',
       descripcion: 'Bicicleta montañera 29 GER STAGE 7.2',
       imagen: '../assets/img/bicicleta2.png',
-      precio: 300,
+      precio: 900,
       cuotas: 12,
       descuento: 15,
       categoria: 6

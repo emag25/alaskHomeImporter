@@ -8,7 +8,12 @@
   align-items: center;
   gap: 10px;
   padding: 20px;
-  border-top: 1px solid #a9a9a9;
+}
+
+.title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 2.5rem;
 }
   
 .contenedor-productos {
@@ -24,4 +29,8 @@
 .mat-button-toggle-checked {
   background-color: #2bbbad;
   color: white !important;
+}
+
+.separador {
+  height: 150px;
 }

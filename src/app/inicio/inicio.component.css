@@ -1,11 +1,12 @@
 .imagen {
-    height: 100vh;
+    height: calc(100vh - 64px);
     background-size: 100% 100%;
     background-repeat:no-repeat;
-    background-image: url(../../assets/img/Fondo3.jpg);
+    background-image: url(../../assets/img/Fondo5.jpg);
     background-size: cover;
     background-position: center;
-    margin-top: -64px;
+    /* margin-top: -64px; */
+    position: relative;
 }
 
 .separador {
@@ -46,4 +47,22 @@
     height: 60px;
     width: 60px;
     font-size: 60px;
+}
+
+.contenedor {
+    width: 600px;
+    height: 500px;
+}
+
+.principal {
+    width: 600px;
+    height: 500px;
+    border-radius: 10px;
+    box-shadow: 5px 5px 2px black;
+    background-color: white;
+}
+
+.principal img {
+    object-fit: cover;
+    object-position: center;
 }
