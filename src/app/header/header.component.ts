@@ -15,6 +15,7 @@ export class HeaderComponent {
   username: string = '';
   active: boolean = false;
   matBadge: number = 0;
+  color = 'white';
 
   constructor(private listener: ListenerService, private cookie: CookieService, private dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
   }
@@ -26,7 +27,7 @@ export class HeaderComponent {
   }
 
   openDialogSesion(): void {
-    this.dialog.open(LoginComponent, { disableClose: true });
+    this.dialog.open(LoginComponent, { disableClose: true, width: '500px' });
   }
 
   logout() {
@@ -47,6 +48,10 @@ export class HeaderComponent {
 
   irCarrito() {
     this.router.navigate(['/carrito']);
+  }
+
+  cambiarColor() {
+    this.color = "black";
   }
 
 }

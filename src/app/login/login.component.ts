@@ -45,7 +45,7 @@ export class LoginComponent {
       this.cookie.set('username', user.nombre + ' ' + user.apellido);
       this.cookie.set('id', user.id.toString());
 
-      this.router.navigate(['/productos']);
+      this.router.navigate(['/inicio']);
       this.dialogRef.close();
 
     } else {

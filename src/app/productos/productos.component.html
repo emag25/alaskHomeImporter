@@ -1,6 +1,8 @@
 <div class="contenedor-principal" *ngIf="active else elseBlock">
 
-    <div class="contenedor-generos">
+    <h1 class="title mt-3">Nuestros Productos</h1>
+
+    <div class="contenedor-categorias">
         <mat-button-toggle-group>
             <mat-button-toggle color="primary" (click)="clasificarProductos(0)" checked="true">
                 Todas
@@ -25,3 +27,5 @@
 <ng-template #elseBlock>
     <app-error403></app-error403>
 </ng-template>
+
+<div class="separador"></div>

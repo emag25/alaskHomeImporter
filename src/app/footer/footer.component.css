@@ -1,13 +1,7 @@
-mat-toolbar {
-    background-color: rgb(116, 52, 15);
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+a {
+    text-decoration: none;
 }
 
-h2 {
-    padding: 0;
-    margin: 0;
+.mat-icon {
+    margin-right: 5px;
 }

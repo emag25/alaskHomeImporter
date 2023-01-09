@@ -12,21 +12,10 @@ div {
     flex-direction: row;
 }
 
-a,p {
-    text-decoration: none;
-    color: #fff;
+mat-icon {
+    color: white;
 }
 
-img {
-    width: 30px;
-    margin-right: 10px;
+.navbar-text {
+    color: white;
 }
-
-.mac-icon{
-    color: #f1eded;
-}
-
-.mat-menu-item{
-    color: rgb(21, 1, 1);
-}
-  

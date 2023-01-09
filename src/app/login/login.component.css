@@ -5,10 +5,10 @@
 .formulario{
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     padding: 40px;
     gap: 20px;
+    text-align: center;
 }
 
 .acciones {
@@ -22,6 +22,11 @@ input{
     width: 100%;
 }
 
-mat-card {
-    padding: 40px;
+.btnEnviar:enabled {
+    background-color: #2bbbad;
+    color: #fff;
+}
+
+h1 {
+    font-weight: bold;
 }
