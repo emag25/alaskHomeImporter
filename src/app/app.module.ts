@@ -35,6 +35,8 @@ import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { AgregarProveedorComponent } from './agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './modificar-proveedor/modificar-proveedor.component';
 import { AdministracionComponent } from './administracion/administracion.component';
+import { FiltrarProveedorComponent } from './filtrar-proveedor/filtrar-proveedor.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [							
@@ -51,7 +53,9 @@ import { AdministracionComponent } from './administracion/administracion.compone
     ProveedoresComponent,
     AgregarProveedorComponent,
     ModificarProveedorComponent,
-      AdministracionComponent
+      AdministracionComponent,
+      FiltrarProveedorComponent,
+      FilterPipe
    ],
   imports: [
     BrowserModule,

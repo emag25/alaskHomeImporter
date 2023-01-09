@@ -9,6 +9,9 @@ import { Proveedor } from '../models/proveedor.model';
 import { ModificarProveedorComponent } from '../modificar-proveedor/modificar-proveedor.component';
 import { DataProveedoresService } from '../servicios/dataProveedores.service';
 import { DataUsuariosService } from '../servicios/dataUsuarios.service';
+import { FiltrarProveedorComponent } from '../filtrar-proveedor/filtrar-proveedor.component';
+
+
 
 @Component({
   selector: 'app-proveedores',
@@ -16,6 +19,9 @@ import { DataUsuariosService } from '../servicios/dataUsuarios.service';
   styleUrls: ['./proveedores.component.css']
 })
 export class ProveedoresComponent implements OnInit {
+
+  filterPost = '';
+
 
   active: boolean = false;
   rol: number = 0;
@@ -56,6 +62,9 @@ export class ProveedoresComponent implements OnInit {
   openDialogAgregar() {
     this.dialog.open(AgregarProveedorComponent, { disableClose: true })
   }
+  openDialogFiltrar() {
+    this.dialog.open(FiltrarProveedorComponent, { disableClose: true })
+  }
 
   openDialogModificar(proveedor: Proveedor) {
     this.dialog.open(ModificarProveedorComponent, {
@@ -67,5 +76,8 @@ export class ProveedoresComponent implements OnInit {
   random(min:number, max:number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
-
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

@@ -12,7 +12,7 @@ div {
     flex-direction: row;
 }
 
-a {
+a,p {
     text-decoration: none;
     color: #fff;
 }
@@ -22,7 +22,11 @@ img {
     margin-right: 10px;
 }
 
-.mat-icon {
-
-    color: #fff;
+.mac-icon{
+    color: #f1eded;
 }
+
+.mat-menu-item{
+    color: rgb(21, 1, 1);
+}
+  

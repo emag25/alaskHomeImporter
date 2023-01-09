@@ -13,13 +13,13 @@
 
         <ng-template #thenBlock>
             <div>
-                <button mat-icon-button matTooltip="Carrito de compras, mira aquí tus productos">
+                <button mat-icon-button matTooltip="Carrito de compras, mira aquí tus productos" >
                     <mat-icon matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge"
                         matBadgeColor="warn">shopping_cart</mat-icon>
                 </button>
 
                 <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <mat-icon>arrow_drop_down</mat-icon>
+                    <mat-icon >arrow_drop_down</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="irPerfil()">
@@ -30,7 +30,7 @@
                         <mat-icon>logout</mat-icon>
                         <span>Cerrar sesión</span>
                     </button>
-                    <button *ngIf="false" mat-menu-item (click)="irAdministracion()">
+                    <button  *ngIf="true" mat-menu-item (click)="irAdministracion()">
                         <mat-icon>settings</mat-icon>
                         <span>Administración</span>
                     </button>

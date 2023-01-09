@@ -14,9 +14,6 @@
         <mat-form-field appearance="fill">
             <mat-label>Ingresa tu contraseña</mat-label>
             <input matInput [type]="hide ? 'password' : 'text'" formControlName="contrasena"/>
-            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
-                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            </button>
             <mat-error *ngIf="formLogin.controls['contrasena'].hasError('required')">Contraseña es requerida.</mat-error>
             <mat-error *ngIf="formLogin.controls['contrasena'].hasError('minLength')">Contraseña debe tener al menos 8 caracteres.</mat-error>
             <mat-error *ngIf="formLogin.controls['contrasena'].hasError('maxLength')">Contraseña no puede tener mas de 20 caracteres.</mat-error>
