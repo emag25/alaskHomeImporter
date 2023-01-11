@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { DataCategoriasService } from '../servicios/dataCategorias.service';
 import { DataProductosService } from '../servicios/dataProductos.service';
-import { ListenerService } from '../servicios/listener.service';
+import { LoginService } from '../servicios/login.service';
 
 @Component({
   selector: 'app-productos',
@@ -12,23 +11,21 @@ import { ListenerService } from '../servicios/listener.service';
 })
 export class ProductosComponent {
 
-    active: boolean = false;
-    protected productos = this.dataProductos.getProductos();
-    protected categorias = this.dataCategorias.getCategorias();
+  protected active: boolean = this.loginService.getActive();
+  protected productos = this.dataProductos.getProductos();
+  protected categorias = this.dataCategorias.getCategorias();
+
+  constructor( private router: Router, private dataProductos: DataProductosService, private dataCategorias: DataCategoriasService, protected loginService: LoginService) {
+  }
+
+  ngOnInit() {   }
+
+  irAgregar() {
+    this.router.navigate(['/productos-agregar']);  // componente no creado aun
+  }
   
-    constructor(private listener: ListenerService, private router: Router, private cookie: CookieService,
-      private dataProductos: DataProductosService, private dataCategorias: DataCategoriasService) {
-      this.active = this.cookie.get('active') === 'true' ? true : false;
-      this.listener.changeState(this.active, this.cookie.get('username'));
-    }
-  
-    ngOnInit() {   }
-  
-    irAgregar() {
-      this.router.navigate(['/productos-agregar']);  // componente no creado aun
-    }
-    
-    clasificarProductos(categoria: number) {
-      this.productos = this.dataProductos.findProductosbyCategoria(categoria);
-    }
+  clasificarProductos(categoria: number) {
+    this.productos = this.dataProductos.findProductosbyCategoria(categoria);
+  }
+
 }

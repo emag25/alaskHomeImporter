@@ -1,13 +1,13 @@
 <nav class="navbar navbar-dark" style="background-color: #0094DA;">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" routerLink="/inicio">
         <img src="/assets/img/icono.png" alt="Logo de ALASK HOME IMPORTER" width="30" height="24" class="d-inline-block align-text-top">
         ALASK HOME IMPORTER
       </a>
 
       <div>
         <span class="navbar-text d-flex align-items-center" *ngIf="active">
-            Hola, {{[username]}}!
+            Hola, {{username}}!
         </span>
         
         <div *ngIf="active; then thenBlock else elseBlock"></div>
@@ -31,7 +31,7 @@
                         <mat-icon>logout</mat-icon>
                         <span>Cerrar sesión</span>
                     </button>
-                    <button  *ngIf="true" mat-menu-item (click)="irAdministracion()">
+                    <button  *ngIf="rol === 2" mat-menu-item (click)="irAdministracion()">
                         <mat-icon>settings</mat-icon>
                         <span>Administración</span>
                     </button>

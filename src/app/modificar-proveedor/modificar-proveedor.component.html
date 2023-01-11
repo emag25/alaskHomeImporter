@@ -23,7 +23,7 @@
       <input matInput formControlName="email"/>
       <mat-error *ngIf="proveedorModificado.controls['email'].hasError('required')">Email es requerido.</mat-error>
       <mat-error *ngIf="proveedorModificado.controls['email'].hasError('email')">Email no válido.</mat-error>
-      <mat-error *ngIf="proveedorModificado.controls['email'].hasError('maxLength')">Email no puede tener mas de 150
+      <mat-error *ngIf="proveedorModificado.controls['email'].hasError('maxlength')">Email no puede tener mas de 150
         caracteres.</mat-error>
     </mat-form-field>
 
@@ -31,10 +31,10 @@
       <mat-label>Teléfono</mat-label>
       <input matInput formControlName="telefono"/>
       <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('required')">Teléfono es requerido.</mat-error>
-      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('email')">Teléfono no válido.</mat-error>
-      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('maxLength')">Teléfono no puede tener mas de 10
+      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('pattern')">Teléfono no válido.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('maxlength')">Teléfono no puede tener mas de 10
         caracteres.</mat-error>
-      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('minLength')">Teléfono debe tener al menos 9
+      <mat-error *ngIf="proveedorModificado.controls['telefono'].hasError('minlength')">Teléfono debe tener al menos 9
         caracteres.</mat-error>
     </mat-form-field>
 
@@ -42,8 +42,9 @@
       <mat-label>Dirección</mat-label>
       <input matInput formControlName="direccion"/>
       <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('required')">Dirección es requerida.</mat-error>
-      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('email')">Dirección no válida.</mat-error>
-      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('maxLength')">Dirección no puede tener mas de 150
+      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('maxlength')">Dirección no puede tener mas de 150
+        caracteres.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('minlength')">Dirección debe tener al menos 4
         caracteres.</mat-error>
     </mat-form-field>
 

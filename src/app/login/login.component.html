@@ -9,7 +9,7 @@
                 <input matInput type="email" formControlName="email"/>
                 <mat-error *ngIf="formLogin.controls['email'].hasError('required')">Email es requerido.</mat-error>
                 <mat-error *ngIf="formLogin.controls['email'].hasError('email')">Email no válido.</mat-error>
-                <mat-error *ngIf="formLogin.controls['email'].hasError('maxLength')">Email no puede tener mas de 100 caracteres.</mat-error>
+                <mat-error *ngIf="formLogin.controls['email'].hasError('maxlength')">Email no puede tener mas de 100 caracteres.</mat-error>
             </mat-form-field>
     
             <mat-form-field appearance="fill">
@@ -19,8 +19,8 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 <mat-error *ngIf="formLogin.controls['contrasena'].hasError('required')">Contraseña es requerida.</mat-error>
-                <mat-error *ngIf="formLogin.controls['contrasena'].hasError('minLength')">Contraseña debe tener al menos 8 caracteres.</mat-error>
-                <mat-error *ngIf="formLogin.controls['contrasena'].hasError('maxLength')">Contraseña no puede tener mas de 20 caracteres.</mat-error>
+                <mat-error *ngIf="formLogin.controls['contrasena'].hasError('minlength')">Contraseña debe tener al menos 8 caracteres.</mat-error>
+                <mat-error *ngIf="formLogin.controls['contrasena'].hasError('maxlength')">Contraseña no puede tener mas de 20 caracteres.</mat-error>
             </mat-form-field>       
     
             <a href="https://www.mozilla.org/es-ES/">Recuperar Contraseña</a>

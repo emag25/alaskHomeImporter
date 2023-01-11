@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 import { LoginComponent } from '../login/login.component';
+import { DataUsuariosService } from '../servicios/dataUsuarios.service';
 import { ListenerService } from '../servicios/listener.service';
+import { LoginService } from '../servicios/login.service';
 
 @Component({
   selector: 'app-header',
@@ -12,18 +13,18 @@ import { ListenerService } from '../servicios/listener.service';
 })
 export class HeaderComponent {
 
-  username: string = '';
-  active: boolean = false;
+  username: string = this.loginService.getLoggedUsername();
+  active: boolean = this.loginService.getActive();
+  rol: number = 0
   matBadge: number = 0;
   color = 'white';
 
-  constructor(private listener: ListenerService, private cookie: CookieService, private dialog: MatDialog, private router: Router, private route: ActivatedRoute) {
+  constructor(private dialog: MatDialog, private router: Router, private loginService: LoginService, private listener: ListenerService, private dataUsuarios: DataUsuariosService) {
+    this.rol = Number(this.dataUsuarios.getRol(loginService.getLoggedUserId()));
+    this.listener.customMatBadge.subscribe(matBadge => this.matBadge = matBadge);
   }
 
   ngOnInit(): void {
-    this.listener.customState.subscribe(active => this.active = active);
-    this.listener.customUsername.subscribe(username => this.username = username);
-    this.listener.customMatBadge.subscribe(matBadge => this.matBadge = matBadge);
   }
 
   openDialogSesion(): void {
@@ -31,15 +32,11 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.active = false;
-    this.cookie.set('active', 'false');
-    this.cookie.set('username', '');
-    this.cookie.set('id', '');
-    this.router.navigate(['']);
+    this.loginService.logout();
   }
 
   irPerfil() {
-    this.router.navigate(['/perfil']);
+    this.router.navigate(['/perfil'])
   }
 
   irAdministracion() {

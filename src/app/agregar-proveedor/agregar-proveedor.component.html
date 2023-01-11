@@ -9,9 +9,9 @@
       <input matInput formControlName="ruc">
       <mat-error *ngIf="proveedorNuevo.controls['ruc'].hasError('required')">RUC es requerido.</mat-error>
       <mat-error *ngIf="proveedorNuevo.controls['ruc'].hasError('pattern')">RUC no válido.</mat-error>
-      <mat-error *ngIf="proveedorNuevo.controls['ruc'].hasError('maxLength')">RUC no puede tener mas de 13
+      <mat-error *ngIf="proveedorNuevo.controls['ruc'].hasError('maxlength')">RUC no puede tener mas de 13
         caracteres.</mat-error>
-      <mat-error *ngIf="proveedorNuevo.controls['ruc'].hasError('minLength')">RUC debe tener al menos 13
+      <mat-error *ngIf="proveedorNuevo.controls['ruc'].hasError('minlength')">RUC debe tener al menos 13
         caracteres.</mat-error>
     </mat-form-field>
 
@@ -20,7 +20,7 @@
       <input matInput formControlName="nombre">
       <mat-error *ngIf="proveedorNuevo.controls['nombre'].hasError('required')">Nombre es requerido.</mat-error>
       <mat-error *ngIf="proveedorNuevo.controls['nombre'].hasError('pattern')">Nombre no válido.</mat-error>
-      <mat-error *ngIf="proveedorNuevo.controls['nombre'].hasError('maxLength')">Nombre no puede tener mas de 150
+      <mat-error *ngIf="proveedorNuevo.controls['nombre'].hasError('maxlength')">Nombre no puede tener mas de 150
         caracteres.</mat-error>
     </mat-form-field>
 
@@ -29,7 +29,7 @@
       <input matInput formControlName="email">
       <mat-error *ngIf="proveedorNuevo.controls['email'].hasError('required')">Email es requerido.</mat-error>
       <mat-error *ngIf="proveedorNuevo.controls['email'].hasError('email')">Email no válido.</mat-error>
-      <mat-error *ngIf="proveedorNuevo.controls['email'].hasError('maxLength')">Email no puede tener mas de 150
+      <mat-error *ngIf="proveedorNuevo.controls['email'].hasError('maxlength')">Email no puede tener mas de 150
         caracteres.</mat-error>
     </mat-form-field>
 
@@ -37,10 +37,10 @@
       <mat-label>Teléfono</mat-label>
       <input matInput formControlName="telefono">
       <mat-error *ngIf="proveedorNuevo.controls['telefono'].hasError('required')">Teléfono es requerido.</mat-error>
-      <mat-error *ngIf="proveedorNuevo.controls['telefono'].hasError('email')">Teléfono no válido.</mat-error>
-      <mat-error *ngIf="proveedorNuevo.controls['telefono'].hasError('maxLength')">Teléfono no puede tener mas de 10
+      <mat-error *ngIf="proveedorNuevo.controls['telefono'].hasError('pattern')">Teléfono no válido.</mat-error>
+      <mat-error *ngIf="proveedorNuevo.controls['telefono'].hasError('maxlength')">Teléfono no puede tener mas de 10
         caracteres.</mat-error>
-      <mat-error *ngIf="proveedorNuevo.controls['telefono'].hasError('minLength')">Teléfono debe tener al menos 9
+      <mat-error *ngIf="proveedorNuevo.controls['telefono'].hasError('minlength')">Teléfono debe tener al menos 9
         caracteres.</mat-error>
     </mat-form-field>
 
@@ -48,8 +48,9 @@
       <mat-label>Dirección</mat-label>
       <input matInput formControlName="direccion">
       <mat-error *ngIf="proveedorNuevo.controls['direccion'].hasError('required')">Dirección es requerida.</mat-error>
-      <mat-error *ngIf="proveedorNuevo.controls['direccion'].hasError('email')">Dirección no válida.</mat-error>
-      <mat-error *ngIf="proveedorNuevo.controls['direccion'].hasError('maxLength')">Dirección no puede tener mas de 150
+      <mat-error *ngIf="proveedorNuevo.controls['direccion'].hasError('maxlength')">Dirección no puede tener mas de 150
+        caracteres.</mat-error>
+      <mat-error *ngIf="proveedorNuevo.controls['direccion'].hasError('minlength')">Dirección debe tener al menos 4
         caracteres.</mat-error>
     </mat-form-field>
 

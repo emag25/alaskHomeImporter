@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { DataUsuariosService } from '../servicios/dataUsuarios.service';
+import { LoginService } from '../servicios/login.service';
 
 @Component({
   selector: 'app-administracion',
@@ -10,14 +10,11 @@ import { DataUsuariosService } from '../servicios/dataUsuarios.service';
 })
 export class AdministracionComponent implements OnInit {
 
-  active: boolean = false;
+  active: boolean = this.loginService.getActive();
   rol: number = 0;
 
-  constructor(private router: Router, private cookie: CookieService, private dataUsuarios: DataUsuariosService) {
-    
-    this.active = this.cookie.get('active') === 'true' ? true : false;
-    let id = Number(this.cookie.get('id'));
-    this.rol = Number(this.dataUsuarios.getRol(id));    
+  constructor(private router: Router, private dataUsuarios: DataUsuariosService, protected loginService: LoginService) {
+    this.rol = Number(this.dataUsuarios.getRol(loginService.getLoggedUserId()));    
   }
 
   ngOnInit() {

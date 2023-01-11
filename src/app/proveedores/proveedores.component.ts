@@ -3,13 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { AgregarProveedorComponent } from '../agregar-proveedor/agregar-proveedor.component';
 import { Proveedor } from '../models/proveedor.model';
 import { ModificarProveedorComponent } from '../modificar-proveedor/modificar-proveedor.component';
 import { DataProveedoresService } from '../servicios/dataProveedores.service';
 import { DataUsuariosService } from '../servicios/dataUsuarios.service';
-import { FiltrarProveedorComponent } from '../filtrar-proveedor/filtrar-proveedor.component';
+import { LoginService } from '../servicios/login.service';
 
 
 
@@ -20,21 +19,16 @@ import { FiltrarProveedorComponent } from '../filtrar-proveedor/filtrar-proveedo
 })
 export class ProveedoresComponent implements OnInit {
 
-  filterPost = '';
-
-
-  active: boolean = false;
+  active: boolean = this.loginService.getActive();
   rol: number = 0;
   dataSource: any = [];
   displayedColumns: string[] = ['ruc', 'nombre', 'email', 'telefono', 'direccion', 'accion']
   datosRecibidos: any;
   nav: any;
 
-  constructor(private router: Router, private dialog: MatDialog, private dataProveedores: DataProveedoresService, private snackbar: MatSnackBar, private cookie: CookieService, private dataUsuarios: DataUsuariosService) {
+  constructor(private router: Router, private dialog: MatDialog, private dataProveedores: DataProveedoresService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService) {
     
-    this.active = this.cookie.get('active') === 'true' ? true : false;
-    let id = Number(this.cookie.get('id'));
-    this.rol = Number(this.dataUsuarios.getRol(id));  
+    this.rol = Number(this.dataUsuarios.getRol(loginService.getLoggedUserId()));  
 
     this.nav = this.router.getCurrentNavigation();
     this.datosRecibidos = this.nav.extras.state;
@@ -59,12 +53,11 @@ export class ProveedoresComponent implements OnInit {
     this.dataSource = new MatTableDataSource<Proveedor>(this.dataProveedores.getProveedores());
   }
 
+
   openDialogAgregar() {
     this.dialog.open(AgregarProveedorComponent, { disableClose: true })
   }
-  openDialogFiltrar() {
-    this.dialog.open(FiltrarProveedorComponent, { disableClose: true })
-  }
+
 
   openDialogModificar(proveedor: Proveedor) {
     this.dialog.open(ModificarProveedorComponent, {
@@ -73,11 +66,15 @@ export class ProveedoresComponent implements OnInit {
     });
   }
 
+
   random(min:number, max:number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
+
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+
 }

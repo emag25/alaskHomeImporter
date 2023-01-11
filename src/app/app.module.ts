@@ -35,8 +35,9 @@ import { ProveedoresComponent } from './proveedores/proveedores.component';
 import { AgregarProveedorComponent } from './agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './modificar-proveedor/modificar-proveedor.component';
 import { AdministracionComponent } from './administracion/administracion.component';
-import { FiltrarProveedorComponent } from './filtrar-proveedor/filtrar-proveedor.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { LoginService } from './servicios/login.service';
+import { LoginGuardian } from './login/loginGuardian';
 
 @NgModule({
   declarations: [							
@@ -53,9 +54,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     ProveedoresComponent,
     AgregarProveedorComponent,
     ModificarProveedorComponent,
-      AdministracionComponent,
-      FiltrarProveedorComponent,
-      FilterPipe
+    AdministracionComponent,
+    FilterPipe
    ],
   imports: [
     BrowserModule,
@@ -78,7 +78,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     MatSnackBarModule
   ],
 
-  providers: [DataUsuariosService, CookieService, ListenerService],
+  providers: [DataUsuariosService, CookieService, ListenerService, LoginService, LoginGuardian],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { LoginComponent } from '../login/login.component';
-import { ListenerService } from '../servicios/listener.service';
+import { DataUsuariosService } from '../servicios/dataUsuarios.service';
+import { LoginService } from '../servicios/login.service';
 
 @Component({
   selector: 'app-perfil',
@@ -12,22 +9,20 @@ import { ListenerService } from '../servicios/listener.service';
 })
 export class PerfilComponent {
 
-  username: string = '';
-  active: boolean = false;
-  id: number = 0;
+  username: string = this.loginService.getLoggedUsername();
+  active: boolean = this.loginService.getActive();
+  id: number = this.loginService.getLoggedUserId();
+  
   nombre: string = '';
   apellido: string = '';
-  celular: string = '';
+  telefono: string = '';
   direccion: string = '';
   email: string = '';
+  password: string = '';
 
-  constructor(private cookie: CookieService) {
-    this.active = this.cookie.get('active') === 'true' ? true : false;
-    this.username = this.cookie.get('username');
-    this.id = Number(this.cookie.get('id'));
-    // usar el servicio dataUsuario para obtener los datos del usuario por medio del id
-
-
+  constructor(private loginService: LoginService, private dataUsuarios: DataUsuariosService) {
+    // con el ID buscar el usuario en dataUsuarios y asignar los valores a las variables
+    
   }
 
   ngOnInit(): void {  }
