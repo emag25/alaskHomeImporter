@@ -16,12 +16,15 @@ export class HeaderComponent {
   username: string = this.loginService.getLoggedUsername();
   active: boolean = this.loginService.getActive();
   rol: number = 0
-  matBadge: number = 0;
-  color = 'white';
+
+  matBadge = 0;
+  favoritoMB = 0;
+  activeMenu = false;
 
   constructor(private dialog: MatDialog, private router: Router, private loginService: LoginService, private listener: ListenerService, private dataUsuarios: DataUsuariosService) {
     this.rol = Number(this.dataUsuarios.getRol(loginService.getLoggedUserId()));
     this.listener.customMatBadge.subscribe(matBadge => this.matBadge = matBadge);
+    this.listener.customFavoritoMB.subscribe(favoritoMB => this.favoritoMB = favoritoMB);
   }
 
   ngOnInit(): void {
@@ -47,8 +50,8 @@ export class HeaderComponent {
     this.router.navigate(['/carrito']);
   }
 
-  cambiarColor() {
-    this.color = "black";
+  toggleMenu() {
+    this.activeMenu = !this.activeMenu;
   }
 
 }

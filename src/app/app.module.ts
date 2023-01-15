@@ -16,6 +16,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -81,7 +82,8 @@ import { UsuariosAdministradorComponent } from './modulos/administracion/pages/u
     MatBadgeModule,
     MatButtonToggleModule,
     MatTableModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDividerModule
   ],
 
   providers: [DataUsuariosService, CookieService, ListenerService, LoginService, LoginGuardian],
