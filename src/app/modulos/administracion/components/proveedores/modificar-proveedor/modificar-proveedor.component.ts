@@ -16,7 +16,7 @@ export class ModificarProveedorComponent implements OnInit {
   nombre: string = this.data.proveedor.nombre;
   email: string = this.data.proveedor.email;
   telefono: string = this.data.proveedor.telefono;
-  direccion: string = this.data.proveedor.direccion;
+  provincia: string = this.data.proveedor.provincia;
 
 
   constructor(private router: Router, private dialogRef: MatDialogRef<ModificarProveedorComponent>, @Inject(MAT_DIALOG_DATA) public data: { proveedor: Proveedor }) {
@@ -25,7 +25,7 @@ export class ModificarProveedorComponent implements OnInit {
       nombre: this.data.proveedor.nombre,
       email: this.data.proveedor.email,
       telefono: this.data.proveedor.telefono,
-      direccion: this.data.proveedor.direccion
+      provincia: this.data.proveedor.provincia
     });
   }
 
@@ -37,7 +37,7 @@ export class ModificarProveedorComponent implements OnInit {
     nombre: new FormControl('', [Validators.required, Validators.maxLength(150), Validators.pattern('[a-zA-Z ]*')]),
     email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(150)]),
     telefono: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(9), Validators.pattern('[0-9]*')]),
-    direccion: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(200)])
+    provincia: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(200)])
 
   });
 
@@ -50,7 +50,7 @@ export class ModificarProveedorComponent implements OnInit {
         nombre: this.proveedorModificado.value.nombre,
         email: this.proveedorModificado.value.email,
         telefono: this.proveedorModificado.value.telefono,
-        direccion: this.proveedorModificado.value.direccion
+        provincia: this.proveedorModificado.value.provincia
       },
       skipLocationChange: false,
       fragment: 'top'

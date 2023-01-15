@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { DataUsuariosService } from '../../modulos/usuarios/core/services/dataUsuarios.service';
 
@@ -8,7 +7,7 @@ import { DataUsuariosService } from '../../modulos/usuarios/core/services/dataUs
 })
 export class LoginService {
 
-  constructor(private cookie: CookieService, private router: Router, private dataUsuarios: DataUsuariosService) { }
+  constructor(private cookie: CookieService, private dataUsuarios: DataUsuariosService) { }
   
   getActive(): boolean {
     return this.cookie.get('active') === 'true';

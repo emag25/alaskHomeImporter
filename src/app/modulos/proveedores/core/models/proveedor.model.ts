@@ -6,7 +6,8 @@ export class Proveedor {
         public nombre: string,
         public email: string,
         public telefono: string,
-        public direccion: string
+        public provincia: string,
+        public logo: string
     ) { }
 
 }

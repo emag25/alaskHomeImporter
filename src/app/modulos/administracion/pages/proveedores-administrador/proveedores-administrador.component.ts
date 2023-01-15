@@ -34,7 +34,7 @@ export class ProveedoresAdministradorComponent implements OnInit {
     if (this.datosRecibidos != null) {
 
       if (this.datosRecibidos.datosProveedor.queryParams.id === undefined) { // Agregar
-        let proveedor = new Proveedor(this.random(2222, 9999), this.datosRecibidos.datosProveedor.queryParams.ruc, this.datosRecibidos.datosProveedor.queryParams.nombre, this.datosRecibidos.datosProveedor.queryParams.email, this.datosRecibidos.datosProveedor.queryParams.telefono, this.datosRecibidos.datosProveedor.queryParams.direccion);
+        let proveedor = new Proveedor(this.random(2222, 9999), this.datosRecibidos.datosProveedor.queryParams.ruc, this.datosRecibidos.datosProveedor.queryParams.nombre, this.datosRecibidos.datosProveedor.queryParams.email, this.datosRecibidos.datosProveedor.queryParams.telefono, this.datosRecibidos.datosProveedor.queryParams.provincia, this.datosRecibidos.datosProveedor.queryParams.logo);
         this.dataProveedores.setProveedor(proveedor);
       
       } else { // Modificar
