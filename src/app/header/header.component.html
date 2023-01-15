@@ -46,7 +46,7 @@
       <ul>
         <li><a routerLink="inicio">Inicio</a></li>
         <li><a routerLink="productos">Productos</a></li>
-        <li><a>Proveedores</a></li>
+        <li><a routerLink="proveedores">Proveedores</a></li>
       </ul>
     </div>
   </div>
@@ -62,36 +62,41 @@
         <ul>
           <li><a routerLink="inicio">Inicio</a></li>
           <li><a routerLink="productos">Productos</a></li>
-          <li><a>Proveedores</a></li>
+          <li><a routerLink="proveedores">Proveedores</a></li>
         </ul>
       </nav>
       <div class="info">
-        <!-- BOTÓN DE FAVORITOS -->
-        <div class="cart">
-            <button class="menu-item position-relative"
-            matBadgeOverlap="true" [matBadgeHidden]="favoritoMB==0" [matBadge]="favoritoMB">
-                <i class="fa-regular fa-heart"></i>
+
+        <div class="info-active" *ngIf="active">
+          <!-- BOTÓN DE FAVORITOS -->
+          <div class="cart">
+              <button class="menu-item position-relative" matTooltip="Lista de favoritos"
+              matBadgeOverlap="true" [matBadgeHidden]="favoritoMB==0" [matBadge]="favoritoMB">
+                  <i class="fa-regular fa-heart"></i>
+              </button>
+          </div>
+    
+          <!-- BOTÓN DE CARRITO -->
+          <div class="cart">
+            <button class="menu-item position-relative" matTooltip="Carrito de compras"
+            matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge">
+            <i class="fa-solid fa-cart-shopping"></i>
             </button>
+          </div>
         </div>
-  
-        <!-- BOTÓN DE CARRITO -->
-        <div class="cart">
-          <button class="menu-item position-relative"
-          matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge">
-          <i class="fa-solid fa-cart-shopping"></i>
-          </button>
-        </div>
+
+        
   
         <!-- BOTÓN DE PERFIL -->
         <div class="account">
           <!-- Si hay un usuario, se presenta el menú -->
-          <button *ngIf="active" [matMenuTriggerFor]="menu" class="menu-item">
-           <i class="fa-solid fa-user"></i>
-         </button>
-         <!-- Si no hay un usuario, se abre el login -->
-         <button *ngIf="!active" (click)="openDialogSesion()"  class="menu-item">
-           <i class="fa-solid fa-user"></i>
-         </button>
+          <button *ngIf="active" [matMenuTriggerFor]="menu" class="menu-item" matTooltip="Mi cuenta">
+            <i class="fa-solid fa-user"></i>
+          </button>
+          <!-- Si no hay un usuario, se abre el login -->
+          <button *ngIf="!active" (click)="openDialogSesion()"  class="menu-item" matTooltip="Iniciar sesión">
+            <i class="fa-solid fa-user"></i>
+          </button>
        </div>
       </div>
     </div>
@@ -101,13 +106,19 @@
   <!-- SUBMENÚ PERFIL -->
   <mat-menu #menu>
     <!-- Botón de perfil -->
-    <button mat-menu-item>
+    <button mat-menu-item (click)="irPerfil()">
       <i class="fa-solid fa-user-check"></i> Perfil
+    </button>
+    <!-- Barra divisora -->
+    <mat-divider></mat-divider>
+    <!-- Botón de logout -->
+    <button *ngIf="rol===2" mat-menu-item (click)="irAdministracion()">
+      <i class="fa-solid fa-gear"></i> Administración
     </button>
     <!-- Barra divisora -->
     <mat-divider></mat-divider>
     <!-- Botón de logout -->
     <button mat-menu-item (click)="logout()">
       <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
-    </button>
+    </button>    
   </mat-menu>

@@ -1,11 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CambiarContrasenaComponent } from './pages/cambiarContrasena/cambiarContrasena.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 
 const routes: Routes = [
   { 
-    path: 'perfil', 
+    path: '', 
     component: PerfilComponent 
+  },
+  {
+    path: 'perfil',
+    component: PerfilComponent
+  },
+  {
+    path: 'cambiar-contrasena',
+    component: CambiarContrasenaComponent
   }
 ];
 

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { LoginComponent } from '../../login/login.component';
-import { DataUsuariosService } from '../../modulos/usuarios/core/services/dataUsuarios.service';
-import { ListenerService } from '../../core/services/listener.service';
-import { LoginService } from '../../core/services/login.service';
+import { ListenerService } from '../core/services/listener.service';
+import { LoginService } from '../core/services/login.service';
+import { LoginComponent } from '../autenticacion/components/login/login.component';
+import { DataUsuariosService } from '../modulos/usuarios/core/services/dataUsuarios.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +13,6 @@ import { LoginService } from '../../core/services/login.service';
 })
 export class HeaderComponent {
 
-  username: string = this.loginService.getLoggedUsername();
   active: boolean = this.loginService.getActive();
   rol: number = 0
 
@@ -39,7 +38,7 @@ export class HeaderComponent {
   }
 
   irPerfil() {
-    this.router.navigate(['/perfil'])
+    this.router.navigate(['/usuario/perfil'])
   }
 
   irAdministracion() {
