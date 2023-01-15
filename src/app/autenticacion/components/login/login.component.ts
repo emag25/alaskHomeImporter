@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginService } from '../core/services/login.service';
+import { LoginService } from '../../../core/services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +15,7 @@ export class LoginComponent {
 
   hide = true;
   
-  constructor(private router: Router, private dialogRef: MatDialogRef<LoginComponent>, private snackbar: MatSnackBar, private loginService: LoginService) {
+  constructor(private dialogRef: MatDialogRef<LoginComponent>, private snackbar: MatSnackBar, private loginService: LoginService) {
   }
   
   ngOnInit(): void {  

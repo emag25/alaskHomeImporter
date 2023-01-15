@@ -117,3 +117,7 @@
       display: block;
     }
   }
+
+.info-active{
+    display: flex;    
+}

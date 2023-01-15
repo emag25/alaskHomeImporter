@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
-import { Proveedor } from '../../../core/models/proveedor.model';
+import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
 
 @Component({
   selector: 'app-modificar-proveedor',
