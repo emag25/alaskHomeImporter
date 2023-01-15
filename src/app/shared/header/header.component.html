@@ -1,51 +1,113 @@
-<nav class="navbar navbar-dark" style="background-color: #0094DA;">
-    <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/inicio">
-        <img src="/assets/img/icono.png" alt="Logo de ALASK HOME IMPORTER" width="30" height="24" class="d-inline-block align-text-top">
+<!-- MENÚ MOBILE -->
+<div class="show-mobile">
+    <div>
+      <!-- BOTÓN DE MENÚ -->
+      <button class="menu-item" (click)="toggleMenu()">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <!-- LOGO -->
+      <a class="logo-title" href="">
         ALASK HOME IMPORTER
       </a>
-
-      <div>
-        <span class="navbar-text d-flex align-items-center" *ngIf="active">
-            Hola, {{username}}!
-        </span>
+      <div class="info">
+        <!-- BOTÓN DE FAVORITOS -->
+        <div class="cart">
+          <button class="menu-item position-relative"
+          matBadgeOverlap="true" [matBadgeHidden]="favoritoMB==0" [matBadge]="favoritoMB">
+            <i class="fa-regular fa-heart"></i>
+          </button>
+        </div>
+  
+        <!-- BOTÓN DE CARRITO -->
+        <div class="cart">
+            <button class="menu-item position-relative"
+            matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </button>
+        </div>
         
-        <div *ngIf="active; then thenBlock else elseBlock"></div>
-
-        <ng-template #thenBlock>
-            <div>
-                <button mat-icon-button matTooltip="Carrito de compras, mira aquí tus productos" >
-                    <mat-icon matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge"
-                        matBadgeColor="warn">shopping_cart</mat-icon>
-                </button>
-
-                <button mat-icon-button [matMenuTriggerFor]="menu">
-                    <mat-icon >arrow_drop_down</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="irPerfil()">
-                        <mat-icon>account_circle</mat-icon>
-                        <span>Perfil</span>
-                    </button>
-                    <button mat-menu-item (click)="logout()">
-                        <mat-icon>logout</mat-icon>
-                        <span>Cerrar sesión</span>
-                    </button>
-                    <button  *ngIf="rol === 2" mat-menu-item (click)="irAdministracion()">
-                        <mat-icon>settings</mat-icon>
-                        <span>Administración</span>
-                    </button>
-                </mat-menu>
-            </div>
-        </ng-template>
-
-        <ng-template #elseBlock>
-            <div class="d-flex align-items-center">
-                <div class="altura" style="height: 48px; width: 48px;"></div>
-                <button mat-raised-button (click)="openDialogSesion()">Iniciar Sesion</button>
-            </div>
-        </ng-template>
+        <!-- BOTÓN DE PERFIL -->
+        <div class="account">
+          <!-- Si hay un usuario, se presenta el menú -->
+          <button *ngIf="active" mat-icon-button [matMenuTriggerFor]="menu" class="menu-item">
+           <i class="fa-solid fa-user"></i>
+         </button>
+         <!-- Si no hay un usuario, se abre el login -->
+         <button *ngIf="!active" (click)="openDialogSesion()"  class="menu-item">
+           <i class="fa-solid fa-user"></i>
+         </button>
+        </div>
       </div>
-
     </div>
-  </nav>
+  
+    <!-- BARRA LATERAL -->
+    <div class="side-menu" [class.active]="activeMenu">
+      <button (click)="toggleMenu()">Close</button>
+      <ul>
+        <li><a routerLink="inicio">Inicio</a></li>
+        <li><a routerLink="productos">Productos</a></li>
+        <li><a>Proveedores</a></li>
+      </ul>
+    </div>
+  </div>
+  <!-- FIN MENÚ MOBILE -->
+  
+  <!-- MENÚ NORMAL -->
+  <div class="hide-mobile">
+    <div>
+      <nav>
+        <a class="logo-title" href="">
+          ALASK HOME IMPORTER
+        </a>
+        <ul>
+          <li><a routerLink="inicio">Inicio</a></li>
+          <li><a routerLink="productos">Productos</a></li>
+          <li><a>Proveedores</a></li>
+        </ul>
+      </nav>
+      <div class="info">
+        <!-- BOTÓN DE FAVORITOS -->
+        <div class="cart">
+            <button class="menu-item position-relative"
+            matBadgeOverlap="true" [matBadgeHidden]="favoritoMB==0" [matBadge]="favoritoMB">
+                <i class="fa-regular fa-heart"></i>
+            </button>
+        </div>
+  
+        <!-- BOTÓN DE CARRITO -->
+        <div class="cart">
+          <button class="menu-item position-relative"
+          matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge">
+          <i class="fa-solid fa-cart-shopping"></i>
+          </button>
+        </div>
+  
+        <!-- BOTÓN DE PERFIL -->
+        <div class="account">
+          <!-- Si hay un usuario, se presenta el menú -->
+          <button *ngIf="active" [matMenuTriggerFor]="menu" class="menu-item">
+           <i class="fa-solid fa-user"></i>
+         </button>
+         <!-- Si no hay un usuario, se abre el login -->
+         <button *ngIf="!active" (click)="openDialogSesion()"  class="menu-item">
+           <i class="fa-solid fa-user"></i>
+         </button>
+       </div>
+      </div>
+    </div>
+  </div>
+  <!-- FIN MENÚ NORMAL -->
+  
+  <!-- SUBMENÚ PERFIL -->
+  <mat-menu #menu>
+    <!-- Botón de perfil -->
+    <button mat-menu-item>
+      <i class="fa-solid fa-user-check"></i> Perfil
+    </button>
+    <!-- Barra divisora -->
+    <mat-divider></mat-divider>
+    <!-- Botón de logout -->
+    <button mat-menu-item (click)="logout()">
+      <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+    </button>
+  </mat-menu>

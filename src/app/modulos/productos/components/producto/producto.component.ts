@@ -10,17 +10,23 @@ import { ListenerService } from 'src/app/core/services/listener.service';
 })
 export class ProductoComponent {
   @Input() producto: any;
-  matBadge: number = 0;
-  disabledAdd: boolean = false;
-  disabledRemove: boolean = true;
-  icono: string = 'add_shopping_cart';
-  btnNombre: string = 'Añadir al carrito';
-  checked: boolean = false;
+
+  // Variables de carrito
+  carritoMB = 0;
+  checkedCarrito = false;
+  iconCarrito = "add_shopping_cart";
+  colorCarrito = "";
+
+  // Variables de favoritos
+  favoritoMB = 0;
+  checkedFavorito = false;
+  iconFavorito = "";
+  colorFavorito = "#23212B";
 
   constructor(private dataProductos:DataProductosService, private router:Router, private listener:ListenerService) { }
 
   ngOnInit() {
-    this.listener.customMatBadge.subscribe(matBadge => this.matBadge = matBadge);
+    this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
   }
 
   irEditar(id: number) {
@@ -31,31 +37,50 @@ export class ProductoComponent {
     this.dataProductos.deleteProducto(id);
   }
 
-  onClick() {
-
-    if (this.checked) {
-      this.icono = 'remove_shopping_cart';
-      this.btnNombre = 'Eliminar del carrito';
-      this.addProducto();
-
-    } else{
-      this.icono = 'add_shopping_cart';
-      this.btnNombre = 'Añadir al carrito';
-      this.removeProducto();
+  accionCarrito() {
+    console.log(this.iconCarrito)
+    if (this.checkedCarrito) {
+      this.addCarrito();
     }
-
+    else {
+      this.removeCarrito();
+    }
   }
 
-  addProducto() {
+  addCarrito() {
     this.listener.addMatBadge(this.listener.getMatBadge());
-    /* this.disabledAdd = true;
-    this.disabledRemove = false; */
+    this.producto.carrito = true;
+    this.iconCarrito = "remove_shopping_cart";
   }
 
-  removeProducto() {
+  removeCarrito() {
     this.listener.restMatBadge(this.listener.getMatBadge());
-    /* this.disabledRemove = true;
-    this.disabledAdd = false; */
+    this.producto.carrito = false;
+    this.iconCarrito = "add_shopping_cart";
+  }
+
+  // Controlador de agregar o eliminar favorito
+  accionFavorito() {
+    if (this.checkedFavorito) {
+      this.addFavorito();
+    }
+    else {
+      this.removeFavorito();
+    }
+  }
+
+  // Agregar favorito
+  addFavorito() {
+    this.listener.addFavoritoMB(this.listener.getFavoritoMB());
+    this.producto.favorito = true;
+    this.colorFavorito = "#E45D4C";
+  }
+
+  // Eliminar favorito
+  removeFavorito() {
+    this.listener.removeFavoritoMB(this.listener.getFavoritoMB());
+    this.producto.favorito = false;
+    this.colorFavorito = "#23212B";
   }
 
 }

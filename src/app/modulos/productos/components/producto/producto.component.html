@@ -1,16 +1,26 @@
+<!-- Tarjeta de un producto -->
 <div class="card" style="width: 18rem;">
-  <img [src]="producto.imagen" class="card-img-top" alt="Imagen del producto {{producto.nombreProducto}}">
+  <img [src]="producto.imagen" class="card-img-top" alt="Imagen del producto {{producto.nombre}}">
   <div class="card-body">
-    <h2 class="card-title fw-bold">{{producto.nombreProducto}}</h2>
+    <h2 class="card-title fw-bold">{{producto.nombre}}</h2>
     <p class="card-text">{{producto.descripcion}}.</p>
-    <h3 class="fw-bold">${{producto.precio}}</h3>
+    <h3 class="card-text fw-bold">${{producto.precio}}</h3>
 
-    <div>
-      <mat-button-toggle (click)="onClick()" (change)="checked = $event.source.checked" 
-        [style.background]="checked ? '#848589' : '#2bbbad'" class="btn btn-primary">
-      <mat-icon>{{icono}}</mat-icon> {{btnNombre}} 
+    <!-- Botones de cada producto -->
+    <div class="menu">
+      <!-- Botón de ver más -->
+      <button type="button" class="menu-item">
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <!-- Botón de favoritos -->
+      <mat-button-toggle class="menu-item" (click)="accionFavorito()" (change)="checkedFavorito = $event.source.checked">
+        <mat-icon [style.color]="colorFavorito">favorite</mat-icon>
+      </mat-button-toggle>
+      <!-- Botón de carrito -->
+      <mat-button-toggle class="menu-item" (click)="accionCarrito()" (change)="checkedCarrito = $event.source.checked">
+        <!-- Mejor cambiar por un MatIcon -->
+        <mat-icon>{{iconCarrito}}</mat-icon>
       </mat-button-toggle>
     </div>
   </div>
 </div>
-

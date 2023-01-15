@@ -14,12 +14,11 @@
     </div>
     
 
-    <!-- <button mat-raised-button color="primary" (click)="irAgregar()">AGREGAR PELICULA</button>      -->
-    <div *ngIf="productos.length !== 0 else elseBlock2" class="contenedor-productos">
+    <div class="contenedor-productos mt-3" *ngIf="productos.length != 0 else elseBlock">
         <app-producto *ngFor="let producto of productos" [producto]="producto"></app-producto>
     </div>
-    <ng-template #elseBlock2>
-        <h1>No hay productos en esta categoria. Pronto subiremos más!</h1>
+    <ng-template #elseBlock>
+        <h1>No hay productos en esta categoría. Pronto subiremos más!</h1>
     </ng-template>
 
 </div>
