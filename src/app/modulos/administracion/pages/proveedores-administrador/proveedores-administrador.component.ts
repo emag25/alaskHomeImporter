@@ -4,11 +4,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AgregarProveedorComponent } from '../../components/proveedores/agregar-proveedor/agregar-proveedor.component';
-import { Proveedor } from '../../core/models/proveedor.model';
 import { ModificarProveedorComponent } from '../../components/proveedores/modificar-proveedor/modificar-proveedor.component';
-import { DataProveedoresService } from '../../core/services/dataProveedores.service';
 import { DataUsuariosService } from './../../../usuarios/core/services/dataUsuarios.service';
 import { LoginService } from './../../../../core/services/login.service';
+import { DataProveedoresService } from 'src/app/modulos/proveedores/core/services/dataProveedores.service';
+import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
 
 @Component({
   selector: 'app-proveedores-administrador',
