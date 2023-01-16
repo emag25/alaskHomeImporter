@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { Usuario } from '../models/usuario.model';
 
 @Injectable({
@@ -19,6 +19,8 @@ export class DataUsuariosService {
 
   constructor() { }
 
+
+
   getlistaUsuarios() {
     return this.listaUsuarios;
   }
@@ -34,5 +36,6 @@ export class DataUsuariosService {
   getRol(id: number) {
     return this.listaUsuarios.find(user => user.id === id)?.rol;
   }
+  
 
 }

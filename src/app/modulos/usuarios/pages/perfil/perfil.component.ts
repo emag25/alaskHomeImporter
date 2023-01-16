@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input, SimpleChanges,OnInit,OnChanges } from '@angular/core';
 import { DataUsuariosService } from '../../core/services/dataUsuarios.service';
 import { LoginService } from '../../../../core/services/login.service';
+import { Usuario } from '../../core/models/usuario.model';
 
 @Component({
   selector: 'app-perfil',
@@ -11,7 +12,11 @@ export class PerfilComponent {
 
   username: string = this.loginService.getLoggedUsername();
   active: boolean = this.loginService.getActive();
-  id: number = this.loginService.getLoggedUserId();
+  @Input() id: number = this.loginService.getLoggedUserId();
+
+
+  
+
   
   nombre: string = '';
   apellido: string = '';
@@ -19,12 +24,31 @@ export class PerfilComponent {
   direccion: string = '';
   email: string = '';
   password: string = '';
+  @Input() usuario: any;
+    
+ 
 
   constructor(private loginService: LoginService, private dataUsuarios: DataUsuariosService) {
     // con el ID buscar el usuario en dataUsuarios y asignar los valores a las variables
-    
+   
   }
 
-  ngOnInit(): void {  }
+  ngOnInit() {
 
+    this.usuario=this.dataUsuarios.findUserbyID(this.id)
+
+  
+  }
+
+  
+  
+  
 }
+  
+
+  
+
+        
+  
+ 
+
