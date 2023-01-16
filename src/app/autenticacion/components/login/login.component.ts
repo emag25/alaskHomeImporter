@@ -3,6 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoginService } from '../../../core/services/login.service';
+import { RegistroUsuarioComponent } from '../registroUsuario/registroUsuario.component';
+import { MatDialog } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-login',
@@ -15,7 +18,7 @@ export class LoginComponent {
 
   hide = true;
   
-  constructor(private dialogRef: MatDialogRef<LoginComponent>, private snackbar: MatSnackBar, private loginService: LoginService) {
+  constructor(private dialogRef: MatDialogRef<LoginComponent>, private snackbar: MatSnackBar, private loginService: LoginService, private dialog: MatDialog) {
   }
   
   ngOnInit(): void {  
@@ -46,6 +49,11 @@ export class LoginComponent {
       
   }  
 
+  registroUsuario(){
+
+    this.dialog.open(RegistroUsuarioComponent ,{ disableClose: true, width: '500px' });
+
+  }
 
   cancelar() {
     this.dialogRef.close();

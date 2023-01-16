@@ -1,3 +1,73 @@
-<p>
-  registroUsuario works!
-</p>
+<mat-card>
+  <div style="text-align:center;">
+    <mat-card-title>Regístrate</mat-card-title>
+  </div>
+  <br>
+  <form [formGroup]="registro">
+    <mat-form-field class="campos-field">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre">
+      <mat-error *ngIf="registro.controls['nombre'].hasError('required')">nombre es requerido.</mat-error>
+      <mat-error *ngIf="registro.controls['nombre'].hasError('pattern')">nombre no válido.</mat-error>
+      <mat-error *ngIf="registro.controls['nombre'].hasError('maxlength')">nombre no puede tener mas de 150
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Apellido</mat-label>
+      <input matInput formControlName="apellido">
+      <mat-error *ngIf="registro.controls['apellido'].hasError('required')">Apellido es requerido.</mat-error>
+      <mat-error *ngIf="registro.controls['apellido'].hasError('pattern')">Apellidono válido.</mat-error>
+      <mat-error *ngIf="registro.controls['apellido'].hasError('maxlength')">Apellido no puede tener mas de 150
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="registro.controls['email'].hasError('required')">Email es requerido.</mat-error>
+      <mat-error *ngIf="registro.controls['email'].hasError('email')">Email no válido.</mat-error>
+      <mat-error *ngIf="registro.controls['email'].hasError('maxlength')">Email no puede tener mas de 150
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="contraseña">
+      <mat-error *ngIf="registro.controls['contraseña'].hasError('required')">Contraseña es requerida.</mat-error>
+      <mat-error *ngIf="registro.controls['contraseña'].hasError('minlength')">Contraseña debe tener minimo 8 </mat-error>
+      <mat-error *ngIf="registro.controls['contraseña'].hasError('maxlength')">Contraseña debe tener máximo 10
+        caracteres.</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field class="campos-field">
+
+    <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono">
+      <mat-error *ngIf="registro.controls['telefono'].hasError('required')">Teléfono es requerido.</mat-error>
+      <mat-error *ngIf="registro.controls['telefono'].hasError('pattern')">Teléfono no válido.</mat-error>
+      <mat-error *ngIf="registro.controls['telefono'].hasError('maxlength')">Teléfono no puede tener mas de 10
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="direccion">
+      <mat-error *ngIf="registro.controls['direccion'].hasError('required')">Dirección es requerida.</mat-error>
+      <mat-error *ngIf="registro.controls['direccion'].hasError('maxlength')">Dirección no puede tener mas de 150
+        caracteres.</mat-error>
+      <mat-error *ngIf="registro.controls['direccion'].hasError('minlength')">Dirección debe tener al menos 10
+        caracteres.</mat-error>
+    </mat-form-field>
+
+
+
+    <div class="acciones">
+      <button mat-raised-button  color="accent" [disabled]="!registro.valid" (click)="register()">Aceptar</button>
+      <button mat-raised-button (click)="cancelar()">Cancelar</button>
+    </div>
+    
+  </form>
+
+</mat-card>

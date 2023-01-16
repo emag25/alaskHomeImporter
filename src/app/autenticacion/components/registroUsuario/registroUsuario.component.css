@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 20px;
+}
+
+.acciones {
+    display: flex;
+    justify-content: space-around;
+    grid-column: span 2;
+}
+
+mat-card {
+    padding: 40px;
+}
+
+.btnEnviar {
+    margin-top: 20px;
+}
+
+input {
+    width: 100%;
+}
