@@ -39,7 +39,7 @@ export class AgregarProveedorComponent implements OnInit {
     };
 
     this.dialogRef.close();
-    this.redirectTo('/proveedores', objToSend);
+    this.redirectTo('/administracion/AdminProveedores', objToSend);
 
   }
 

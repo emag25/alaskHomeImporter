@@ -13,12 +13,17 @@ form {
 
 .acciones {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
     grid-column: span 2;
+    gap: 20px;
+    width: 100%;
 }
 
 mat-card {
     padding: 40px;
+    max-height: 600px;
+    overflow-y: auto;
 }
 
 .btnEnviar {
@@ -27,4 +32,17 @@ mat-card {
 
 input {
     width: 100%;
+}
+
+.campos-field {
+    width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+    form {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+
 }

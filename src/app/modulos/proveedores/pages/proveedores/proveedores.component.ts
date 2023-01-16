@@ -19,7 +19,7 @@ export class ProveedoresComponent implements OnInit {
   }
 
   irSolicitudProveedor() {
-    this.dialog.open(SolicitudProveedorComponent, { disableClose: true, width: '500px' });
+    this.dialog.open(SolicitudProveedorComponent, { disableClose: true, width: '700px' });
   }
 
 }

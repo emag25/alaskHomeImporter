@@ -297,3 +297,18 @@ button:not(hover) {
         font-size: 15pt;
     }
 }
+
+
+@media screen and (max-width: 586px) {
+
+    .empresa {
+        min-width: 130px;
+        max-width: 130px;
+        min-height: 130px;
+        max-height: 130px;
+    }
+
+    .contenido-empresas {
+        gap: 15px;
+    }
+}

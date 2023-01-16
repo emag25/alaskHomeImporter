@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
 import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
+import { Provincia } from 'src/app/modulos/proveedores/core/models/provincia.model.ts';
+import { DataProvinciasService } from 'src/app/modulos/proveedores/core/services/dataProvincias.service';
 
 @Component({
   selector: 'app-modificar-proveedor',
@@ -17,9 +19,12 @@ export class ModificarProveedorComponent implements OnInit {
   email: string = this.data.proveedor.email;
   telefono: string = this.data.proveedor.telefono;
   provincia: string = this.data.proveedor.provincia;
+  provincias: Provincia[] = this.dataProvincias.getProvincias();
 
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<ModificarProveedorComponent>, @Inject(MAT_DIALOG_DATA) public data: { proveedor: Proveedor }) {
+  constructor(private router: Router, private dialogRef: MatDialogRef<ModificarProveedorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { proveedor: Proveedor }, private dataProvincias: DataProvinciasService) {
+    
     this.proveedorModificado.setValue({
       ruc: this.data.proveedor.ruc,
       nombre: this.data.proveedor.nombre,
@@ -37,7 +42,7 @@ export class ModificarProveedorComponent implements OnInit {
     nombre: new FormControl('', [Validators.required, Validators.maxLength(150), Validators.pattern('[a-zA-Z ]*')]),
     email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(150)]),
     telefono: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(9), Validators.pattern('[0-9]*')]),
-    provincia: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(200)])
+    provincia: new FormControl('', [Validators.required])
 
   });
 
@@ -50,14 +55,15 @@ export class ModificarProveedorComponent implements OnInit {
         nombre: this.proveedorModificado.value.nombre,
         email: this.proveedorModificado.value.email,
         telefono: this.proveedorModificado.value.telefono,
-        provincia: this.proveedorModificado.value.provincia
+        provincia: this.proveedorModificado.value.provincia,
+        fechaAprobacion: this.data.proveedor.fechaAprobacion,
       },
       skipLocationChange: false,
       fragment: 'top'
     }
 
     this.dialogRef.close();
-    this.redirectTo('/proveedores', objToSend);
+    this.redirectTo('/administracion/AdminProveedores', objToSend);
 
   }
 
