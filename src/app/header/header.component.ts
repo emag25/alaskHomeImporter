@@ -46,7 +46,7 @@ export class HeaderComponent {
   }
 
   irCarrito() {
-    this.router.navigate(['/carrito']);
+    this.router.navigate(['/ventas']);
   }
 
   toggleMenu() {

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DataProductosService } from '../../core/services/dataProductos.service';
 import { ListenerService } from 'src/app/core/services/listener.service';
 import { Producto } from './../../core/models/producto.model';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
 
 
 @Component({
@@ -36,7 +37,7 @@ export class ProductoComponent {
   // Variables de favoritos
   favoritoMB = 0;
 
-  constructor(private dataProductos:DataProductosService, private router:Router, private listener:ListenerService) { }
+  constructor(private dataProductos:DataProductosService, private router:Router, private listener:ListenerService, private DataUsuario: DataUsuariosService) { }
 
   ngOnInit() {
     this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
@@ -64,10 +65,13 @@ export class ProductoComponent {
 
   addCarrito() {
     this.listener.addMatBadge(this.listener.getMatBadge());
+    this.DataUsuario.addCarrito(1, {id: parseInt(this.producto.id), cantidad: 2, precio: this.producto.precio, total: 0})
+
   }
 
   removeCarrito() {
     this.listener.restMatBadge(this.listener.getMatBadge());
+    this.DataUsuario.removeCarrito(1, parseInt(this.producto.id));
   }
 
   // Controlador de agregar o eliminar favorito

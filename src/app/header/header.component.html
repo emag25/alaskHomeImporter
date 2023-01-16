@@ -79,7 +79,7 @@
           <!-- BOTÓN DE CARRITO -->
           <div class="cart">
             <button class="menu-item position-relative" matTooltip="Carrito de compras"
-            matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge">
+            matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge" (click)="irCarrito()">
             <i class="fa-solid fa-cart-shopping"></i>
             </button>
           </div>

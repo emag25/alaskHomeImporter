@@ -7,6 +7,14 @@ export interface Usuario {
     telefono: string;
     direccion: string;
     rol: string;
+    carrito?: Carrito[];
+    favorito?: Carrito[];
 
 }
 
+export interface Carrito {
+    id: number;
+    cantidad: number;
+    precio: number;
+    total: number;
+}
