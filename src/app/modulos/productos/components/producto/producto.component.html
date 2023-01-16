@@ -3,23 +3,27 @@
   <img [src]="producto.imagen" class="card-img-top" alt="Imagen del producto {{producto.nombre}}">
   <div class="card-body">
     <h2 class="card-title fw-bold">{{producto.nombre}}</h2>
-    <p class="card-text">{{producto.descripcion}}.</p>
     <h3 class="card-text fw-bold">${{producto.precio}}</h3>
 
     <!-- Botones de cada producto -->
     <div class="menu">
       <!-- Botón de ver más -->
-      <button type="button" class="menu-item">
+      
+      <a routerLink="." class="menu-item" [queryParams]="{ producto: producto.id }">
         <mat-icon>visibility</mat-icon>
-      </button>
+      </a>
       <!-- Botón de favoritos -->
-      <mat-button-toggle class="menu-item" (click)="accionFavorito()" (change)="checkedFavorito = $event.source.checked">
-        <mat-icon [style.color]="colorFavorito">favorite</mat-icon>
+      <mat-button-toggle class="menu-item" (click)="accionFavorito()"
+      (change)="producto.fav = $event.source.checked" checked="{{producto.fav}}">
+        <mat-icon *ngIf="!producto.fav" style="color: #23212B;">favorite</mat-icon>
+        <mat-icon *ngIf="producto.fav" style="color: #E45D4C;">favorite</mat-icon>
       </mat-button-toggle>
+
       <!-- Botón de carrito -->
-      <mat-button-toggle class="menu-item" (click)="accionCarrito()" (change)="checkedCarrito = $event.source.checked">
-        <!-- Mejor cambiar por un MatIcon -->
-        <mat-icon>{{iconCarrito}}</mat-icon>
+      <mat-button-toggle class="menu-item" (click)="accionCarrito()"
+      (change)="producto.carrito = $event.source.checked" checked="{{producto.carrito}}">
+      <mat-icon *ngIf="!producto.carrito">add{{iconCarrito}}</mat-icon>
+      <mat-icon *ngIf="producto.carrito">remove{{iconCarrito}}</mat-icon>
       </mat-button-toggle>
     </div>
   </div>
