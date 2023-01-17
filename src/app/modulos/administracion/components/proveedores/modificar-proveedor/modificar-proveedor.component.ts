@@ -39,7 +39,7 @@ export class ModificarProveedorComponent implements OnInit {
 
   proveedorModificado = new FormGroup({
     ruc: new FormControl('', [Validators.required, Validators.maxLength(13), Validators.minLength(13), Validators.pattern('[0-9]*')]),
-    nombre: new FormControl('', [Validators.required, Validators.maxLength(150), Validators.pattern('[a-zA-Z ]*')]),
+    nombre: new FormControl('', [Validators.required, Validators.maxLength(150), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*')]),
     email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(150)]),
     telefono: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(9), Validators.pattern('[0-9]*')]),
     provincia: new FormControl('', [Validators.required])

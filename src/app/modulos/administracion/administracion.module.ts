@@ -21,12 +21,12 @@ import { ModificarProveedorComponent } from './components/proveedores/modificar-
     ModificarProveedorComponent,
     ProductosAdministradorComponent,
     UsuariosAdministradorComponent,
-    VentasAdministradorComponent,
+    VentasAdministradorComponent
   ],
   imports: [
     CommonModule,
     AdministracionRoutingModule,
-    SharedModule
+    SharedModule 
   ]
 })
 export class AdministracionModule { }

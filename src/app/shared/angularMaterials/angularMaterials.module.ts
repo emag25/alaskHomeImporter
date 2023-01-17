@@ -18,6 +18,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSortModule } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   imports: [
@@ -39,7 +44,12 @@ import { MatSortModule } from '@angular/material/sort';
     MatSnackBarModule,
     MatDividerModule,
     MatSelectModule,
-    MatSortModule
+    MatSortModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatListModule
   ],
   declarations: [],
   exports: [
@@ -61,7 +71,12 @@ import { MatSortModule } from '@angular/material/sort';
     MatSnackBarModule,
     MatDividerModule,
     MatSelectModule,
-    MatSortModule
+    MatSortModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatListModule
   ]
 })
 export class AngularMaterialsModule { }

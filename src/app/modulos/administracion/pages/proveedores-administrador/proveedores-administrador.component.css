@@ -6,8 +6,27 @@
     padding: 60px 40px;
 }
 
+.contenedor-tabla{
+    width: 100%; 
+    overflow-x: auto;
+    padding: 5px;
+    margin-top: -5px;
+    margin-left: -5px;
+}
+
 td {
-    min-width: 130px;    
+    min-width: 130px;  
+}
+
+th {
+    background-color: #E45D4C !important; 
+    color: white;
+}
+
+.td-notFound{
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
 }
 
 .delete{
@@ -16,4 +35,53 @@ td {
 
 .edit{
     color: rgb(6, 6, 132);
+}
+
+.contenedor-selectColumns{
+    margin-top: -20px;
+}
+
+.contenedor-selectColumns button{
+    height: 56px;
+    background-color: #E45D4C;
+}
+
+.contenedor-filter{    
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.contenedor-managerTable{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: -20px;
+}
+
+mat-menu{
+    width: 500px;
+}
+
+@media screen and (max-width: 710px){
+
+    .contenedor-principal{
+        padding: 30px;
+    }        
+
+    .contenedor-managerTable{
+        justify-content: center;
+    }
+    
+}
+
+@media screen and (max-width: 490px){
+    .contenedor-filter {
+        gap: 10px;
+    }
+    
 }
