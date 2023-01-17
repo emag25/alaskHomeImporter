@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ListenerService } from 'src/app/core/services/listener.service';
+import { LoginService } from 'src/app/core/services/login.service';
 import { Producto } from 'src/app/modulos/productos/core/models/producto.model';
 import { DataProductosService } from 'src/app/modulos/productos/core/services/dataProductos.service';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
@@ -21,16 +22,20 @@ export class CarritoComponent {
   iva = 0;
   total = 0;
 
+  idUsuario = 0;
+
   constructor(
     private dataUsuarios: DataUsuariosService,
     private dataProductos: DataProductosService,
     private router: Router,
-    private listener: ListenerService
+    private listener: ListenerService,
+    private login: LoginService
   ) {}
 
   ngOnInit() {
+    this.idUsuario = this.login.getLoggedUserId();
     this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
-    this.carrito = this.dataUsuarios.getCarrito(1);
+    this.carrito = this.dataUsuarios.getCarrito(this.idUsuario);
       this.carrito.forEach((carro: { id: any; }) => {
         this.producto = this.dataProductos.findProductobyID(String(carro.id));
         this.productos.push(this.producto);
