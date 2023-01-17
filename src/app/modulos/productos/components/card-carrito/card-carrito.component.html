@@ -15,20 +15,14 @@
             <p>{{producto.descripcion}}</p>
             <p><strong>Disponibilidad: </strong>{{producto.stock}} unidades</p>
             <p><strong>Precio: </strong>${{producto.precio}}</p>
-            <div class="cantidad">
-                <p class="fw-bold parrafo-cantidad">Cantidad:</p>
-                <button class="menu-item" (click)="removeCantidad()">
-                    <i class="fa-solid fa-minus"></i>
-                </button>
-                <input type="text" value="{{producto.cantidad}}" readonly>
-                <button class="menu-item" (click)="addCantidad()">
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-            </div>
-            <div class="total">
-                <!-- <span class="fw-bold" style="margin-right: 5px;">Total:</span> -->
-                <span>Total: ${{producto.precio * producto.cantidad}}</span>
-            </div>
+
+            <mat-button-toggle class="menu-item" (click)="accionCarrito()"
+                (change)="producto.carrito = $event.source.checked" checked="{{producto.carrito}}">
+                <mat-icon *ngIf="!producto.carrito">add{{iconCarrito}}</mat-icon>
+                <mat-icon *ngIf="producto.carrito">remove{{iconCarrito}}</mat-icon>
+                <span *ngIf="!producto.carrito">AGREGAR AL CARRITO</span>
+                <span *ngIf="producto.carrito">QUITAR DEL CARRITO</span>
+            </mat-button-toggle>
         </div>
     </div>
 </div>

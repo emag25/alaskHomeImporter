@@ -1,4 +1,4 @@
-<div class="contenedor-principal">
+<div class="contenedor-principal mt-4">
     <!-- <h1 class="mt-3 title">Carrito de Compras</h1> -->
     
     <div class="container" *ngIf="productos.length > 0 else elseBlock">
@@ -10,21 +10,42 @@
             
                 <h1>Carrito de compras</h1>
                 <div class="table-responsive-xxl">
-                    <table class="table">
+                    <table class="table align-middle">
                         <thead>
                             <tr>
                                 <th scope="col">Producto</th>
-                                <th scope="col">Precio</th>
-                                <th scope="col">Cantidad</th>
-                                <th scope="col">Total</th>
+                                <th scope="col" class="text-center">Precio</th>
+                                <th scope="col" class="text-center">Cantidad</th>
+                                <th scope="col" class="text-center">Total</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody class="table-group-divider">
-                            <tr>
-                                <td>1</td>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
+                            <tr *ngFor="let product of productos">
+                                <td>
+                                    <img [src]="product.imagen" class="card-img-top" alt="Imagen del producto {{product.nombre}}">
+                                    <span class="nombre-producto">{{product.nombre}}</span>
+                                </td>
+                                <td class="text-center">
+                                    ${{product.precio}}
+                                </td>
+                                <td class="text-center cantidad">
+                                    <button class="menu-item" (click)="removeCantidad(product.id)">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <input type="text" value="{{product.cantidad}}" readonly>
+                                    <button class="menu-item" (click)="addCantidad(product.id)">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    ${{product.precio * product.cantidad}}
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-danger" (click)="deleteProducto(product.id)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -40,22 +61,22 @@
                     <h1>ENTREGA</h1>
                     <p>Realizamos entregas a domicilio en todo el Ecuador con todas las medidas de seguridad e higiene.</p>
                 </div>
-                <button class="productos">AGREGAR MÁS PRODUCTOS</button>
+                <button class="productos" (click)="irProductos()">AGREGAR MÁS PRODUCTOS</button>
                 <div class="factura">
                     <div class="subtotal">
                         <span>Subtotal</span>
-                        <span>$</span>
+                        <span>${{subtotal}}</span>
                     </div>
                     <div class="impuestos">
                         <span>Impuestos</span>
-                        <span>$</span>
+                        <span>${{iva}}</span>
                     </div>
                     <div class="total">
                         <span>TOTAL</span>
-                        <span>$</span>
+                        <span>${{total}}</span>
                     </div>
                 </div>
-                <button class="comprar">FINALIZAR COMPRA</button>
+                <button class="comprar" (click)="irProceso()">FINALIZAR COMPRA</button>
             </div>
         </div>
 

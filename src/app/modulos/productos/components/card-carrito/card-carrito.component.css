@@ -34,15 +34,10 @@
 }
 
 .menu-item {
-    margin: 0 5px;
-    border-radius: 50%;
-    border: none;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: transparent;
-    color: #23212B;
+    background-color: #958880;
+    width: 250px;
+    border-radius: 3px;
+    color: white;
 }
 
 .cantidad {
