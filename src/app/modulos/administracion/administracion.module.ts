@@ -10,7 +10,7 @@ import { UsuariosAdministradorComponent } from './pages/usuarios-administrador/u
 import { VentasAdministradorComponent } from './pages/ventas-administrador/ventas-administrador.component';
 import { AgregarProveedorComponent } from './components/proveedores/agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './components/proveedores/modificar-proveedor/modificar-proveedor.component';
-
+import { ModificarUsuarioComponent } from './components/usuarios/modificar-usuario/modificar-usuario.component';
 
 
 @NgModule({
@@ -22,6 +22,7 @@ import { ModificarProveedorComponent } from './components/proveedores/modificar-
     ProductosAdministradorComponent,
     UsuariosAdministradorComponent,
     VentasAdministradorComponent,
+    ModificarUsuarioComponent
   ],
   imports: [
     CommonModule,

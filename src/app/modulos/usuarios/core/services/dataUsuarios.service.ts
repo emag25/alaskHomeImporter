@@ -19,6 +19,10 @@ export class DataUsuariosService {
 
   constructor() { }
 
+  
+  getUsuario(): Usuario[] {
+    return this.listaUsuarios;
+  }
 
 
   getlistaUsuarios() {
@@ -43,6 +47,25 @@ export class DataUsuariosService {
 
 
   }
+
+  editUsuario(usuario: Usuario) {
+    let obj = this.listaUsuarios.find(p => p.id === usuario.id);
+
+    if (obj !== undefined) {
+      let index = this.listaUsuarios.indexOf(obj);
+      this.listaUsuarios[index] = usuario;
+      return true;
+
+    } else {
+      return false;
+    }
+  }
+
+
+  setUsuario(usuario: Usuario) {
+    this.listaUsuarios.push(usuario);
+  }
+
   register(id: number, nombre: string, apellido: string,  email: string, password: string, telefono: string, direccion: string, rol: string) {
     // Crea un nuevo objeto de usuario con los campos especificados
     const newUser = {id, nombre, apellido, telefono, email, password, direccion, rol};
@@ -50,13 +73,13 @@ export class DataUsuariosService {
     this.listaUsuarios.push(newUser);
   }
 
-  changePassword(contraseña:string, ncontraseña:string) {
+  changePassword(contraseña:string, id:number) {
     // buscar el usuario en el array
-    let currentUser = this.listaUsuarios.find(user => user.password === contraseña);
+    let currentUser = this.listaUsuarios.find(user => user.id ===id);
     // si existe el usuario
     if(currentUser){
         // actualizar contraseña
-        currentUser.password = ncontraseña;
+        currentUser.password = contraseña;
     }else{
         // mostrar mensaje de error
         console.log("password incorrecta");

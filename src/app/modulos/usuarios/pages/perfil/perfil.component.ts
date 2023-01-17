@@ -37,7 +37,7 @@ export class PerfilComponent {
 
   cambiar(){
 
-    this.dialog.open(CambiarContrasenaComponent ,{ disableClose: true, width: '500px' });
+    this.dialog.open(CambiarContrasenaComponent ,{ disableClose: true, width: '500px',data:{usuario:this.usuario}});
 
   }
 
