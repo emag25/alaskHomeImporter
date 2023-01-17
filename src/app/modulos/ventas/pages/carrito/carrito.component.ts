@@ -42,7 +42,8 @@ export class CarritoComponent {
       let index = this.productos.indexOf(obj);
       this.productos.splice(index, 1);
       this.carrito.splice(index, 1);
-      this.totalPagar -= obj.precio;
+      this.totalPagar -= obj.precio * obj.cantidad;
+      obj.cantidad = 1;
     }
   }
 
