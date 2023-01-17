@@ -18,6 +18,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 0      
     },
     {
@@ -30,6 +31,7 @@ export class DataProductosService {
       categoriaId: 4,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 0
     },
     {
@@ -42,6 +44,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1222
     },
     {
@@ -54,6 +57,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1444
     },
     {
@@ -66,6 +70,7 @@ export class DataProductosService {
       categoriaId: 4,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 0
     },
     {
@@ -78,6 +83,7 @@ export class DataProductosService {
       categoriaId: 5,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 0
     },
     {
@@ -90,6 +96,7 @@ export class DataProductosService {
       categoriaId: 6,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 0
     },
     {
@@ -102,6 +109,7 @@ export class DataProductosService {
       categoriaId: 4,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 0
     },
     //TECHNOLOGIA
@@ -115,6 +123,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1122
     },
     {
@@ -127,6 +136,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1112
     },
     {
@@ -139,6 +149,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1112
     },
     {
@@ -151,6 +162,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1112
     },
     {
@@ -163,6 +175,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1112
     },
     {
@@ -175,6 +188,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1112
     },
     {
@@ -187,6 +201,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1122
     },
     {
@@ -199,6 +214,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1222
     },
     {
@@ -211,6 +227,7 @@ export class DataProductosService {
       categoriaId: 1,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1122
     },
     {
@@ -223,6 +240,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1113     
     },
     {
@@ -235,6 +253,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1113      
     },
     {
@@ -247,6 +266,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1133      
     },
     {
@@ -259,6 +279,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1133     
     },
     {
@@ -271,6 +292,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1133   
     },
     {
@@ -283,6 +305,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1133    
     },
     {
@@ -295,6 +318,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1333      
     },
     {
@@ -307,6 +331,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1333
     },
     {
@@ -319,6 +344,7 @@ export class DataProductosService {
       categoriaId: 2,      
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1333
     },
     //HOGAR//
@@ -332,6 +358,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1444
     },
     {
@@ -344,6 +371,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1444
     },
     {
@@ -356,6 +384,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1444
     },
     {
@@ -368,6 +397,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1144
     },
     {
@@ -380,6 +410,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1144
     },
     {
@@ -392,6 +423,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1144
     },
     {
@@ -404,6 +436,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1144
     },
     {
@@ -416,6 +449,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1144
     },
     {
@@ -428,6 +462,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1114
     },
     {
@@ -440,6 +475,7 @@ export class DataProductosService {
       categoriaId: 3,
       carrito: false,
       fav: false,
+      cantidad: 1,
       proveedorId: 1114
     }
   ];  

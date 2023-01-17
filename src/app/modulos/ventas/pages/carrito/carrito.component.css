@@ -1,0 +1,21 @@
+.separador {
+    height: 100px;
+}
+
+.title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.contenedor-principal {
+    padding: 20px;
+}
+
+.info {
+    font-size: 1.5rem;
+}
+
+.info p {
+    font-weight: bold;
+}

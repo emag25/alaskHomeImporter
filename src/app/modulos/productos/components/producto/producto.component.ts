@@ -19,6 +19,7 @@ export class ProductoComponent {
     imagen: '',
     precio: 0,
     stock: 0,
+    cantidad: 0,
     categoriaId: 0,
     proveedorId: 0,
     carrito: false,
@@ -65,7 +66,7 @@ export class ProductoComponent {
 
   addCarrito() {
     this.listener.addMatBadge(this.listener.getMatBadge());
-    this.DataUsuario.addCarrito(1, {id: parseInt(this.producto.id), cantidad: 2, precio: this.producto.precio, total: 0})
+    this.DataUsuario.addCarrito(1, {id: parseInt(this.producto.id), cantidad: this.producto.cantidad, precio: this.producto.precio, total: this.producto.precio * this.producto.cantidad})
 
   }
 

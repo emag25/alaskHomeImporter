@@ -1,0 +1,91 @@
+.contenedor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagen {
+    width: 300px;
+    height: 300px;
+}
+
+.imagen img {
+    max-width: 300px;
+    max-height: 300px;
+    object-fit: fill;
+}
+
+.contenido {
+    width: 60%;
+    padding-left: 20px;
+    text-align: justify;
+}
+
+.card {
+    box-shadow: 0 10px 20px -12px rgb(0 0 0 / 42%), 0 3px 20px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+    border: none;
+}
+
+.card-header {
+    background-color: #958880;
+    color: white;
+}
+
+.menu-item {
+    margin: 0 5px;
+    border-radius: 50%;
+    border: none;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #23212B;
+}
+
+.cantidad {
+    display: flex;
+    align-items: center;
+}
+
+.parrafo-cantidad {
+    margin: 0;
+}
+
+.cantidad input {
+    width: 50px;
+    text-align: center;
+}
+
+.total {
+    width: 170px;
+    margin-top: 12px;
+    padding: 20px;
+    /* border: 1px solid black; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    background-color: #958880;
+    color: white;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.cabezera {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.titulo-cabezera {
+    margin: 0;
+}
+
+.eliminar {
+    background-color: #A29991;
+    border: none;
+}

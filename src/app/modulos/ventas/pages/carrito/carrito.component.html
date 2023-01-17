@@ -1,5 +1,16 @@
-<h1 class="mt-3 text-center">Carrito de Compras</h1>
-
-<div class="container">
+<div class="contenedor-principal">
+    <h1 class="mt-3 title">Carrito de Compras</h1>
     
+    <div class="container" *ngIf="productos.length > 0 else elseBlock">
+        <app-card-carrito *ngFor="let product of productos" [producto]="product" (idProducto)="deleteProducto($event)" (addTotal)="sumarTotal($event)" (removeTotal)="restarTotal($event)"></app-card-carrito>
+        <div class="info mt-4">
+            <p>Total a Pagar: ${{totalPagar}}</p>
+        </div>
+    </div>
+
+    <ng-template #elseBlock>
+        <h1 class="mt-4">No tienes ningún producto agregado a tu carrito de compras.</h1>
+    </ng-template>
+    
+    <div class="separador"></div>
 </div>
