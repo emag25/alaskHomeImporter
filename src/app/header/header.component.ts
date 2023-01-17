@@ -49,6 +49,10 @@ export class HeaderComponent {
     this.router.navigate(['/ventas']);
   }
 
+  irFavorito() {
+    this.router.navigate(['/productos/favoritos']);
+  }
+
   toggleMenu() {
     this.activeMenu = !this.activeMenu;
   }

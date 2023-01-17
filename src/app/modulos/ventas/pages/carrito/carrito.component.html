@@ -1,11 +1,64 @@
 <div class="contenedor-principal">
-    <h1 class="mt-3 title">Carrito de Compras</h1>
+    <!-- <h1 class="mt-3 title">Carrito de Compras</h1> -->
     
     <div class="container" *ngIf="productos.length > 0 else elseBlock">
-        <app-card-carrito *ngFor="let product of productos" [producto]="product" (idProducto)="deleteProducto($event)" (addTotal)="sumarTotal($event)" (removeTotal)="restarTotal($event)"></app-card-carrito>
-        <div class="info mt-4">
-            <p>Total a Pagar: ${{totalPagar}}</p>
+        
+        <div class="contenedor-secundario">
+
+            <!-- LADO IZQUIERDO -->
+            <div class="box box-left">
+            
+                <h1>Carrito de compras</h1>
+                <div class="table-responsive-xxl">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Producto</th>
+                                <th scope="col">Precio</th>
+                                <th scope="col">Cantidad</th>
+                                <th scope="col">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr>
+                                <td>1</td>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- LADO DERECHO -->
+            <div class="box box-right">
+                <div class="title-compra">
+                    <span>FACTURACIÓN ELECTRÓNICA</span>
+                </div>
+                <div class="entrega">
+                    <h1>ENTREGA</h1>
+                    <p>Realizamos entregas a domicilio en todo el Ecuador con todas las medidas de seguridad e higiene.</p>
+                </div>
+                <button class="productos">AGREGAR MÁS PRODUCTOS</button>
+                <div class="factura">
+                    <div class="subtotal">
+                        <span>Subtotal</span>
+                        <span>$</span>
+                    </div>
+                    <div class="impuestos">
+                        <span>Impuestos</span>
+                        <span>$</span>
+                    </div>
+                    <div class="total">
+                        <span>TOTAL</span>
+                        <span>$</span>
+                    </div>
+                </div>
+                <button class="comprar">FINALIZAR COMPRA</button>
+            </div>
         </div>
+
     </div>
 
     <ng-template #elseBlock>

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Producto } from 'src/app/modulos/productos/core/models/producto.model';
 import { DataProductosService } from 'src/app/modulos/productos/core/services/dataProductos.service';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
@@ -19,7 +20,8 @@ export class CarritoComponent {
 
   constructor(
     private dataUsuarios: DataUsuariosService,
-    private dataProductos: DataProductosService
+    private dataProductos: DataProductosService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -53,6 +55,14 @@ export class CarritoComponent {
 
   restarTotal(total: number) {
     this.totalPagar -= total;
+  }
+
+  irProductos() {
+    this.router.navigate(['/productos']);
+  }
+
+  irProceso() {
+    this.router.navigate(['/ventas/proceso']);
   }
 
 }

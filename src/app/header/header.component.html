@@ -13,7 +13,7 @@
         <!-- BOTÓN DE FAVORITOS -->
         <div class="cart">
           <button class="menu-item position-relative"
-          matBadgeOverlap="true" [matBadgeHidden]="favoritoMB==0" [matBadge]="favoritoMB">
+          matBadgeOverlap="true" [matBadgeHidden]="favoritoMB==0" [matBadge]="favoritoMB" (click)="irFavorito()">
             <i class="fa-regular fa-heart"></i>
           </button>
         </div>
@@ -21,7 +21,7 @@
         <!-- BOTÓN DE CARRITO -->
         <div class="cart">
             <button class="menu-item position-relative"
-            matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge">
+            matBadgeOverlap="true" [matBadgeHidden]="matBadge==0" [matBadge]="matBadge" (click)="irCarrito()">
               <i class="fa-solid fa-cart-shopping"></i>
             </button>
         </div>
@@ -71,7 +71,7 @@
           <!-- BOTÓN DE FAVORITOS -->
           <div class="cart">
               <button class="menu-item position-relative" matTooltip="Lista de favoritos"
-              matBadgeOverlap="true" [matBadgeHidden]="favoritoMB==0" [matBadge]="favoritoMB">
+              matBadgeOverlap="true" [matBadgeHidden]="favoritoMB==0" [matBadge]="favoritoMB" (click)="irFavorito()">
                   <i class="fa-regular fa-heart"></i>
               </button>
           </div>

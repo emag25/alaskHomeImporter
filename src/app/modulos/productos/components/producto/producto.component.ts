@@ -88,11 +88,13 @@ export class ProductoComponent {
   // Agregar favorito
   addFavorito() {
     this.listener.addFavoritoMB(this.listener.getFavoritoMB());
+    this.DataUsuario.addFavorito(1, {id: parseInt(this.producto.id)})
   }
 
   // Eliminar favorito
   removeFavorito() {
     this.listener.removeFavoritoMB(this.listener.getFavoritoMB());
+    this.DataUsuario.removeFavorito(1, parseInt(this.producto.id));
   }
 
 }

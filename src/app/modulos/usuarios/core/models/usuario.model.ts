@@ -8,7 +8,7 @@ export interface Usuario {
     direccion: string;
     rol: string;
     carrito?: Carrito[];
-    favorito?: Carrito[];
+    favorito?: Favorito[];
 
 }
 
@@ -17,4 +17,8 @@ export interface Carrito {
     cantidad: number;
     precio: number;
     total: number;
+}
+
+export interface Favorito {
+    id: number;
 }

@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { FavoritosComponent } from './pages/favoritos/favoritos.component';
 import { ProductosComponent } from './pages/productos/productos.component';
 const routes: Routes = [
   { 
     path: '', 
     component: ProductosComponent
   },
+  { 
+    path: 'favoritos', 
+    component: FavoritosComponent
+  }
 ];
 
 @NgModule({
