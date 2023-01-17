@@ -9,13 +9,13 @@
 
 .card img {
     min-height: 300px;
-    max-height: 300px;
+    max-height: 300px;    
     object-fit: cover;
     transition: 0.5s;
 }
 
 .card img:hover {
-    transform: scale(1.2);
+    transform: scale(1.05);
 }
 
 .menu {

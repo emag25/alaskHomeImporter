@@ -42,3 +42,7 @@
 .separador {
   height: 150px;
 }
+
+.producto-detalle.active{
+  background-color: #E45D4C;
+}

@@ -1,0 +1,28 @@
+<div class="card mt-4">
+    <div class="card-header cabezera">
+        <h2 class="titulo-cabezera">{{producto.nombre}}</h2>
+        <button class="btn btn-danger eliminar" (click)="eliminarProducto(producto.id)">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+    </div>
+    <!-- <h2 class="card-header">{{producto.nombre}}</h2> -->
+    <div class="card-body contenedor">
+        <div class="box imagen">
+            <img [src]="producto.imagen" class="card-img-top" alt="Imagen del producto {{producto.nombre}}">
+        </div>
+        <div class="box contenido">
+            <p class="fw-bold">Descripción:</p>
+            <p>{{producto.descripcion}}</p>
+            <p><strong>Disponibilidad: </strong>{{producto.stock}} unidades</p>
+            <p><strong>Precio: </strong>${{producto.precio}}</p>
+
+            <mat-button-toggle class="menu-item" (click)="accionCarrito()"
+                (change)="producto.carrito = $event.source.checked" checked="{{producto.carrito}}">
+                <mat-icon *ngIf="!producto.carrito">add{{iconCarrito}}</mat-icon>
+                <mat-icon *ngIf="producto.carrito">remove{{iconCarrito}}</mat-icon>
+                <span *ngIf="!producto.carrito">AGREGAR AL CARRITO</span>
+                <span *ngIf="producto.carrito">QUITAR DEL CARRITO</span>
+            </mat-button-toggle>
+        </div>
+    </div>
+</div>
