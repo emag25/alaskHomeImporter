@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListenerService } from 'src/app/core/services/listener.service';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
 
 @Component({
   selector: 'app-card-carrito',
@@ -10,38 +11,45 @@ export class CardCarritoComponent {
 
   @Input() producto: any;
   @Output() idProducto = new EventEmitter<string>();
-  @Output() addTotal = new EventEmitter<number>();
-  @Output() removeTotal = new EventEmitter<number>();
 
   carritoMB = 0;
+  iconCarrito = "_shopping_cart";
+
+  favoritoMB = 0;
 
   constructor(
-    private listener: ListenerService
+    private listener: ListenerService,
+    private DataUsuario: DataUsuariosService
   ) {}
 
   ngOnInit() {
-    this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
-  }
-
-
-  addCantidad() {
-    if(this.producto.cantidad < this.producto.stock) {
-      this.producto.cantidad += 1;
-      this.addTotal.emit(this.producto.precio);
-    }
-  }
-
-  removeCantidad() {
-    if(this.producto.cantidad > 1) {
-      this.producto.cantidad -= 1;
-      this.removeTotal.emit(this.producto.precio);
-    }
+    this.listener.customMatBadge.subscribe(carritoMB => this.favoritoMB = carritoMB);
   }
 
   eliminarProducto(id: number) {
-    this.listener.restMatBadge(this.listener.getMatBadge());
-    this.producto.carrito = false;
+    this.listener.removeFavoritoMB(this.listener.getFavoritoMB());
+    this.producto.fav = false;
     this.idProducto.emit(String(id));
+  }
+
+  accionCarrito() {
+    if (this.producto.carrito) {
+      this.addCarrito();
+    }
+    else {
+      this.removeCarrito();
+    }
+  }
+
+  addCarrito() {
+    this.listener.addMatBadge(this.listener.getMatBadge());
+    this.DataUsuario.addCarrito(1, {id: parseInt(this.producto.id), cantidad: this.producto.cantidad, precio: this.producto.precio, total: this.producto.precio * this.producto.cantidad})
+
+  }
+
+  removeCarrito() {
+    this.listener.restMatBadge(this.listener.getMatBadge());
+    this.DataUsuario.removeCarrito(1, parseInt(this.producto.id));
   }
 
 }
