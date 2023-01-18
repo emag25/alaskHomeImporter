@@ -28,10 +28,16 @@
     
     <div style="padding: 10px;">
         <mat-button-toggle class="menu-item" (click)="accionCarrito()"
-        (change)="producto.carrito = $event.source.checked" checked="{{producto.carrito}}">
-        <mat-icon *ngIf="!producto.carrito">add{{iconCarrito}}</mat-icon>
-        <mat-icon *ngIf="producto.carrito">remove{{iconCarrito}}</mat-icon>
+      (change)="producto.carrito = $event.source.checked" checked="{{producto.carrito}}"  *ngIf="active; else otro2">
+      <mat-icon *ngIf="!producto.carrito">add{{iconCarrito}}</mat-icon>
+      <mat-icon *ngIf="producto.carrito">remove{{iconCarrito}}</mat-icon>
+      </mat-button-toggle>
+      <ng-template #otro2>
+        <mat-button-toggle class="menu-item" (click)="accionCarrito()"
+          checked="{{producto.carrito}}" >
+         <mat-icon *ngIf="!producto.carrito">add{{iconCarrito}}</mat-icon>      
         </mat-button-toggle>
-        <button mat-raised-button type="button" (click)="cancelar()" routerLink="productos" class="menu-item">Cancelar</button>
+      </ng-template>
+        <mat-button-toggle mat-raised-button type="button" (click)="cancelar()" routerLink="productos" class="menu-item">Cancelar</mat-button-toggle>
     </div>
 </div>

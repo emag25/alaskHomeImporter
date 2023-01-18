@@ -4,6 +4,9 @@ import { DataProductosService } from '../../core/services/dataProductos.service'
 import { ListenerService } from 'src/app/core/services/listener.service';
 import { Producto } from './../../core/models/producto.model';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
+import { LoginComponent } from 'src/app/autenticacion/components/login/login.component';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from 'src/app/core/services/login.service';
 
 
 @Component({
@@ -25,6 +28,9 @@ export class ProductoComponent {
     carrito: false,
     fav: false,
   };
+  @Input() categoriaNombre:string | null= null;
+  
+  active: boolean = this.loginService.getActive();
 
   @Output() showProduct = new EventEmitter<string>();
 
@@ -38,7 +44,7 @@ export class ProductoComponent {
   // Variables de favoritos
   favoritoMB = 0;
 
-  constructor(private dataProductos:DataProductosService, private router:Router, private listener:ListenerService, private DataUsuario: DataUsuariosService) { }
+  constructor(private dialog:MatDialog,private loginService: LoginService,private dataProductos:DataProductosService, private router:Router, private listener:ListenerService, private DataUsuario: DataUsuariosService) { }
 
   ngOnInit() {
     this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
@@ -56,12 +62,15 @@ export class ProductoComponent {
   }
 
   accionCarrito() {
-    if (this.producto.carrito) {
-      this.addCarrito();
-    }
-    else {
-      this.removeCarrito();
-    }
+    if(this.active){
+      if (this.producto.carrito) {
+        this.addCarrito();
+      }
+      else {
+        this.removeCarrito();
+      }
+    }else this.openDialogSesion();
+    
   }
 
   addCarrito() {
@@ -77,12 +86,15 @@ export class ProductoComponent {
 
   // Controlador de agregar o eliminar favorito
   accionFavorito() {
-    if (this.producto.fav) {
-      this.addFavorito();
-    }
-    else {
-      this.removeFavorito();
-    }
+    if(this.active){
+      if (this.producto.fav) {
+        this.addFavorito();
+      }
+      else {
+        this.removeFavorito();
+      }
+    }else this.openDialogSesion();
+    
   }
 
   // Agregar favorito
@@ -95,6 +107,10 @@ export class ProductoComponent {
   removeFavorito() {
     this.listener.removeFavoritoMB(this.listener.getFavoritoMB());
     this.DataUsuario.removeFavorito(1, parseInt(this.producto.id));
+  }
+
+  openDialogSesion(): void {
+    this.dialog.open(LoginComponent, { disableClose: true, width: '500px' });
   }
 
 }

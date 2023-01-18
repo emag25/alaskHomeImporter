@@ -3,11 +3,11 @@
     <h1 class="title mt-3">Nuestros Productos</h1>
 
     <div class="contenedor-categorias">
-        <mat-button-toggle-group>
-            <mat-button-toggle color="primary" (click)="clasificarProductos(0)" checked="true">
+        <mat-button-toggle-group #group="matButtonToggleGroup"   (change)="onValChange(group.value)" id="rol">
+            <mat-button-toggle aria-pressed="true" color="primary" (click)="clasificarProductos(0)" checked="true" routerLink="." value="0">
                 Todas
             </mat-button-toggle>
-            <mat-button-toggle color="primary" *ngFor="let categoria of categorias" (click)="clasificarProductos(categoria.id)">
+            <mat-button-toggle id="{{valor+1}}" [value]="valor+1" #categoriaSelec color="primary" *ngFor="let categoria of categorias; index as valor" (click)="clasificarProductos(categoria.id)" routerLink="." [queryParams]="{ categoria: categoria.id }">
                 {{categoria.nombre}}
             </mat-button-toggle>
         </mat-button-toggle-group>
@@ -15,7 +15,7 @@
     
 
     <div class="contenedor-productos mt-3" *ngIf="productos.length != 0 else elseBlock">
-        <app-producto (showProduct)="onShowDetail($event)" *ngFor="let producto of productos" [producto]="producto"></app-producto>
+        <app-producto (showProduct)="onShowDetail($event)" *ngFor="let producto of productos" [categoriaNombre]="category" [producto]="producto"></app-producto>
     </div>
     <ng-template #elseBlock>
         <h1>No hay productos en esta categoría. Pronto subiremos más!</h1>
