@@ -22,6 +22,9 @@ import { ModificarUsuarioComponent } from './components/usuarios/modificar-usuar
     ProductosAdministradorComponent,
     UsuariosAdministradorComponent,
     VentasAdministradorComponent,
+    ModificarSolicitudComponent,
+    SolicitudProveedorAdminComponent,
+    ModificarUsuarioComponent
   ],
   imports: [
     CommonModule,

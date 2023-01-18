@@ -3,10 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { AgregarProveedorComponent } from '../../components/proveedores/agregar-proveedor/agregar-proveedor.component';
-import { ModificarProveedorComponent } from '../../components/proveedores/modificar-proveedor/modificar-proveedor.component';
 import { LoginService } from './../../../../core/services/login.service';
-import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
 import { DataUsuariosService } from './../../../usuarios/core/services/dataUsuarios.service';
 import { Usuario } from 'src/app/modulos/usuarios/core/models/usuario.model';
 import { ModificarUsuarioComponent } from '../../components/usuarios/modificar-usuario/modificar-usuario.component';
@@ -33,17 +30,12 @@ export class UsuariosAdministradorComponent {
     
     if (this.datosRecibidos != null) {
 
-      if (this.datosRecibidos.dataUsuarios.queryParams.id === undefined) { // Agregar
-        let usuario = new Usuario(this.random(2222, 9999), this.datosRecibidos.datosUsuarios.queryParams.nombre, this.datosRecibidos.datosUsuarios.queryParams.apellido, this.datosRecibidos.datosUsuarios.queryParams.email, this.datosRecibidos.datosUsuarios.queryParams.password, this.datosRecibidos.datosUsuarios.queryParams.telefono, this.datosRecibidos.datosUsuarios.queryParams.direccion, this.datosRecibidos.datosUsuarios.queryParams.rol);
-        this.dataUsuarios.setUsuario;
-      
-      } else { // Modificar
-        if (this.dataUsuarios.editUsuario(this.datosRecibidos.dataUsuarios.queryParams)) {
-          this.snackbar.open('Usuario modificado con éxito', 'OK', { duration: 3000 });
-        } else {
-          this.snackbar.open('Error al modificar el usuario. Intenta de nuevo.', 'OK', { duration: 7000 });
-        }
+      if (this.dataUsuarios.editUsuario(this.datosRecibidos.dataUsuarios.queryParams)) {
+        this.snackbar.open('Usuario modificado con éxito', 'OK', { duration: 3000 });
+      } else {
+        this.snackbar.open('Error al modificar el usuario. Intenta de nuevo.', 'OK', { duration: 7000 });
       }
+      
     }
   }
 
