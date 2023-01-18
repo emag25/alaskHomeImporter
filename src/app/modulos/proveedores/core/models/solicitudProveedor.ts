@@ -1,5 +1,4 @@
-export class Proveedor {
-
+export class SolicitudProveedor {
     constructor(
         public id: number,
         public ruc: string,
@@ -7,8 +6,8 @@ export class Proveedor {
         public email: string,
         public telefono: string,
         public provincia: string,
-        public logo: string,
-        public fechaAprobacion: Date
+        public estado: string,
+        public fechaEnvio: Date,
     ) { }
 
 }

@@ -1,0 +1,78 @@
+<mat-card>
+  <div style="text-align:center;">
+    <mat-card-title>Modificar Solicitud</mat-card-title>
+  </div>
+  <br>
+  <form [formGroup]="solicitudModificada">
+    <mat-form-field class="campos-field">
+      <mat-label>RUC</mat-label>
+      <input matInput formControlName="ruc">
+      <mat-error *ngIf="solicitudModificada.controls['ruc'].hasError('required')">RUC es requerido.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['ruc'].hasError('pattern')">RUC no válido.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['ruc'].hasError('maxlength')">RUC no puede tener mas de 13
+        caracteres.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['ruc'].hasError('minlength')">RUC debe tener al menos 13
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" />
+      <mat-error *ngIf="solicitudModificada.controls['nombre'].hasError('required')">Nombre es requerido.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['nombre'].hasError('pattern')">Nombre no válido.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['nombre'].hasError('maxLength')">Nombre no puede tener mas de 150
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      <mat-error *ngIf="solicitudModificada.controls['email'].hasError('required')">Email es requerido.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['email'].hasError('email')">Email no válido.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['email'].hasError('maxlength')">Email no puede tener mas de 150
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="telefono" />
+      <mat-error *ngIf="solicitudModificada.controls['telefono'].hasError('required')">Teléfono es
+        requerido.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['telefono'].hasError('pattern')">Teléfono no válido.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['telefono'].hasError('maxlength')">Teléfono no puede tener mas de
+        10
+        caracteres.</mat-error>
+      <mat-error *ngIf="solicitudModificada.controls['telefono'].hasError('minlength')">Teléfono debe tener al menos 9
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 2;">
+      <mat-label>Provincia</mat-label>
+      <mat-select formControlName="provincia">
+        <mat-option *ngFor="let provincia of provincias" [value]="provincia.nombre">
+          {{provincia.nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="solicitudModificada.controls['provincia'].hasError('required')">Provincia es
+        requerida.</mat-error>
+    </mat-form-field>
+
+    <div class="contenedor-estado" style="grid-column: span 2;">
+      <mat-label>Estado: </mat-label>
+      <mat-radio-group formControlName="estado">
+        <mat-radio-button [disabled]="originalState === 'En proceso'" value="Por revisar">Por revisar</mat-radio-button>
+        <mat-radio-button value="En proceso">En proceso</mat-radio-button>
+        <mat-radio-button [disabled]="originalState === 'Por revisar'" value="Aprobado">Aprobado</mat-radio-button>
+      </mat-radio-group>
+      <mat-error *ngIf="solicitudModificada.controls['estado'].hasError('required')">Estado es requerido.</mat-error>
+    </div>
+
+    <div class="acciones">
+      <button mat-raised-button color="accent" [disabled]="!solicitudModificada.valid"
+        (click)="onSubmit()">Aceptar</button>
+      <button mat-raised-button (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+
+</mat-card>

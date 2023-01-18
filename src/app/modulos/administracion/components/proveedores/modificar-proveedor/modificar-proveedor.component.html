@@ -38,14 +38,14 @@
         caracteres.</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="campos-field" style="grid-column: span 2;">
-      <mat-label>Dirección</mat-label>
-      <input matInput formControlName="direccion"/>
-      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('required')">Dirección es requerida.</mat-error>
-      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('maxlength')">Dirección no puede tener mas de 150
-        caracteres.</mat-error>
-      <mat-error *ngIf="proveedorModificado.controls['direccion'].hasError('minlength')">Dirección debe tener al menos 4
-        caracteres.</mat-error>
+    <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 2;">
+      <mat-label>Provincia</mat-label>
+      <mat-select formControlName="provincia">
+        <mat-option *ngFor="let provincia of provincias" [value]="provincia.nombre">
+          {{provincia.nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="proveedorModificado.controls['provincia'].hasError('required')">Provincia es requerida.</mat-error>
     </mat-form-field>
 
     <div class="acciones">
