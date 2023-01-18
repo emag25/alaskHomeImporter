@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { SharedModule } from './shared/shared.module';
 import { ProductosModule } from './modulos/productos/productos.module';
 import { AutenticacionModule } from './autenticacion/autenticacion.module';
+import { ProveedoresModule } from './modulos/proveedores/proveedores.module';
 
 @NgModule({
   declarations: [							
@@ -29,6 +30,7 @@ import { AutenticacionModule } from './autenticacion/autenticacion.module';
     BrowserAnimationsModule,
     SharedModule,
     ProductosModule,
+    ProveedoresModule,
     AutenticacionModule
   ],
 
