@@ -54,7 +54,9 @@ export class DataUsuariosService {
   addCarrito(id: number, carrito: Carrito) {
     this.item = this.listaUsuarios.find(user => user.id == id);
     this.item.carrito.push(carrito);
-    console.log(this.item)
+    
+    console.log("ITEM AGREGADO:");
+    console.log(this.item.carrito);
   }
 
   removeCarrito(id: number, idCarro: number) {
@@ -62,9 +64,12 @@ export class DataUsuariosService {
     this.carro = this.item.carrito.find((idCarrito: { id: number; }) => idCarrito.id == idCarro);
 
     if(this.carro !== undefined) {
-      let index = this.item.carrito.indexOf(idCarro);
-      this.item.carrito.splice(index-1, 1);
+      let index = this.item.carrito.indexOf(this.carro);
+      this.item.carrito.splice(index, 1);
     }
+
+    console.log("ITEM REMOVIDO:");
+    console.log(this.item.carrito);
   }
 
   addFavorito(id: number, favorito: Favorito) {
