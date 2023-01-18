@@ -59,8 +59,8 @@
         </mat-form-field>
 
         <mat-form-field class="campos-field" *ngIf="selectFilter === 'Estado'">
-          <mat-label>Provincia</mat-label>
-          <mat-select [formControl]="txtProvincia" (openedChange)="filterByEstado()">
+          <mat-label>Estado</mat-label>
+          <mat-select [formControl]="txtEstado" (openedChange)="filterByEstado()">
             <mat-option>Ninguna</mat-option>
             <mat-option value="Por revisar">Por revisar</mat-option>
             <mat-option value="En proceso">En proceso</mat-option>
@@ -140,11 +140,11 @@
         <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="fechaSolicitud">
+      <ng-container matColumnDef="fechaEnvio">
         <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por Fecha">Fecha de
-          Aprobación
+          envio
         </th>
-        <td mat-cell *matCellDef="let element"> {{getFormatedDate(element.fechaSolicitud)}} </td>
+        <td mat-cell *matCellDef="let element"> {{getFormatedDate(element.fechaEnvio)}} </td>
       </ng-container>
 
       <ng-container matColumnDef="accion">

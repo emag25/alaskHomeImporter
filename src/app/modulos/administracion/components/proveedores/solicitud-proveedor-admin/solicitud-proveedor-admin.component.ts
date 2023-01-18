@@ -1,16 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/core/services/login.service';
+import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
 import { Provincia } from 'src/app/modulos/proveedores/core/models/provincia.model.ts';
 import { SolicitudProveedor } from 'src/app/modulos/proveedores/core/models/solicitudProveedor';
 import { DataProveedoresService } from 'src/app/modulos/proveedores/core/services/dataProveedores.service';
 import { DataProvinciasService } from 'src/app/modulos/proveedores/core/services/dataProvincias.service';
 import { DataSolicitudProveedorService } from 'src/app/modulos/proveedores/core/services/dataSolicitudProveedor.service';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
+import { ModificarSolicitudComponent } from '../modificar-solicitud/modificar-solicitud.component';
 
 @Component({
   selector: 'app-solicitud-proveedor-admin',
@@ -27,7 +30,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   nav: any;
 
   dataSource: any = [];
-  displayedColumns: string[] = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'fechaSolicitud', 'accion'];
+  displayedColumns: string[] = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'fechaEnvio', 'accion'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   selectFilter: string = 'RUC';
   columnasFilter: string[] = ['RUC', 'Nombre', 'Email', 'Teléfono', 'Provincia', 'Estado', 'Fecha de aprobación'];
@@ -59,7 +62,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   selectFecha: boolean = true;
 
 
-  constructor(private router: Router, private dataSolicitudes: DataSolicitudProveedorService, private dataProveedores: DataProveedoresService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataProvincias: DataProvinciasService) {
+  constructor(private router: Router, private dataSolicitudes: DataSolicitudProveedorService, private dialog:MatDialog, private dataProveedores: DataProveedoresService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataProvincias: DataProvinciasService) {
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
     this.getDatosRecibidos();
   }
@@ -84,15 +87,25 @@ export class SolicitudProveedorAdminComponent implements OnInit {
 
     if (this.datosRecibidos != null) {
 
-      if (this.datosRecibidos.datosSolicitud.queryParams.estado === 'Aprobado') { // Agregar
+      if (this.datosRecibidos.datosSolicitud.queryParams.estado === 'Aprobado') { // Agregar Proveedor
 
         this.dataSolicitudes.deleteSolicitudProveedor(this.datosRecibidos.datosSolicitud.queryParams.id);
-        this.dataProveedores.setProveedor(this.datosRecibidos.datosSolicitud.queryParams);
+        let proveedor = new Proveedor(this.datosRecibidos.datosSolicitud.queryParams.id,
+          this.datosRecibidos.datosSolicitud.queryParams.ruc,
+          this.datosRecibidos.datosSolicitud.queryParams.nombre,
+          this.datosRecibidos.datosSolicitud.queryParams.email,
+          this.datosRecibidos.datosSolicitud.queryParams.telefono,
+          this.datosRecibidos.datosSolicitud.queryParams.provincia, '',
+          new Date());
+        this.dataProveedores.setProveedor(proveedor);
         this.snackbar.open('Proveedor agregado con éxito', 'OK', { duration: 3000 });
 
-      } else { // Modificar
+      } else { // Modificar Solicitud
 
+        console.log(this.dataSolicitudes.getSolicitudesProveedores())
         if (this.dataSolicitudes.editSolicitudProveedor(this.datosRecibidos.datosSolicitud.queryParams)) {
+          console.log(this.datosRecibidos.datosSolicitud.queryParams);
+          console.log(this.dataSolicitudes.getSolicitudesProveedores())
           this.snackbar.open('Solicitud modificada con éxito', 'OK', { duration: 3000 });
 
         } else {
@@ -110,11 +123,11 @@ export class SolicitudProveedorAdminComponent implements OnInit {
 
 
   openDialogModificar(solicitud: SolicitudProveedor) {
-    /* this.dialog.open(ModificarProveedorComponent, {
+    this.dialog.open(ModificarSolicitudComponent, {
       data: { solicitud: solicitud },
       disableClose: true,
       width: '700px'
-    }); */
+    }); 
   }
 
 
@@ -176,9 +189,20 @@ export class SolicitudProveedorAdminComponent implements OnInit {
         this.selectEstado = false; this.checkEstado = false;
         this.selectFecha = false; this.checkFecha = false;
         break;
+      
+      case window.matchMedia('(max-width: 1250px)').matches || event?.target?.innerWidth <= 1250:
+        this.columnsToDisplay = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'accion'];
+        this.selectRuc = true; this.checkRuc = false;
+        this.selectNombre = true; this.checkNombre = false;
+        this.selectEmail = true; this.checkEmail = false;
+        this.selectTelefono = true; this.checkTelefono = false;
+        this.selectProvincia = true; this.checkProvincia = false;
+        this.selectEstado = true; this.checkEstado = false;
+        this.selectFecha = true; this.checkFecha = false;
+        break;
 
-      case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth > 1134:
-        this.columnsToDisplay = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'fechaSolicitud', 'accion'];
+      case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth >= 1300:
+        this.columnsToDisplay = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'fechaEnvio', 'accion'];
         this.selectRuc = true; this.checkRuc = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectEmail = true; this.checkEmail = false;
@@ -189,7 +213,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
         break;
 
       default:
-        this.columnsToDisplay = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'fechaSolicitud', 'accion'];
+        this.columnsToDisplay = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'fechaEnvio', 'accion'];
         this.selectRuc = true; this.checkRuc = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectEmail = true; this.checkEmail = false;
@@ -284,7 +308,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
       case 'estado':
         this.checkEstado = true;
         break;
-      case 'fechaSolicitud':
+      case 'fechaEnvio':
         this.checkFecha = true;
         break;
       default:
@@ -358,6 +382,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   }
 
   filterByEstado() {
+    console.log(this.txtEstado.value)
     if (this.txtEstado.value !== undefined) {
       this.dataSource.filter = this.txtEstado.value.trim().toLowerCase();
     } else {
@@ -373,7 +398,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
     if (fecha !== '31/12/1969') {
       this.dataSource.filter = fecha.trim();
       this.dataSource.filterPredicate = function (data: any, filter: string) {
-        let date = new Date(data.fechaSolicitud);
+        let date = new Date(data.fechaEnvio);
         let day = date.getDate();
         let month = date.getMonth() + 1;
         let year = date.getFullYear();

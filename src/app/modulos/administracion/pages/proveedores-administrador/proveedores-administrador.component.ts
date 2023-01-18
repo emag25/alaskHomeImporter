@@ -86,20 +86,13 @@ export class ProveedoresAdministradorComponent implements OnInit {
 
     if (this.datosRecibidos != null) {
 
-      if (this.datosRecibidos.datosProveedor.queryParams.id === undefined) { // Agregar
-        let proveedor = new Proveedor(this.random(2222, 9999), this.datosRecibidos.datosProveedor.queryParams.ruc, this.datosRecibidos.datosProveedor.queryParams.nombre, this.datosRecibidos.datosProveedor.queryParams.email, this.datosRecibidos.datosProveedor.queryParams.telefono, this.datosRecibidos.datosProveedor.queryParams.provincia, this.datosRecibidos.datosProveedor.queryParams.logo, this.datosRecibidos.datosProveedor.queryParams.fechaAprobacion);
-        this.dataProveedores.setProveedor(proveedor);
-        this.snackbar.open('Proveedor agregado con éxito', 'OK', { duration: 3000 });
-
-      } else { // Modificar
-        if (this.dataProveedores.editProveedor(this.datosRecibidos.datosProveedor.queryParams)) {
-          this.snackbar.open('Proveedor modificado con éxito', 'OK', { duration: 3000 });
-        } else {
-          this.snackbar.open('Error al modificar el proveedor. Intenta de nuevo.', 'OK', { duration: 7000 });
-        }
+      if (this.dataProveedores.editProveedor(this.datosRecibidos.datosProveedor.queryParams)) {
+        this.snackbar.open('Proveedor modificado con éxito', 'OK', { duration: 3000 });
+      } else {
+        this.snackbar.open('Error al modificar el proveedor. Intenta de nuevo.', 'OK', { duration: 7000 });
       }
+      
     }
-
   }
 
 
@@ -287,12 +280,7 @@ export class ProveedoresAdministradorComponent implements OnInit {
     let year = date.getFullYear();
     return day + '/' + month + '/' + year;
   }
-
-
-  random(min:number, max:number) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
+  
 
   onChangeFilter() {
     this.txtRuc.setValue('');

@@ -8,9 +8,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ProductosAdministradorComponent } from './pages/productos-administrador/productos-administrador.component';
 import { UsuariosAdministradorComponent } from './pages/usuarios-administrador/usuarios-administrador.component';
 import { VentasAdministradorComponent } from './pages/ventas-administrador/ventas-administrador.component';
-import { AgregarProveedorComponent } from './components/proveedores/agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './components/proveedores/modificar-proveedor/modificar-proveedor.component';
 import { SolicitudProveedorAdminComponent } from './components/proveedores/solicitud-proveedor-admin/solicitud-proveedor-admin.component';
+import { ModificarSolicitudComponent } from './components/proveedores/modificar-solicitud/modificar-solicitud.component';
 
 
 
@@ -18,12 +18,13 @@ import { SolicitudProveedorAdminComponent } from './components/proveedores/solic
   declarations: [
     AdministracionComponent,
     ProveedoresAdministradorComponent,
-    AgregarProveedorComponent,
     ModificarProveedorComponent,
     ProductosAdministradorComponent,
     UsuariosAdministradorComponent,
     VentasAdministradorComponent,
-    SolicitudProveedorAdminComponent
+    SolicitudProveedorAdminComponent,
+    ModificarProveedorComponent,
+    ModificarSolicitudComponent
   ],
   imports: [
     CommonModule,

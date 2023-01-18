@@ -34,29 +34,18 @@ export class SolicitudProveedorComponent implements OnInit {
   onSubmit() {    
     
     this.dataSolicitudProveedor.setSolicitudProveedor(new SolicitudProveedor(
-      this.random(20, 90),
+      this.random(3000, 4000),
       this.formSolicitud.value.ruc ?? '',
       this.formSolicitud.value.nombre ?? '',
       this.formSolicitud.value.email ?? '',
       this.formSolicitud.value.telefono ?? '',
       this.formSolicitud.value.provincia ?? '',
-      'En espera',
-      this.getFechaActual()
+      'Por revisar',
+      new Date()
     ));
 
     this.dialogRef.close();
     this.dialog.open(DialogExitoComponent);
-  }
-
-
-  getFechaActual(): Date {
-    
-    let date = new Date();
-    let day = date.getDate().toString().padStart(2, '0');
-    let month = (date.getMonth() + 1).toString().padStart(2, '0');
-    let year = date.getFullYear(); 
-    return new Date(year + '-' + month + '-' + day);
-
   }
 
 

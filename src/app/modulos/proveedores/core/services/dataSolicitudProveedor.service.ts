@@ -8,64 +8,64 @@ export class DataSolicitudProveedorService {
 
   private solicitudesproveedores: SolicitudProveedor[] = [
     {
-      id: 1222,
+      id: 2221,
       ruc: '0001234567890',
       nombre: 'LG',
       email: 'anafernandez@lg.com',
       telefono: '0420012345',
       provincia: 'Pichincha',
-      fechaSolicitud: new Date('2021-09-01'),
+      fechaEnvio: new Date('2021-09-01'),
       estado: 'En proceso'
     },
     {
-      id: 1112,
+      id: 2121,
       ruc: '0009876543210',
       nombre: 'Samsung',
       email: 'josegomez@samsung.com',
       telefono: '0421012345',
       provincia: 'Guayas',
-      fechaSolicitud: new Date('2021-09-01'),
-      estado: 'En proceso'
+      fechaEnvio: new Date('2021-09-01'),
+      estado: 'Por revisar'
     },
     {
-      id: 1122,
+      id: 2112,
       ruc: '0012309876543',
       nombre: 'Epson',
       email: 'leticiamachado@epson.com',
       telefono: '0422123456',
       provincia: 'Los Rios',
-      fechaSolicitud: new Date('2021-09-01'),
+      fechaEnvio: new Date('2021-09-01'),
       estado: 'En proceso'
     },
     {
-      id: 1113,
+      id: 2111,
       ruc: '0019876543210',
       nombre: 'Master Frio',
       email: 'mariaperez@masterfrio.com',
       telefono: '0423234567',
       provincia: 'Guayas',
-      fechaSolicitud: new Date('2021-08-01'),
+      fechaEnvio: new Date('2021-08-01'),
       estado: 'Por revisar'
     },
     {
-      id: 1133,
+      id: 2211,
       ruc: '0023456789012',
       nombre: 'Mabe',
       email: 'juangonzalez@mabe.com',
       telefono: '0424345678',
       provincia: 'Guayas',
-      fechaSolicitud: new Date('2021-09-6'),
+      fechaEnvio: new Date('2021-09-6'),
       estado: 'Por revisar'
     },
     {
-      id: 1133,
+      id: 2222,
       ruc: '0023456789012',
       nombre: 'Facebook',
       email: 'juangonzalez@mabe.com',
       telefono: '0424345678',
       provincia: 'Guayas',
-      fechaSolicitud: new Date('2021-09-6'),
-      estado: 'Por revisar'
+      fechaEnvio: new Date('2021-09-6'),
+      estado: 'En proceso'
     }
   ];
 

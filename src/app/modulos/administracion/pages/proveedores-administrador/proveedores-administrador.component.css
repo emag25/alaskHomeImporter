@@ -29,6 +29,10 @@ th {
     color: white;
 }
 
+tr:hover {
+    background-color: rgb(230, 230, 230) !important;
+}
+
 .td-notFound{
     text-align: center;
     font-weight: bold;

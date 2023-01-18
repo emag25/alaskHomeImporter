@@ -35,7 +35,7 @@ export class DataProveedoresService {
       nombre: 'Epson',
       email: 'leticiamachado@epson.com',
       telefono: '0422123456',
-      provincia: 'Los Rios',
+      provincia: 'Los Ríos',
       logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT32foV5P6Zgr7PrZg0q116lVIf4zVmVRhYciaKnamN1s8I6ZXzCzvXX6ovJA2eE8gENhc&usqp=CAU',
       fechaAprobacion: new Date('2021-09-01')
     },
@@ -144,7 +144,7 @@ export class DataProveedoresService {
       nombre: 'Debsa',
       email: 'rogeliosolorzano@debsa.com',
       telefono: '0421001234',
-      provincia: 'Los Rios',
+      provincia: 'Los Ríos',
       logo: 'https://scontent.fgye1-1.fna.fbcdn.net/v/t39.30808-6/291476896_707460250686882_5775602248946080590_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=MLzydM7hLAoAX__IEoO&_nc_oc=AQmKLX6qOycVGfkCsrz2r5O0GdZBe_vxc3OAAzENGsW83m5sQaqfqo5GKzm7hMJycfvW5v6hFCSsZqyR2XVKRidD&tn=V42L1Y05VWVL0mSM&_nc_ht=scontent.fgye1-1.fna&oh=00_AfAfRSTX06VDMI0_s-P7g2D_lHheYMGOwtD0pdiMpKzJ5g&oe=63C9E93D',
       fechaAprobacion: new Date('2005-09-01')
     },
@@ -190,7 +190,7 @@ export class DataProveedoresService {
       nombre: 'Segway',
       email: 'rociolitardo@segway.com',
       telefono: '0421005678',
-      provincia: 'Los Rios',
+      provincia: 'Los Ríos',
       logo: 'https://b2b.segway.com/wp-content/uploads/2021/11/segway-logo-black.png',
       fechaAprobacion: new Date('2000-09-11')
     },

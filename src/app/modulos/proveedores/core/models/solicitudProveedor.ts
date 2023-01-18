@@ -7,7 +7,7 @@ export class SolicitudProveedor {
         public telefono: string,
         public provincia: string,
         public estado: string,
-        public fechaSolicitud: Date,
+        public fechaEnvio: Date,
     ) { }
 
 }
