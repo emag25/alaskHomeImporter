@@ -15,7 +15,7 @@ export class DataSolicitudProveedorService {
       telefono: '0420012345',
       provincia: 'Pichincha',
       fechaSolicitud: new Date('2021-09-01'),
-      estado: 'En espera',
+      estado: 'En proceso'
     },
     {
       id: 1112,
@@ -25,7 +25,7 @@ export class DataSolicitudProveedorService {
       telefono: '0421012345',
       provincia: 'Guayas',
       fechaSolicitud: new Date('2021-09-01'),
-      estado: 'En espera',
+      estado: 'En proceso'
     },
     {
       id: 1122,
@@ -35,7 +35,7 @@ export class DataSolicitudProveedorService {
       telefono: '0422123456',
       provincia: 'Los Rios',
       fechaSolicitud: new Date('2021-09-01'),
-      estado: 'En espera',
+      estado: 'En proceso'
     },
     {
       id: 1113,
@@ -45,7 +45,7 @@ export class DataSolicitudProveedorService {
       telefono: '0423234567',
       provincia: 'Guayas',
       fechaSolicitud: new Date('2021-08-01'),
-      estado: 'En espera',
+      estado: 'Por revisar'
     },
     {
       id: 1133,
@@ -55,7 +55,17 @@ export class DataSolicitudProveedorService {
       telefono: '0424345678',
       provincia: 'Guayas',
       fechaSolicitud: new Date('2021-09-6'),
-      estado: 'En espera',
+      estado: 'Por revisar'
+    },
+    {
+      id: 1133,
+      ruc: '0023456789012',
+      nombre: 'Facebook',
+      email: 'juangonzalez@mabe.com',
+      telefono: '0424345678',
+      provincia: 'Guayas',
+      fechaSolicitud: new Date('2021-09-6'),
+      estado: 'Por revisar'
     }
   ];
 
@@ -83,6 +93,11 @@ export class DataSolicitudProveedorService {
 
   getSolicitudesProveedores(): SolicitudProveedor[] {
     return this.solicitudesproveedores;
+  }
+
+
+  getSolicitudesProveedoresByEstado(estado: string): SolicitudProveedor[] {
+    return this.solicitudesproveedores.filter(solicitudproveedor => solicitudproveedor.estado === estado);
   }
 
 

@@ -10,6 +10,7 @@ import { UsuariosAdministradorComponent } from './pages/usuarios-administrador/u
 import { VentasAdministradorComponent } from './pages/ventas-administrador/ventas-administrador.component';
 import { AgregarProveedorComponent } from './components/proveedores/agregar-proveedor/agregar-proveedor.component';
 import { ModificarProveedorComponent } from './components/proveedores/modificar-proveedor/modificar-proveedor.component';
+import { SolicitudProveedorAdminComponent } from './components/proveedores/solicitud-proveedor-admin/solicitud-proveedor-admin.component';
 
 
 
@@ -21,7 +22,8 @@ import { ModificarProveedorComponent } from './components/proveedores/modificar-
     ModificarProveedorComponent,
     ProductosAdministradorComponent,
     UsuariosAdministradorComponent,
-    VentasAdministradorComponent
+    VentasAdministradorComponent,
+    SolicitudProveedorAdminComponent
   ],
   imports: [
     CommonModule,
