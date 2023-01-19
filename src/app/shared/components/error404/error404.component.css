@@ -5,8 +5,45 @@
     align-items: center;
     padding: 20px;
     height: 77%;
+    gap: 20px;
 }
 
 h1 {
     font-size: 3rem;
+    font-weight: 500;
+}
+
+h2 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+img {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+a {
+    text-decoration: none;
+    margin-top: 30px;
+    padding: 15px 25px;
+    background-color: transparent;
+    color: black;
+    border: 2px solid black;
+    font-size: 14pt;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+a:hover {
+    background-color: black;
+    border: 2px solid black;
+    color: white;
+    transition: 0.5s;
+}
+
+a:not(hover) {
+    background-color: transparent;
+    border: 2px solid black;
+    transition: 0.5s;
 }
