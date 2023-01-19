@@ -30,11 +30,12 @@ const routes: Routes = [
     { 
       path: 'usuario', 
       loadChildren: () => import('./modulos/usuarios/usuarios-routing.module').then((m) => m.UsuariosRoutingModule), 
-      canActivate: [] 
+      canActivate: [LoginGuardian] 
     },  
     {  
       path: 'ventas', 
-      loadChildren: () => import('./modulos/ventas/ventas-routing.module').then((m) => m.VentasRoutingModule)
+      loadChildren: () => import('./modulos/ventas/ventas-routing.module').then((m) => m.VentasRoutingModule),
+      canActivate: [LoginGuardian]
     },  
   { 
     path: '**', 
