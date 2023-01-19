@@ -117,6 +117,15 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   }
 
 
+  setColor(estado: string) {
+    if (estado === 'Por revisar'){
+      return '#ffbeb5';
+    } else {
+      return '#fff1a8';
+    }
+  }
+
+
   irProveedores() {
     this.router.navigate(['administracion/AdminProveedores']);
   }
@@ -157,7 +166,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
         this.selectFecha = false; this.checkFecha = false;
         break;
 
-      case window.matchMedia('(max-width: 900px)').matches || event?.target?.innerWidth <= 900:
+      case window.matchMedia('(max-width: 920px)').matches || event?.target?.innerWidth <= 920:
         this.columnsToDisplay = ['ruc', 'nombre', 'email', 'accion'];
         this.selectRuc = true; this.checkRuc = false;
         this.selectNombre = true; this.checkNombre = false;
@@ -168,7 +177,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
         this.selectFecha = false; this.checkFecha = false;
         break;
 
-      case window.matchMedia('(max-width: 1000px)').matches || event?.target?.innerWidth <= 1000:
+      case window.matchMedia('(max-width: 1075px)').matches || event?.target?.innerWidth <= 1075:
         this.columnsToDisplay = ['ruc', 'nombre', 'email', 'telefono', 'accion'];
         this.selectRuc = true; this.checkRuc = false;
         this.selectNombre = true; this.checkNombre = false;
@@ -179,7 +188,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
         this.selectFecha = false; this.checkFecha = false;
         break;
 
-      case window.matchMedia('(max-width: 1134px)').matches || event?.target?.innerWidth <= 1134:
+      case window.matchMedia('(max-width: 1175px)').matches || event?.target?.innerWidth <= 1175:
         this.columnsToDisplay = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'accion'];
         this.selectRuc = true; this.checkRuc = false;
         this.selectNombre = true; this.checkNombre = false;
@@ -190,7 +199,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
         this.selectFecha = false; this.checkFecha = false;
         break;
       
-      case window.matchMedia('(max-width: 1250px)').matches || event?.target?.innerWidth <= 1250:
+      case window.matchMedia('(max-width: 1290px)').matches || event?.target?.innerWidth <= 1290:
         this.columnsToDisplay = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'accion'];
         this.selectRuc = true; this.checkRuc = false;
         this.selectNombre = true; this.checkNombre = false;
@@ -198,10 +207,10 @@ export class SolicitudProveedorAdminComponent implements OnInit {
         this.selectTelefono = true; this.checkTelefono = false;
         this.selectProvincia = true; this.checkProvincia = false;
         this.selectEstado = true; this.checkEstado = false;
-        this.selectFecha = true; this.checkFecha = false;
+        this.selectFecha = false; this.checkFecha = false;
         break;
 
-      case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth >= 1300:
+      case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth > 1280:
         this.columnsToDisplay = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'fechaEnvio', 'accion'];
         this.selectRuc = true; this.checkRuc = false;
         this.selectNombre = true; this.checkNombre = false;

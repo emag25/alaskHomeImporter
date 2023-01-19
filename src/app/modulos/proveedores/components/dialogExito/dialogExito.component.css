@@ -9,17 +9,18 @@
     align-items: center;
     gap: 10px;
     padding: 40px;
+    max-width: 400px;
 }
 
-h1 {
+h2 {
     font-weight: bold;
 }
 
 p {
-    font-size: 14pt;
+    font-size: 13pt;
 }
 
-h1, p {
+h2, p {
     text-align: center;
 }
 

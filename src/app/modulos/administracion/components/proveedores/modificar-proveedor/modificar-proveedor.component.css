@@ -7,7 +7,7 @@ form {
     grid-template-columns: 1fr 1fr;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    padding: 20px 40px 10px 40px;
     gap: 20px;
 }
 
@@ -22,7 +22,7 @@ form {
 
 mat-card {
     padding: 40px;
-    max-height: 600px;
+    max-height: 650px;
     overflow-y: auto;
 }
 

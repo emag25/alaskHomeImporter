@@ -17,7 +17,7 @@
         <h1>NUESTROS PROVEEDORES</h1>
         <div class="contenido-empresas">
             <div class="empresa" *ngFor="let proveedor of proveedores">
-                <img src="{{proveedor.logo}}" alt="proveedor.nombre">
+                <img src="{{proveedor.logo}}" alt="{{proveedor.nombre}}" onerror="this.onerror = null; this.src='https://static.vecteezy.com/system/resources/previews/005/720/273/non_2x/office-building-icon-two-point-perspective-buildings-illustration-isolated-on-white-background-free-vector.jpg'">
                 <span>{{proveedor.nombre}}</span>
             </div>
         </div>
