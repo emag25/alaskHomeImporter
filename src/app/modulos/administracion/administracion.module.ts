@@ -12,6 +12,7 @@ import { AgregarProveedorComponent } from './components/proveedores/agregar-prov
 import { ModificarProveedorComponent } from './components/proveedores/modificar-proveedor/modificar-proveedor.component';
 import { SolicitudProveedorAdminComponent } from './components/proveedores/solicitud-proveedor-admin/solicitud-proveedor-admin.component';
 import { ModificarProductoComponent } from './components/productos/modificar-producto/modificar-producto.component';
+import { AgregarProductoComponent } from './components/productos/agregar-producto/agregar-producto.component';
 
 
 
@@ -25,7 +26,8 @@ import { ModificarProductoComponent } from './components/productos/modificar-pro
     UsuariosAdministradorComponent,
     VentasAdministradorComponent,
     SolicitudProveedorAdminComponent,
-    ModificarProductoComponent
+    ModificarProductoComponent,
+    AgregarProductoComponent
   ],
   imports: [
     CommonModule,

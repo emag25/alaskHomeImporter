@@ -22,6 +22,7 @@ export class ModificarProductoComponent implements OnInit {
   proveedores: Proveedor[] = this.dataProveedores.getProveedores();
   imagen: string = this.data.producto.imagen;
   precio: number = this.data.producto.precio;
+  descripcion: string = this.data.producto.descripcion;
   stock: number = this.data.producto.stock;
   categoriaId: number = this.data.producto.categoriaId;
   proveedorId: number = this.data.producto.proveedorId;
@@ -94,10 +95,10 @@ export class ModificarProductoComponent implements OnInit {
 
   productoModificado = new FormGroup({
     id: new FormControl('', [Validators.required]),
-    nombre: new FormControl('', [Validators.required, Validators.maxLength(150), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*')]),
+    nombre: new FormControl('', [Validators.required]),
     imagen: new FormControl('', [Validators.required]),
     stock: new FormControl(0, [Validators.required, Validators.maxLength(10),  Validators.pattern('[0-9]*')]),
-    precio: new FormControl(0, [Validators.required, Validators.maxLength(10),  Validators.pattern('[0-9]*')]),
+    precio: new FormControl(0, [Validators.required, Validators.maxLength(10),  Validators.pattern('^[0-9]+(,[0-9]+)?$')]),
     proveedorId: new FormControl('', [Validators.required, ]),
     categoriaId: new FormControl('', [Validators.required, ]),
     cantidad: new FormControl(0, [Validators.required, ]),

@@ -61,6 +61,13 @@
       </mat-select>
       <mat-error *ngIf="productoModificado.controls['proveedorId'].hasError('required')">proveedor es requerida.</mat-error>
     </mat-form-field>
+    <div class="acciones">
+      <mat-form-field appearance="fill">
+        <mat-label>Descripcion</mat-label>
+        <textarea matInput formControlName="descripcion" cols="400" rows="8" style="resize: none;"></textarea>
+      </mat-form-field>
+      <mat-error *ngIf="productoModificado.controls['descripcion'].hasError('required')">proveedor es requerida.</mat-error>
+    </div>   
 
     <div class="acciones">
       <button mat-raised-button color="accent" [disabled]="!productoModificado.valid" (click)="onSubmit()">Aceptar</button>

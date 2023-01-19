@@ -22,6 +22,31 @@
   gap: 30px;
 }
 
+@media screen and (max-width: 700px) {
+  .contenedor-productos {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 30px;
+  }
+
+}
+@media screen and (max-width: 900px) and (min-width: 700px) {
+  .contenedor-productos {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+}
+@media screen and (max-width: 1200px) and (min-width: 900px) {
+  .contenedor-productos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+}
+
 .mat-button-toggle-group {
   border-radius: 15px;
   box-shadow: 0 10px 20px -12px rgb(0 0 0 / 42%), 0 3px 20px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
