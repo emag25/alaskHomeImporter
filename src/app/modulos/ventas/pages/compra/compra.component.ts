@@ -6,7 +6,6 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import { Provincia } from 'src/app/modulos/proveedores/core/models/provincia.model.ts';
 import { DataProvinciasService } from 'src/app/modulos/proveedores/core/services/dataProvincias.service';
-import { Usuario } from 'src/app/modulos/usuarios/core/models/usuario.model';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
 import { LoginService } from 'src/app/core/services/login.service';
 import { DataVentasService } from 'src/app/modulos/ventas/core/services/data-ventas.service'
@@ -119,7 +118,12 @@ export class CompraComponent {
     }
 
     onSubmit() {
-      this.dataVentas.setVentas({id: 3, cliente: this.usuario.nombre +' '+ this.usuario.apellido, email: this.usuario.email, telefono: this.usuario.telefono, provincia: this.usuario.provincia, direccion: this.usuario.direccion, productos: this.productos, total: this.total});
+      let ventas = this.dataVentas.getVentas();
+      let last = ventas[ventas.length-1];
+      let index = last.id;
+      console.log(last);
+      console.log('INDEX: ' + index);
+      this.dataVentas.setVentas({id: index+1, cliente: this.usuario.nombre +' '+ this.usuario.apellido, email: this.usuario.email, telefono: this.usuario.telefono, provincia: this.usuario.provincia, direccion: this.usuario.direccion, productos: this.productos, total: this.total});
 
       this.productos.forEach(product => {
         product.stock -= product.cantidad;

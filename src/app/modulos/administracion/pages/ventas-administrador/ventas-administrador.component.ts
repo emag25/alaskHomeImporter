@@ -29,10 +29,10 @@ export class VentasAdministradorComponent {
   nav: any;
 
   dataSource: any = [];  
-  displayedColumns: string[] = ['id', 'cliente', 'email', 'telefono', 'provincia', 'direccion', 'productos', 'accion'];
+  displayedColumns: string[] = ['id', 'cliente', 'email', 'telefono', 'provincia', 'direccion', 'productos', 'total', 'accion'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   selectFilter: string = 'RUC';
-  columnasFilter: string[] = ['ID', 'Cliente', 'Email', 'Teléfono', 'Provincia', 'Dirección', 'Productos'];
+  columnasFilter: string[] = ['ID', 'Cliente', 'Email', 'Teléfono', 'Provincia', 'Dirección', 'Total', 'Productos'];
   minDate = new Date(2000, 1, 1);
   maxDate = new Date(Date.now());
 
@@ -42,6 +42,8 @@ export class VentasAdministradorComponent {
   txtTelefono: FormControl = new FormControl('', Validators.pattern('[0-9]*'));
   txtProvincia: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
   txtDireccion: FormControl = new FormControl('');
+  txtTotal: FormControl = new FormControl('');
+
 
   checkID: boolean = false;
   checkCliente: boolean = false;
@@ -50,6 +52,7 @@ export class VentasAdministradorComponent {
   checkProvincia: boolean = false;
   checkDireccion: boolean = false;
   checkProductos: boolean = false;
+  checkTotal: boolean = false;
 
   selectID: boolean = true;
   selectCliente: boolean = true;
@@ -58,6 +61,7 @@ export class VentasAdministradorComponent {
   selectProvincia: boolean = true;
   selectDireccion: boolean = true;
   selectProductos: boolean = true;
+  selectTotal: boolean = true;
 
 
   constructor(private router: Router, private dialog: MatDialog, private dataVentas: DataVentasService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataProvincias: DataProvinciasService, private dataSolicitud: DataSolicitudProveedorService) {
@@ -107,7 +111,7 @@ export class VentasAdministradorComponent {
 
     switch (true) {
 
-      case window.matchMedia('(max-width: 600px)').matches || event?.target?.innerWidth <= 600:
+      case window.matchMedia('(max-width: 500px)').matches || event?.target?.innerWidth <= 500:
         this.columnsToDisplay = ['id', 'accion'];
         this.selectID = true; this.checkID = true;
         this.selectCliente = false; this.checkCliente = false;
@@ -116,9 +120,10 @@ export class VentasAdministradorComponent {
         this.selectProvincia = false; this.checkProvincia = false;
         this.selectDireccion = false; this.checkDireccion = false;
         this.selectProductos = false; this.checkProductos = false;
+        this.selectTotal = false; this.checkTotal = false;
         break;
       
-      case window.matchMedia('(max-width: 800px)').matches || event?.target?.innerWidth <= 800:
+      case window.matchMedia('(max-width: 650px)').matches || event?.target?.innerWidth <= 650:
         this.columnsToDisplay = ['id', 'cliente', 'accion'];
         this.selectID = true; this.checkID = false;
         this.selectCliente = true; this.checkCliente = false;
@@ -127,9 +132,10 @@ export class VentasAdministradorComponent {
         this.selectProvincia = false; this.checkProvincia = false;
         this.selectDireccion = false; this.checkDireccion = false;
         this.selectProductos = false; this.checkProductos = false;
+        this.selectTotal = false; this.checkTotal = false;
         break;
       
-      case window.matchMedia('(max-width: 900px)').matches || event?.target?.innerWidth <= 900:
+      case window.matchMedia('(max-width: 800px)').matches || event?.target?.innerWidth <= 800:
         this.columnsToDisplay = ['id', 'cliente', 'email', 'accion'];
         this.selectID = true; this.checkID = false;
         this.selectCliente = true; this.checkCliente = false;
@@ -138,6 +144,7 @@ export class VentasAdministradorComponent {
         this.selectProvincia = false; this.checkProvincia = false;
         this.selectDireccion = false; this.checkDireccion = false;
         this.selectProductos = false; this.checkProductos = false;
+        this.selectTotal = false; this.checkTotal = false;
         break;
       
       case window.matchMedia('(max-width: 1000px)').matches || event?.target?.innerWidth <= 1000:
@@ -149,6 +156,7 @@ export class VentasAdministradorComponent {
         this.selectProvincia = false; this.checkProvincia = false;
         this.selectDireccion = false; this.checkDireccion = false;
         this.selectProductos = false; this.checkProductos = false;
+        this.selectTotal = false; this.checkTotal = false;
         break;
       
       case window.matchMedia('(max-width: 1134px)').matches || event?.target?.innerWidth <= 1134:
@@ -159,10 +167,11 @@ export class VentasAdministradorComponent {
         this.selectTelefono = true; this.checkTelefono = false;
         this.selectProvincia = true; this.checkProvincia = false;
         this.selectDireccion = false; this.checkDireccion = false;    
-        this.selectProductos = false; this.checkProductos = false;    
+        this.selectProductos = false; this.checkProductos = false;
+        this.selectTotal = false; this.checkTotal = false;    
         break;
       
-      case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth <= 1134:
+      case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth <= 1300:
         this.columnsToDisplay = ['id', 'cliente', 'email', 'telefono', 'provincia', 'direccion', 'accion'];
         this.selectID = true; this.checkID = false;
         this.selectCliente = true; this.checkCliente = false;
@@ -171,9 +180,10 @@ export class VentasAdministradorComponent {
         this.selectProvincia = true; this.checkProvincia = false;
         this.selectDireccion = true; this.checkDireccion = false;
         this.selectProductos = false; this.checkProductos = false;
+        this.selectTotal = false; this.checkTotal = false;
         break;
 
-        case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth > 1300:
+        case window.matchMedia('(max-width: 1500px)').matches || event?.target?.innerWidth <= 1500:
         this.columnsToDisplay = ['id', 'cliente', 'email', 'telefono', 'provincia', 'direccion', 'productos', 'accion'];
         this.selectID = true; this.checkID = false;
         this.selectCliente = true; this.checkCliente = false;
@@ -182,10 +192,23 @@ export class VentasAdministradorComponent {
         this.selectProvincia = true; this.checkProvincia = false;
         this.selectDireccion = true; this.checkDireccion = false;
         this.selectProductos = true; this.checkProductos = false;
-        break;      
+        this.selectTotal = false; this.checkTotal = false;
+        break;
+        
+        case window.matchMedia('(max-width: 1500px)').matches || event?.target?.innerWidth > 1500:
+        this.columnsToDisplay = ['id', 'cliente', 'email', 'telefono', 'provincia', 'direccion', 'productos', 'total', 'accion'];
+        this.selectID = true; this.checkID = false;
+        this.selectCliente = true; this.checkCliente = false;
+        this.selectEmail = true; this.checkEmail = false;
+        this.selectTelefono = true; this.checkTelefono = false;
+        this.selectProvincia = true; this.checkProvincia = false;
+        this.selectDireccion = true; this.checkDireccion = false;
+        this.selectProductos = true; this.checkProductos = false;
+        this.selectTotal = true; this.checkTotal = false;
+        break;   
       
       default:
-        this.columnsToDisplay = ['id', 'cliente', 'email', 'telefono', 'provincia', 'direccion', 'productos', 'accion'];
+        this.columnsToDisplay = ['id', 'cliente', 'email', 'telefono', 'provincia', 'direccion', 'productos', 'total', 'accion'];
         this.selectID = true; this.checkID = false;
         this.selectCliente = true; this.checkCliente = false;
         this.selectEmail = true; this.checkEmail = false;
@@ -193,6 +216,7 @@ export class VentasAdministradorComponent {
         this.selectProvincia = true; this.checkProvincia = false;
         this.selectDireccion = true; this.checkDireccion = false;
         this.selectProductos = true; this.checkProductos = false;
+        this.selectTotal = true; this.checkTotal = false;
         break;
     }
   }
@@ -240,6 +264,7 @@ export class VentasAdministradorComponent {
       this.checkProvincia = false;
       this.checkDireccion = false;
       this.checkProductos = false;
+      this.checkTotal = false;
     }
   }
 
@@ -283,6 +308,9 @@ export class VentasAdministradorComponent {
       case 'productos':
         this.checkProductos = true;
         break;
+      case 'total':
+        this.checkProductos = true;
+        break;
       default:
         break;
     }
@@ -304,6 +332,7 @@ export class VentasAdministradorComponent {
     this.txtEmail.setValue('');
     this.txtDireccion.setValue('');
     this.txtProvincia.setValue('');
+    this.txtTotal.setValue('');
     this.dataSource.filter = '';
   }
 
@@ -351,6 +380,13 @@ export class VentasAdministradorComponent {
     this.dataSource.filter = this.txtDireccion.value.trim().toLowerCase();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
       return data.direccion.toLocaleLowerCase().includes(filter);      
+    }
+  }
+
+  filterByTotal() {
+    this.dataSource.filter = this.txtTotal.value.trim().toLowerCase();
+    this.dataSource.filterPredicate = function (data: any, filter: string) {
+      return data.total.toString().includes(filter);       
     }
   }
 }

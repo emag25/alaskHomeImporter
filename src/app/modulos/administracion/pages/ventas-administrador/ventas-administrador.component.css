@@ -80,7 +80,7 @@ button.btnSolicitud{
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
-    justify-content: end;
+    justify-content: flex-end;
     margin-bottom: -20px;
 }
 
