@@ -46,3 +46,7 @@ input {
     }
 
 }
+.btnEnviar:enabled {
+    background-color: rgb(3, 114, 148)!important;
+    color: white !important;
+}

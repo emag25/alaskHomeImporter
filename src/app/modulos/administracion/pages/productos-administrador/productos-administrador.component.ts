@@ -213,9 +213,9 @@ export class ProductosAdministradorComponent implements OnInit {
     switch (true) {
 
       case window.matchMedia('(max-width: 600px)').matches || event?.target?.innerWidth <= 600:
-        this.columnsToDisplay = ['id', 'accion'];
+        this.columnsToDisplay = ['id','nombre', 'accion'];
         this.selectId = true; this.checkId = true;
-        this.selectNombre = false; this.checkNombre = false;
+        this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = false; this.checkProveedor = false;
         this.selectImagen = false; this.checkImagen = false;
         this.selectPrecio = false; this.checkPrecio = false;
