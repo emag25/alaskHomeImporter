@@ -1,17 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './components/login/login.component';
 import { RegistroUsuarioComponent } from './components/registroUsuario/registroUsuario.component';
-import { UsuariosModule } from '../modulos/usuarios/usuarios.module';
-import { VentasModule } from '../modulos/ventas/ventas.module';
+import { UsuariosModule } from 'src/app/modulos/usuarios/usuarios.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    UsuariosModule,
-    VentasModule
+    UsuariosModule
   ],
   declarations: [
     LoginComponent,

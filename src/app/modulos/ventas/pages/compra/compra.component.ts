@@ -4,17 +4,16 @@ import {BreakpointObserver} from '@angular/cdk/layout';
 import {StepperOrientation} from '@angular/material/stepper';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import { Provincia } from 'src/app/modulos/proveedores/core/models/provincia.model.ts';
-import { DataProvinciasService } from 'src/app/modulos/proveedores/core/services/dataProvincias.service';
-import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
-import { LoginService } from 'src/app/core/services/login.service';
-import { DataVentasService } from 'src/app/modulos/ventas/core/services/data-ventas.service'
-import { DataProductosService } from 'src/app/modulos/productos/core/services/dataProductos.service';
-import { Producto } from 'src/app/modulos/productos/core/models/producto.model';
-import { Router } from '@angular/router';
-import { ListenerService } from 'src/app/core/services/listener.service';
+import { Provincia } from 'src/app/modulos/proveedores/models/provincia.model.ts';
+import { Producto } from 'src/app/modulos/productos/models/producto.model';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogExitoComponent } from '../../components/dialog-exito/dialog-exito.component';
+import { DataProductosService } from 'src/app/modulos/productos/services/dataProductos.service';
+import { DataProvinciasService } from 'src/app/modulos/proveedores/services/dataProvincias.service';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { ListenerService } from 'src/app/shared/services/listener.service';
+import { LoginService } from 'src/app/shared/services/login.service';
+import { DataVentasService } from '../../services/data-ventas.service';
 
 @Component({
   selector: 'app-compra',
@@ -47,7 +46,6 @@ export class CompraComponent {
     private dataUsuario: DataUsuariosService,
     private dataVentas: DataVentasService,
     private dataProductos: DataProductosService,
-    private router: Router,
     private listener: ListenerService,
     private dialog: MatDialog
     ) {

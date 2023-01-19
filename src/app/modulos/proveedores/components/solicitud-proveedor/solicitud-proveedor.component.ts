@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Provincia } from '../../core/models/provincia.model.ts';
-import { SolicitudProveedor } from '../../core/models/solicitudProveedor';
-import { DataProvinciasService } from '../../core/services/dataProvincias.service';
-import { DataSolicitudProveedorService } from '../../core/services/dataSolicitudProveedor.service';
+import { Provincia } from '../../models/provincia.model.ts';
+import { SolicitudProveedor } from '../../models/solicitudProveedor';
+import { DataProvinciasService } from '../../services/dataProvincias.service';
+import { DataSolicitudProveedorService } from '../../services/dataSolicitudProveedor.service';
 import { DialogExitoComponent } from '../dialogExito/dialogExito.component';
 
 @Component({

@@ -5,16 +5,16 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ModificarProductoComponent } from '../../components/productos/modificar-producto/modificar-producto.component';
 import { AgregarProductoComponent } from '../../components/productos/agregar-producto/agregar-producto.component';
-import { DataUsuariosService } from './../../../usuarios/core/services/dataUsuarios.service';
-import { LoginService } from './../../../../core/services/login.service';
-import { DataProductosService } from 'src/app/modulos/productos/core/services/dataProductos.service';
-import { Producto } from 'src/app/modulos/productos/core/models/producto.model';
-import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
-import { DataProveedoresService } from 'src/app/modulos/proveedores/core/services/dataProveedores.service';
+import { Producto } from 'src/app/modulos/productos/models/producto.model';
+import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
 import { MatSort } from '@angular/material/sort';
 import { FormControl, Validators } from '@angular/forms';
-import { Categoria } from 'src/app/modulos/productos/core/models/categoria.model';
-import { DataCategoriasService } from 'src/app/modulos/productos/core/services/dataCategorias.service';
+import { Categoria } from 'src/app/modulos/productos/models/categoria.model';
+import { DataCategoriasService } from 'src/app/modulos/productos/services/dataCategorias.service';
+import { DataProductosService } from 'src/app/modulos/productos/services/dataProductos.service';
+import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
   selector: 'app-productos-administrador',
@@ -25,7 +25,6 @@ export class ProductosAdministradorComponent implements OnInit {
 
   active: boolean = this.loginService.getActive();
   rol: number = 0;
-  
   
   categorias: Categoria[] = this.dataCategorias.getCategorias();  
   categoriaMostrar: any =[];
@@ -43,16 +42,10 @@ export class ProductosAdministradorComponent implements OnInit {
   selectFilter: string = 'Id';
   columnasFilter: string[] = ['Id', 'Nombre','Categoria', 'Proveedor', 'Imagen', 'Precio','Stock'];
 
-
   minDate = new Date(2000, 1, 1);
   maxDate = new Date(Date.now());
       
-    // categoriaId: number;
-    // proveedorId: number;    
-    // cantidad: number;    
-    // carrito: boolean;
-    // fav: boolean;
-    txtProveedor: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
+  txtProveedor: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
   txtCategoria: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
   txtId: FormControl = new FormControl('', Validators.pattern('[0-9]*'));
   txtNombre: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));  
@@ -60,7 +53,6 @@ export class ProductosAdministradorComponent implements OnInit {
   txtPrecio: FormControl = new FormControl('', Validators.pattern('[0-9,]+[^.]'));
   txtStock: FormControl = new FormControl('', Validators.pattern('[0-9]*'));
   
-
   checkId: boolean = false;  
   checkNombre: boolean = false;
   checkProveedor: boolean = false;
@@ -85,7 +77,7 @@ export class ProductosAdministradorComponent implements OnInit {
 
   
   ngOnInit(): void {
-    // const categoriasProvicional: Categoria[] = this.dataCategorias.getCategorias();      
+    
     this.onResize('');
     this.dataSource = new MatTableDataSource<Producto>(this.dataProductos.getProductos());        
     
@@ -503,6 +495,7 @@ export class ProductosAdministradorComponent implements OnInit {
           this.categoriaMostrarId.push(nombre?.id);
         }
   }
+  
   getProveedores(){
     this.proveedorMostrar.length = this.proveedorMostrar.length-this.proveedorMostrar.length;
         for(let i = 0; i<this.dataSource.filteredData.length;i++){      

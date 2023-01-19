@@ -1,12 +1,12 @@
-import { Component, Renderer2,ElementRef, Input } from '@angular/core';
+import { Component, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataCategoriasService } from './../../core/services/dataCategorias.service';
-import { DataProductosService } from './../../core/services/dataProductos.service';
-import { LoginService } from '../../../../core/services/login.service';
 import { ActivatedRoute } from '@angular/router';
 import { DescripcionComponent } from './../../components/descripcion/descripcion.component';
 import { MatDialog } from '@angular/material/dialog';
-import {ViewChild} from '@angular/core';
+import { ViewChild } from '@angular/core';
+import { LoginService } from 'src/app/shared/services/login.service';
+import { DataCategoriasService } from '../../services/dataCategorias.service';
+import { DataProductosService } from '../../services/dataProductos.service';
 
 
 @Component({
@@ -17,48 +17,48 @@ import {ViewChild} from '@angular/core';
 export class ProductosComponent {
   @ViewChild('categoriaSelec') categoriaSelec: ElementRef | undefined;
   showProductDetail = false;
-  productId:string | null= null
-  valor='0';
-    
+  productId: string | null = null
+  valor = '0';
+
 
   protected active: boolean = this.loginService.getActive();
   protected productos = this.dataProductos.getProductos();
   protected categorias = this.dataCategorias.getCategorias();
 
-  constructor(private renderer:Renderer2,private dialog:MatDialog, private route: ActivatedRoute, private router: Router, private dataProductos: DataProductosService, private dataCategorias: DataCategoriasService, protected loginService: LoginService) {
-    
+  constructor(private dialog: MatDialog, private route: ActivatedRoute, private router: Router, private dataProductos: DataProductosService, private dataCategorias: DataCategoriasService, protected loginService: LoginService) {
+
   }
-  category:string | null= null;
+  category: string | null = null;
   public selectedVal: string = '0';
 
 
   ngOnInit() {
-    this.route.queryParamMap.subscribe(params => {      
-      this.productId = params.get('producto');     
-      this.category = params.get('categoria');   
-             
+    this.route.queryParamMap.subscribe(params => {
+      this.productId = params.get('producto');
+      this.category = params.get('categoria');
+
       if (this.productId) {
         this.onShowDetail(this.productId);
-      }  
+      }
 
-      if (this.category != null) {              
+      if (this.category != null) {
         const elementoGeneral: any = document.getElementById('rol');
-        for(let i = 0; i < elementoGeneral.children.length; i++){
+        for (let i = 0; i < elementoGeneral.children.length; i++) {
           const elemento3: any = document.getElementById(`${i}-but`);
           elemento3.checked = false;
         }
-        const elemento: any = document.getElementById(`${this.category}-but`);        
-        elemento.checked = true;     
-                           
-      }if(this.category == null){
+        const elemento: any = document.getElementById(`${this.category}-but`);
+        elemento.checked = true;
+
+      } if (this.category == null) {
         const elementoGeneral: any | null = document.getElementById('rol');
-        for(let i = 0; i < elementoGeneral.children.length; i++){
+        for (let i = 0; i < elementoGeneral.children.length; i++) {
           const elemento3: any | null = document.getElementById(`${i}-but`);
           elemento3.checked = false;
         }
         const elemento: any | null = document.getElementById('0-but');
-        elemento.checked = true;                  
-      }   
+        elemento.checked = true;
+      }
     })
   }
 
@@ -69,23 +69,23 @@ export class ProductosComponent {
   irAgregar() {
     this.router.navigate(['/productos-agregar']);
   }
-  
+
   clasificarProductos(categoria: number) {
     this.productos = this.dataProductos.findProductosbyCategoria(categoria);
   }
-  
+
   productChosen: any;
 
-  onShowDetail(id: string) {        
-    
+  onShowDetail(id: string) {
+
     this.showProductDetail = true;
-    
+
     this.productChosen = this.dataProductos.findProductobyID(id);
     this.openDialogSesion();
-    
+
 
   }
-  openDialogSesion(): void {        
+  openDialogSesion(): void {
     this.dialog.open(DescripcionComponent, { disableClose: true, width: '700px' }).componentInstance.id = this.productId;
   }
 

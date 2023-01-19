@@ -66,8 +66,8 @@
       <mat-label>Provincia</mat-label>
       <mat-error *ngIf="registro.controls['provincia'].hasError('required')">Provincia es requerida.</mat-error>
       <mat-select formControlName="provincia">
-        <mat-option *ngFor="let provincia of provincias" [value]="provincia.value">
-          {{provincia.viewValue}}
+        <mat-option *ngFor="let provincia of provincias" [value]="provincia.nombre">
+          {{provincia.nombre}}
         </mat-option>
       </mat-select>
     </mat-form-field>

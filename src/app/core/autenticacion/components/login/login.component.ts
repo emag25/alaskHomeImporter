@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LoginService } from '../../../core/services/login.service';
 import { RegistroUsuarioComponent } from '../registroUsuario/registroUsuario.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LoginService } from 'src/app/shared/services/login.service';
 
 
 @Component({
@@ -39,7 +39,7 @@ export class LoginComponent {
     if (this.loginService.login(txtemail, txtcontrasena)) {
 
       this.dialogRef.close();
-      window.open('/productos', '_self');
+      window.open('/inicio', '_self');
 
     } else {
 

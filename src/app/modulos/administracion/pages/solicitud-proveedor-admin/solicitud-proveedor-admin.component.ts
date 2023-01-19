@@ -5,15 +5,15 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/core/services/login.service';
-import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
-import { Provincia } from 'src/app/modulos/proveedores/core/models/provincia.model.ts';
-import { SolicitudProveedor } from 'src/app/modulos/proveedores/core/models/solicitudProveedor';
-import { DataProveedoresService } from 'src/app/modulos/proveedores/core/services/dataProveedores.service';
-import { DataProvinciasService } from 'src/app/modulos/proveedores/core/services/dataProvincias.service';
-import { DataSolicitudProveedorService } from 'src/app/modulos/proveedores/core/services/dataSolicitudProveedor.service';
-import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
-import { ModificarSolicitudComponent } from '../modificar-solicitud/modificar-solicitud.component';
+import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
+import { Provincia } from 'src/app/modulos/proveedores/models/provincia.model.ts';
+import { SolicitudProveedor } from 'src/app/modulos/proveedores/models/solicitudProveedor';
+import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
+import { DataProvinciasService } from 'src/app/modulos/proveedores/services/dataProvincias.service';
+import { DataSolicitudProveedorService } from 'src/app/modulos/proveedores/services/dataSolicitudProveedor.service';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { LoginService } from 'src/app/shared/services/login.service';
+import { ModificarSolicitudComponent } from '../../components/proveedores/modificar-solicitud/modificar-solicitud.component';
 
 @Component({
   selector: 'app-solicitud-proveedor-admin',

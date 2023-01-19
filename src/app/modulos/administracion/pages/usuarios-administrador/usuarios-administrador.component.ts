@@ -3,14 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { LoginService } from './../../../../core/services/login.service';
-import { DataUsuariosService } from './../../../usuarios/core/services/dataUsuarios.service';
-import { Usuario } from 'src/app/modulos/usuarios/core/models/usuario.model';
+import { Usuario } from 'src/app/modulos/usuarios/models/usuario.model';
 import { ModificarUsuarioComponent } from '../../components/usuarios/modificar-usuario/modificar-usuario.component';
 import { FormControl, Validators } from '@angular/forms';
-import { Provincia } from 'src/app/modulos/proveedores/core/models/provincia.model.ts';
-import { DataProvinciasService } from 'src/app/modulos/proveedores/core/services/dataProvincias.service';
+import { Provincia } from 'src/app/modulos/proveedores/models/provincia.model.ts';
 import { MatSort } from '@angular/material/sort';
+import { DataProvinciasService } from 'src/app/modulos/proveedores/services/dataProvincias.service';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { LoginService } from 'src/app/shared/services/login.service';
 
 
 @Component({
@@ -394,15 +394,10 @@ export class UsuariosAdministradorComponent {
 
   convertir(rol: string) {
     if (rol === "1") {
-
       return "Cliente"
     } else {
-
       return "Administrador"
     }
-
   }
-
-
 
 }

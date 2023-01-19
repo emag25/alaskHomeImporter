@@ -23,6 +23,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   imports: [
@@ -49,7 +50,8 @@ import { MatListModule } from '@angular/material/list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatListModule
+    MatListModule,
+    MatStepperModule
   ],
   declarations: [],
   exports: [
@@ -76,7 +78,8 @@ import { MatListModule } from '@angular/material/list';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    MatListModule
+    MatListModule,
+    MatStepperModule
   ]
 })
 export class AngularMaterialsModule { }

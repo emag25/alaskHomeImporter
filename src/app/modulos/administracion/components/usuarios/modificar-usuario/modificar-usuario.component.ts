@@ -2,12 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
-import { Usuario } from 'src/app/modulos/usuarios/core/models/usuario.model';
-import { MatCard, MatCardTitle } from '@angular/material/card';
-import { Data } from '@angular/router';
-import { MatLabel } from '@angular/material/form-field';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
+import { Usuario } from 'src/app/modulos/usuarios/models/usuario.model';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
 
 
 @Component({

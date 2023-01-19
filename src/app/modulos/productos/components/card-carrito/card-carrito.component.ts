@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ListenerService } from 'src/app/core/services/listener.service';
-import { LoginService } from 'src/app/core/services/login.service';
-import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
-
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { ListenerService } from 'src/app/shared/services/listener.service';
+import { LoginService } from 'src/app/shared/services/login.service';
 @Component({
   selector: 'app-card-carrito',
   templateUrl: './card-carrito.component.html',

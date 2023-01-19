@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SolicitudProveedorComponent } from '../../components/solicitud-proveedor/solicitud-proveedor.component';
-import { DataProveedoresService } from '../../core/services/dataProveedores.service';
+import { DataProveedoresService } from '../../services/dataProveedores.service';
 
 @Component({
   selector: 'app-proveedores',

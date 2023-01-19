@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SolicitudProveedorAdminComponent } from './components/proveedores/solicitud-proveedor-admin/solicitud-proveedor-admin.component';
+import { SolicitudProveedorAdminComponent } from './pages/solicitud-proveedor-admin/solicitud-proveedor-admin.component';
 import { AdministracionComponent } from './pages/administracion/administracion.component';
 import { ProductosAdministradorComponent } from './pages/productos-administrador/productos-administrador.component';
 import { ProveedoresAdministradorComponent } from './pages/proveedores-administrador/proveedores-administrador.component';

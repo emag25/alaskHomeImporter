@@ -1,12 +1,12 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataProductosService } from '../../core/services/dataProductos.service';
-import { ListenerService } from 'src/app/core/services/listener.service';
-import { Producto } from './../../core/models/producto.model';
-import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
-import { LoginComponent } from 'src/app/autenticacion/components/login/login.component';
+import { Producto } from '../../models/producto.model';
 import { MatDialog } from '@angular/material/dialog';
-import { LoginService } from 'src/app/core/services/login.service';
+import { LoginComponent } from 'src/app/core/autenticacion/components/login/login.component';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { ListenerService } from 'src/app/shared/services/listener.service';
+import { LoginService } from 'src/app/shared/services/login.service';
+import { DataProductosService } from '../../services/dataProductos.service';
 
 
 @Component({

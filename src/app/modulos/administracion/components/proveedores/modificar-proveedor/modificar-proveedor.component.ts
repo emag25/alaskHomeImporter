@@ -2,9 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
-import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
-import { Provincia } from 'src/app/modulos/proveedores/core/models/provincia.model.ts';
-import { DataProvinciasService } from 'src/app/modulos/proveedores/core/services/dataProvincias.service';
+import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
+import { Provincia } from 'src/app/modulos/proveedores/models/provincia.model.ts';
+import { DataProvinciasService } from 'src/app/modulos/proveedores/services/dataProvincias.service';
 
 @Component({
   selector: 'app-modificar-proveedor',

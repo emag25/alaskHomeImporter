@@ -5,16 +5,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { LoginService } from 'src/app/core/services/login.service';
-import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
-import { Provincia } from 'src/app/modulos/proveedores/core/models/provincia.model.ts';
-import { DataVentasService } from 'src/app/modulos/ventas/core/services/data-ventas.service';
-import { DataProvinciasService } from 'src/app/modulos/proveedores/core/services/dataProvincias.service';
-import { DataSolicitudProveedorService } from 'src/app/modulos/proveedores/core/services/dataSolicitudProveedor.service';
-import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
+import { Provincia } from 'src/app/modulos/proveedores/models/provincia.model.ts';
 import { ModificarProveedorComponent } from '../../components/proveedores/modificar-proveedor/modificar-proveedor.component';
-import { Venta } from 'src/app/modulos/ventas/core/models/venta.model';
-import { Producto } from 'src/app/modulos/productos/core/models/producto.model';
+import { Venta } from 'src/app/modulos/ventas/models/venta.model';
+import { DataProvinciasService } from 'src/app/modulos/proveedores/services/dataProvincias.service';
+import { DataSolicitudProveedorService } from 'src/app/modulos/proveedores/services/dataSolicitudProveedor.service';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { DataVentasService } from 'src/app/modulos/ventas/services/data-ventas.service';
+import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
   selector: 'app-ventas-administrador',

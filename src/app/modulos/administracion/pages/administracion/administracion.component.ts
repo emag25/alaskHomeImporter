@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataUsuariosService } from '../../../../modulos/usuarios/core/services/dataUsuarios.service';
-import { LoginService } from '../../../../core/services/login.service';
-import { DataProductosService } from 'src/app/modulos/productos/core/services/dataProductos.service';
-import { DataProveedoresService } from 'src/app/modulos/proveedores/core/services/dataProveedores.service';
+import { DataProductosService } from 'src/app/modulos/productos/services/dataProductos.service';
+import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
   selector: 'app-administracion',

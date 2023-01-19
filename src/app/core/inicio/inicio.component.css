@@ -2,7 +2,7 @@
     height: calc(100vh - 64px);
     background-size: 100% 100%;
     background-repeat:no-repeat;
-    background-image: url(../../assets/img/Fondo5.jpg);
+    background-image: url(../../../assets/img/televisor.png);
     background-size: cover;
     background-position: center;
     /* margin-top: -64px; */

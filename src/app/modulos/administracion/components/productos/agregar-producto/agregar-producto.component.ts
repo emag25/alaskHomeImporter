@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
-import { Categoria } from 'src/app/modulos/productos/core/models/categoria.model';
-import { DataCategoriasService } from 'src/app/modulos/productos/core/services/dataCategorias.service';
-import { Proveedor } from 'src/app/modulos/proveedores/core/models/proveedor.model';
-import { DataProveedoresService } from 'src/app/modulos/proveedores/core/services/dataProveedores.service';
+import { Categoria } from 'src/app/modulos/productos/models/categoria.model';
+import { DataCategoriasService } from 'src/app/modulos/productos/services/dataCategorias.service';
+import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
+import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
 
 @Component({
   selector: 'app-agregar-producto',

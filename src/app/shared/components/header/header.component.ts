@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ListenerService } from '../core/services/listener.service';
-import { LoginService } from '../core/services/login.service';
-import { LoginComponent } from '../autenticacion/components/login/login.component';
-import { DataUsuariosService } from '../modulos/usuarios/core/services/dataUsuarios.service';
+import { LoginComponent } from 'src/app/core/autenticacion/components/login/login.component';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { ListenerService } from '../../services/listener.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-header',
