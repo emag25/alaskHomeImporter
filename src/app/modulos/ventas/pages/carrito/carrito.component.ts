@@ -44,10 +44,13 @@ export class CarritoComponent {
 
     this.productos.forEach(product => {
       this.subtotal += product.cantidad * product.precio;
+      this.subtotal = parseFloat(this.subtotal.toFixed(2));
     });
 
     this.iva = this.subtotal * 0.12;
+    this.iva = parseFloat(this.iva.toFixed(2));
     this.total = this.subtotal + this.iva;
+    this.total = parseFloat(this.total.toFixed(2));
   }
 
   deleteProducto(id: string) {
@@ -58,8 +61,11 @@ export class CarritoComponent {
       this.productos.splice(index, 1);
       this.carrito.splice(index, 1);
       this.subtotal -= obj.precio * obj.cantidad;
+      this.subtotal = parseFloat(this.subtotal.toFixed(2));
       this.iva = this.subtotal * 0.12;
+      this.iva = parseFloat(this.iva.toFixed(2));
       this.total = this.subtotal + this.iva;
+      this.total = parseFloat(this.total.toFixed(2));
       obj.cantidad = 1;
       this.listener.restMatBadge(this.listener.getMatBadge());
       obj.carrito = false;
@@ -81,8 +87,11 @@ export class CarritoComponent {
     if(this.producto.cantidad < this.producto.stock) {
       this.producto.cantidad += 1;
       this.subtotal += this.producto.precio;
+      this.subtotal = parseFloat(this.subtotal.toFixed(2));
       this.iva = this.subtotal * 0.12;
+      this.iva = parseFloat(this.iva.toFixed(2));
       this.total = this.subtotal + this.iva;
+      this.total = parseFloat(this.total.toFixed(2));
     }
   }
 
@@ -93,8 +102,11 @@ export class CarritoComponent {
     if(this.producto.cantidad > 1) {
       this.producto.cantidad -= 1;
       this.subtotal -= this.producto.precio;
+      this.subtotal = parseFloat(this.subtotal.toFixed(2));
       this.iva = this.subtotal * 0.12;
+      this.iva = parseFloat(this.iva.toFixed(2));
       this.total = this.subtotal + this.iva;
+      this.total = parseFloat(this.total.toFixed(2));
     }
   }
 
