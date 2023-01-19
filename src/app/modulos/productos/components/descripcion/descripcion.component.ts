@@ -20,11 +20,13 @@ export class DescripcionComponent implements OnInit{
   carritoMB = 0;
   iconCarrito = "_shopping_cart";
   active: boolean = this.loginService.getActive();
-  activador=false;
+  activador = false;
+  idUsuario = 0;
 
   constructor(private DataUsuario:DataUsuariosService, private dialog:MatDialog,private loginService: LoginService,private dialogRef:MatDialogRef<DescripcionComponent>, private dataProductosService:DataProductosService,private listener:ListenerService){
   }  
   ngOnInit(): void {
+    this.idUsuario = this.loginService.getLoggedUserId();
     this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
     if(this.id){
       if(this.dataProductosService.findProductobyID(this.id)){
@@ -55,7 +57,7 @@ export class DescripcionComponent implements OnInit{
 
   addCarrito() {
     this.listener.addMatBadge(this.listener.getMatBadge());
-    this.DataUsuario.addCarrito(1, {id: parseInt(this.producto.id), cantidad: this.producto.cantidad, precio: this.producto.precio, total: this.producto.precio * this.producto.cantidad})
+    this.DataUsuario.addCarrito(this.idUsuario, { id: parseInt(this.producto.id) })
 
   }
   removeCarrito() {

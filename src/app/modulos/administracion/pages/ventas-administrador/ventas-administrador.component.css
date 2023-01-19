@@ -1,0 +1,133 @@
+.contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding: 60px 40px;
+}
+
+.contenedor-tabla{
+    width: 100%; 
+    overflow-x: auto;
+    padding: 5px;
+    margin-top: -5px;
+    margin-left: -5px;
+}
+
+h1 {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25pt;
+}
+
+td {
+    min-width: 130px;  
+}
+
+th {
+    background-color: #2C642C !important; 
+    color: white;
+}
+
+tr:hover {
+    background-color: rgb(230, 230, 230) !important;
+}
+
+.td-notFound{
+    text-align: center;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.delete{
+    color: black;
+}
+
+.edit{
+    color: rgb(6, 6, 132);
+}
+
+.contenido-managerTable{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.contenedor-selectColumns{
+    display: flex;
+    align-items: center;
+    margin-top: -20px;
+}
+
+.contenedor-selectColumns button, .btnSolicitud{
+    height: 56px;
+}
+
+button.btnSolicitud{
+    background-color: #E45D4C;
+    color: white;
+}
+
+.contenedor-filter{    
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.contenedor-managerTable{
+    width: 100%;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    margin-bottom: -20px;
+}
+
+mat-menu{
+    width: 500px;
+}
+
+
+@media screen and (max-width: 710px){
+
+    .contenedor-principal{
+        padding: 30px;
+    }        
+
+    .contenedor-managerTable{
+        justify-content: right;
+    }
+
+    .contenido-managerTable{
+        flex-direction: column;
+        justify-content: left;
+        align-items: flex-end;
+    }
+    
+}
+
+
+@media screen and (max-width: 520px){
+    
+    .contenedor-managerTable {
+        justify-content: center;
+    }
+
+    .contenido-managerTable{
+        align-items: center;
+    }
+        
+}
+
+
+@media screen and (max-width: 490px){
+    .contenedor-filter {
+        gap: 10px;
+    }
+    
+}
+
+p {
+    margin: 0;
+}

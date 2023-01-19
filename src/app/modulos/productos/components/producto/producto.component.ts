@@ -44,11 +44,20 @@ export class ProductoComponent {
   // Variables de favoritos
   favoritoMB = 0;
 
-  constructor(private dialog:MatDialog,private loginService: LoginService,private dataProductos:DataProductosService, private router:Router, private listener:ListenerService, private DataUsuario: DataUsuariosService) { }
+  idUsuario = 0;
+  constructor(
+    private dialog: MatDialog,
+    private loginService: LoginService,
+    private dataProductos: DataProductosService,
+    private router: Router,
+    private listener: ListenerService,
+    private DataUsuario: DataUsuariosService
+  ) { }
 
   ngOnInit() {
     this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
     this.listener.customFavoritoMB.subscribe(favoritoMB => this.favoritoMB = favoritoMB);
+    this.idUsuario = this.loginService.getLoggedUserId();
   }
 
   irEditar(id: number) {
@@ -75,13 +84,13 @@ export class ProductoComponent {
 
   addCarrito() {
     this.listener.addMatBadge(this.listener.getMatBadge());
-    this.DataUsuario.addCarrito(1, {id: parseInt(this.producto.id), cantidad: this.producto.cantidad, precio: this.producto.precio, total: this.producto.precio * this.producto.cantidad})
+    this.DataUsuario.addCarrito(this.idUsuario, {id: parseInt(this.producto.id)})
 
   }
 
   removeCarrito() {
     this.listener.restMatBadge(this.listener.getMatBadge());
-    this.DataUsuario.removeCarrito(1, parseInt(this.producto.id));
+    this.DataUsuario.removeCarrito(this.idUsuario, parseInt(this.producto.id));
   }
 
   // Controlador de agregar o eliminar favorito
@@ -100,13 +109,13 @@ export class ProductoComponent {
   // Agregar favorito
   addFavorito() {
     this.listener.addFavoritoMB(this.listener.getFavoritoMB());
-    this.DataUsuario.addFavorito(1, {id: parseInt(this.producto.id)})
+    this.DataUsuario.addFavorito(this.idUsuario, {id: parseInt(this.producto.id)})
   }
 
   // Eliminar favorito
   removeFavorito() {
     this.listener.removeFavoritoMB(this.listener.getFavoritoMB());
-    this.DataUsuario.removeFavorito(1, parseInt(this.producto.id));
+    this.DataUsuario.removeFavorito(this.idUsuario, parseInt(this.producto.id));
   }
 
   openDialogSesion(): void {

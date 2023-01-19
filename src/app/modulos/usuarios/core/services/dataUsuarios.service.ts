@@ -113,9 +113,12 @@ export class DataUsuariosService {
     this.carro = this.item.carrito.find((idCarrito: { id: number; }) => idCarrito.id == idCarro);
 
     if(this.carro !== undefined) {
-      let index = this.item.carrito.indexOf(idCarro);
-      this.item.carrito.splice(index-1, 1);
+      let index = this.item.carrito.indexOf(this.carro);
+      this.item.carrito.splice(index, 1);
     }
+
+    console.log("ITEM REMOVIDO:");
+    console.log(this.item.carrito);
   }
 
   addFavorito(id: number, favorito: Favorito) {

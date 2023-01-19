@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ListenerService } from 'src/app/core/services/listener.service';
+import { LoginService } from 'src/app/core/services/login.service';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
 
 @Component({
@@ -16,14 +17,17 @@ export class CardCarritoComponent {
   iconCarrito = "_shopping_cart";
 
   favoritoMB = 0;
+  idUsuario = 0;
 
   constructor(
     private listener: ListenerService,
-    private DataUsuario: DataUsuariosService
+    private DataUsuario: DataUsuariosService,
+    private login: LoginService
   ) {}
 
   ngOnInit() {
     this.listener.customMatBadge.subscribe(carritoMB => this.favoritoMB = carritoMB);
+    this.idUsuario = this.login.getLoggedUserId();
   }
 
   eliminarProducto(id: number) {
@@ -43,13 +47,13 @@ export class CardCarritoComponent {
 
   addCarrito() {
     this.listener.addMatBadge(this.listener.getMatBadge());
-    this.DataUsuario.addCarrito(1, {id: parseInt(this.producto.id), cantidad: this.producto.cantidad, precio: this.producto.precio, total: this.producto.precio * this.producto.cantidad})
+    this.DataUsuario.addCarrito(this.idUsuario, {id: parseInt(this.producto.id)})
 
   }
 
   removeCarrito() {
     this.listener.restMatBadge(this.listener.getMatBadge());
-    this.DataUsuario.removeCarrito(1, parseInt(this.producto.id));
+    this.DataUsuario.removeCarrito(this.idUsuario, parseInt(this.producto.id));
   }
 
 }

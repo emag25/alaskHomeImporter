@@ -41,17 +41,14 @@ export class ProductosComponent {
         this.onShowDetail(this.productId);
       }  
 
-      if (this.category != null) {                
-        console.log(this.category);              
+      if (this.category != null) {              
         const elementoGeneral: any = document.getElementById('rol');
         for(let i = 0; i < elementoGeneral.children.length; i++){
           const elemento3: any = document.getElementById(`${i}-but`);
           elemento3.checked = false;
         }
-        console.log(elementoGeneral.children);
         const elemento: any = document.getElementById(`${this.category}-but`);        
-        elemento.checked = true;
-        console.log(elemento.checked);                
+        elemento.checked = true;     
                            
       }if(this.category == null){
         const elementoGeneral: any | null = document.getElementById('rol');
@@ -60,8 +57,7 @@ export class ProductosComponent {
           elemento3.checked = false;
         }
         const elemento: any | null = document.getElementById('0-but');
-        elemento.checked = true;
-        console.log(elemento.checked);                        
+        elemento.checked = true;                  
       }   
     })
   }
@@ -71,7 +67,7 @@ export class ProductosComponent {
   }
 
   irAgregar() {
-    this.router.navigate(['/productos-agregar']);  // componente no creado aun
+    this.router.navigate(['/productos-agregar']);
   }
   
   clasificarProductos(categoria: number) {

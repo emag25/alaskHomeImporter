@@ -29,9 +29,6 @@ export class Usuario {
 
 export interface Carrito {
     id: number;
-    cantidad: number;
-    precio: number;
-    total: number;
 }
 
 export interface Favorito {
