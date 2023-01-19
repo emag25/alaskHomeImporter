@@ -24,6 +24,8 @@ export class ModificarUsuarioComponent implements OnInit {
   telefono: string = this.data.usuario.telefono;
   direccion: string = this.data.usuario.direccion;
 
+  
+
 
   constructor(private router: Router, private dialogRef: MatDialogRef<ModificarUsuarioComponent>, @Inject(MAT_DIALOG_DATA) public data: { usuario: Usuario },private dataUsuarios: DataUsuariosService) {
     this.usuarioModificado.setValue({
@@ -39,8 +41,7 @@ export class ModificarUsuarioComponent implements OnInit {
   usuarioModificado = new FormGroup({
     apellido: new FormControl('', [Validators.required, Validators.maxLength(150),Validators.pattern('[a-zA-Z ]*')]),
     nombre: new FormControl('', [Validators.required, Validators.maxLength(150), Validators.pattern('[a-zA-Z ]*')]),
-    rol: new FormControl('', [Validators.required])
-
+    rol: new FormControl('', [ Validators.required]),
 
   });
 
@@ -49,18 +50,20 @@ export class ModificarUsuarioComponent implements OnInit {
     let objToSend: NavigationExtras = {
       queryParams: {
         id: this.data.usuario.id,
-        rol: this.usuarioModificado.value.rol,
         nombre: this.usuarioModificado.value.nombre,
         apellido: this.usuarioModificado.value.apellido,
         email: this.data.usuario.email,
         telefono: this.data.usuario.telefono,
-        direccion: this.data.usuario.direccion
+        direccion: this.data.usuario.direccion,
+        rol: this.usuarioModificado.value.rol,
+        provincia: this.data.usuario.provincia
       },
       skipLocationChange: false,
       fragment: 'top'
     }
 
     this.dialogRef.close();
+    console.log(objToSend);
 
    this.redirectTo('/administracion/AdminUsuarios', objToSend);
    
