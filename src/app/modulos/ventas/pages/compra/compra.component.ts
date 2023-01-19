@@ -13,6 +13,8 @@ import { DataProductosService } from 'src/app/modulos/productos/core/services/da
 import { Producto } from 'src/app/modulos/productos/core/models/producto.model';
 import { Router } from '@angular/router';
 import { ListenerService } from 'src/app/core/services/listener.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogExitoComponent } from '../../components/dialog-exito/dialog-exito.component';
 
 @Component({
   selector: 'app-compra',
@@ -46,7 +48,8 @@ export class CompraComponent {
     private dataVentas: DataVentasService,
     private dataProductos: DataProductosService,
     private router: Router,
-    private listener: ListenerService
+    private listener: ListenerService,
+    private dialog: MatDialog
     ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 800px)')
@@ -62,6 +65,7 @@ export class CompraComponent {
         provincia: 'Guayas',
         direccion: this.usuario.direccion
       });
+
   }
 
   ngOnInit() {
@@ -93,9 +97,9 @@ export class CompraComponent {
 
     formDatosTarjeta = new FormGroup({
       tipo: new FormControl('', [Validators.required]),
-      numero: new FormControl('', [Validators.required, Validators.maxLength(16), Validators.minLength(16), Validators.pattern('[0-9]*')]),
-      mes: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(1), Validators.pattern('[0-9]*')]),
-      year: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2), Validators.pattern('[0-9]*')]),
+      numero: new FormControl('', [Validators.required, Validators.maxLength(16), Validators.minLength(20), Validators.pattern('[0-9]*')]),
+      mes: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(1), Validators.pattern('^(1[0-2]|[1-9])$')]),
+      year: new FormControl('', [Validators.required, Validators.maxLength(2), Validators.minLength(2), Validators.pattern('^2[3-8]$')]),
       cvv: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.minLength(3), Validators.pattern('[0-9]*')]),
     });
 
@@ -130,7 +134,9 @@ export class CompraComponent {
         this.deleteProducto(product.id)
       });
 
-      this.router.navigate(['/productos']);
+      this.dialog.open(DialogExitoComponent, { disableClose: true});
+
+      // this.router.navigate(['/productos']);
       
     }
 

@@ -14,6 +14,7 @@ import { DataSolicitudProveedorService } from 'src/app/modulos/proveedores/core/
 import { DataUsuariosService } from 'src/app/modulos/usuarios/core/services/dataUsuarios.service';
 import { ModificarProveedorComponent } from '../../components/proveedores/modificar-proveedor/modificar-proveedor.component';
 import { Venta } from 'src/app/modulos/ventas/core/models/venta.model';
+import { Producto } from 'src/app/modulos/productos/core/models/producto.model';
 
 @Component({
   selector: 'app-ventas-administrador',
@@ -25,6 +26,10 @@ export class VentasAdministradorComponent {
   rol: number = 0;
   
   provincias: Provincia[] = this.dataProvincias.getProvincias();
+  ventas: Venta[] = this.dataVentas.getVentas();
+  productVentas: any = [];
+  arrayproduct: any = [];
+  nombreProducto: string[] = [];
   datosRecibidos: any;
   nav: any;
 
@@ -41,7 +46,8 @@ export class VentasAdministradorComponent {
   txtEmail: FormControl = new FormControl('');
   txtTelefono: FormControl = new FormControl('', Validators.pattern('[0-9]*'));
   txtProvincia: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
-  txtDireccion: FormControl = new FormControl('');
+  txtDireccion: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
+  txtProductos: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
   txtTotal: FormControl = new FormControl('');
 
 
@@ -66,7 +72,30 @@ export class VentasAdministradorComponent {
 
   constructor(private router: Router, private dialog: MatDialog, private dataVentas: DataVentasService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataProvincias: DataProvinciasService, private dataSolicitud: DataSolicitudProveedorService) {
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
-    this.getDatosRecibidos();    
+    this.getDatosRecibidos();
+    
+    this.ventas.forEach(venta => {
+      this.productVentas.push(venta.productos);
+      
+    });
+
+    let arrayX: string[] = [];
+    
+    // PRODUCTVENTAS ES UN ARRAY DE ARRAY
+    this.productVentas.forEach(function(arrayInterno: any[]) {
+      arrayInterno.forEach(function(element) {
+        arrayX.push(element.nombre);
+      });
+    });
+
+    this.nombreProducto = arrayX.slice();
+
+    let unique = Array.from(new Set(this.nombreProducto));
+    console.log(unique);
+
+    this.nombreProducto = Array.from(unique);
+
+    
   }
 
   
@@ -332,6 +361,7 @@ export class VentasAdministradorComponent {
     this.txtEmail.setValue('');
     this.txtDireccion.setValue('');
     this.txtProvincia.setValue('');
+    this.txtProductos.setValue('');
     this.txtTotal.setValue('');
     this.dataSource.filter = '';
   }
@@ -386,7 +416,27 @@ export class VentasAdministradorComponent {
   filterByTotal() {
     this.dataSource.filter = this.txtTotal.value.trim().toLowerCase();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
+      console.log("DATA TOTAL:");
+      console.log(data);
       return data.total.toString().includes(filter);       
+    }
+  }
+
+  filterByProductos() {
+    if (this.txtProductos.value !== undefined) {
+      this.dataSource.filter = this.txtProductos.value.trim().toLowerCase();   
+    } else {
+      this.dataSource.filter = '';
+    }
+    this.dataSource.filterPredicate = function (data: any, filter: string) {
+
+      let arrayY: string = "";
+
+      data.productos.forEach((element: { nombre: string; }) => {
+          arrayY += element.nombre + ' ';
+        });
+
+        return arrayY.toLocaleLowerCase().includes(filter);
     }
   }
 }

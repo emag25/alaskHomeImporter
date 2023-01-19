@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    box-sizing: inherit;
+}
+
+.contenedor-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 40px;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+p {
+    font-size: 14pt;
+}
+
+h1, p {
+    text-align: center;
+}
+
+img {
+    width: 150px;
+}
+
+button {
+    text-decoration: none;
+    margin-top: 30px;
+    padding: 15px 25px;
+    background-color: transparent;
+    color: black;
+    border: 2px solid black;
+    font-size: 12pt;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: black;
+    border: 2px solid black;
+    transition: 0.5s;
+    color: white;
+}
+
+button:not(hover) {
+    background-color: transparent;
+    border: 2px solid black;
+    transition: 0.5s;
+}

@@ -8,11 +8,13 @@ import { CompraComponent } from './pages/compra/compra.component';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatStepperModule} from '@angular/material/stepper';
 import { DataVentasService } from './core/services/data-ventas.service';
+import { DialogExitoComponent } from './components/dialog-exito/dialog-exito.component';
 
 @NgModule({
   declarations: [
     CarritoComponent,
     CompraComponent,
+    DialogExitoComponent,
   ],
   imports: [
     CommonModule,

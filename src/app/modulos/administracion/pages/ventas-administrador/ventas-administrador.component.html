@@ -59,6 +59,16 @@
             <mat-error *ngIf="txtDireccion.hasError('pattern')">Solo ingrese letras.</mat-error>
           </mat-form-field>
 
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Productos'">
+            <mat-label>Productos</mat-label>
+            <mat-select [formControl]="txtProductos" (openedChange)="filterByProductos()">
+              <mat-option>Ningún</mat-option>
+              <mat-option *ngFor="let nombre of nombreProducto" [value]="nombre">
+                {{nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
           <mat-form-field class="campos-field" *ngIf="selectFilter === 'Total'">
             <mat-label>Total</mat-label>
             <input matInput (keyup)="filterByTotal()" [formControl]="txtTotal">
