@@ -62,7 +62,7 @@
     </mat-form-field>
 
 
-    <mat-form-field class="campos-field">
+    <mat-form-field class="campos-field" style="grid-column: span 2;">
       <mat-label>Provincia</mat-label>
       <mat-error *ngIf="registro.controls['provincia'].hasError('required')">Provincia es requerida.</mat-error>
       <mat-select formControlName="provincia">
