@@ -35,15 +35,15 @@
       <mat-label>Contraseña</mat-label>
       <input matInput formControlName="contraseña">
       <mat-error *ngIf="registro.controls['contraseña'].hasError('required')">Contraseña es requerida.</mat-error>
-      <mat-error *ngIf="registro.controls['contraseña'].hasError('minlength')">Contraseña debe tener minimo 8 </mat-error>
+      <mat-error *ngIf="registro.controls['contraseña'].hasError('minlength')">Contraseña debe tener minimo 8
+      </mat-error>
       <mat-error *ngIf="registro.controls['contraseña'].hasError('maxlength')">Contraseña debe tener máximo 10
         caracteres.</mat-error>
     </mat-form-field>
 
 
     <mat-form-field class="campos-field">
-
-    <mat-label>Teléfono</mat-label>
+      <mat-label>Teléfono</mat-label>
       <input matInput formControlName="telefono">
       <mat-error *ngIf="registro.controls['telefono'].hasError('required')">Teléfono es requerido.</mat-error>
       <mat-error *ngIf="registro.controls['telefono'].hasError('pattern')">Teléfono no válido.</mat-error>
@@ -62,7 +62,7 @@
     </mat-form-field>
 
 
-    <mat-form-field>
+    <mat-form-field class="campos-field">
       <mat-label>Provincia</mat-label>
       <mat-error *ngIf="registro.controls['provincia'].hasError('required')">Provincia es requerida.</mat-error>
       <mat-select formControlName="provincia">
@@ -70,15 +70,14 @@
           {{provincia.viewValue}}
         </mat-option>
       </mat-select>
-    
-      </mat-form-field>
-  
+    </mat-form-field>
+
 
     <div class="acciones">
-      <button mat-raised-button  color="accent" [disabled]="!registro.valid" (click)="register()">Aceptar</button>
+      <button class="btnEnviar" mat-raised-button color="accent" [disabled]="!registro.valid" (click)="register()">Aceptar</button>
       <button mat-raised-button (click)="cancelar()">Cancelar</button>
     </div>
-    
+
   </form>
 
 </mat-card>

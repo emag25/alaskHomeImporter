@@ -10,29 +10,31 @@
                 <div class="col-md-5 border-right">
                         <div class="p-2 py-5">
                                 <div class="d-flex justify-content-between align-items-center mb-3">
-                                        <h4 class="text-right">Bienvenido a  tu perfil,{{username}}</h4>
+                                        <h4 class="text-right">Bienvenido a tu perfil,{{username}}</h4>
                                 </div>
                                 <div class="row mt-2">
                                         <div class="col-md-6"><label class="labels">Nombre</label><input type="text"
-                                                        class="form-control" placeholder="first name" value="{{usuario.nombre}}" [disabled]=true></div>
+                                                        class="form-control" placeholder="first name"
+                                                        value="{{usuario.nombre}}" [disabled]=true></div>
                                         <div class="col-md-6"><label class="labels">Apellido</label><input type="text"
-                                                        class="form-control" value="{{usuario.apellido}}" [disabled]=true placeholder=""></div>
+                                                        class="form-control" value="{{usuario.apellido}}"
+                                                        [disabled]=true placeholder=""></div>
                                 </div>
                                 <div class="row mt-3">
-                                        <div class="col-md-12"><label class="labels">Email</label><input
-                                                        type="text" class="form-control"
-                                                        placeholder="enter email" value="{{usuario.email}}" [disabled]=true></div>
-                                        <div class="col-md-12"><label class="labels">Telefono</label><input
-                                                        type="text" class="form-control"
-                                                         value="{{usuario.telefono}}" [disabled]=true></div>
-                                        <div class="col-md-12"><label class="labels">Direccion</label><input
-                                                        type="text" class="form-control"
-                                                        value="{{usuario.direccion}}" [disabled]=true></div>
+                                        <div class="col-md-12"><label class="labels">Email</label><input type="text"
+                                                        class="form-control" placeholder="enter email"
+                                                        value="{{usuario.email}}" [disabled]=true></div>
+                                        <div class="col-md-12"><label class="labels">Telefono</label><input type="text"
+                                                        class="form-control" value="{{usuario.telefono}}"
+                                                        [disabled]=true></div>
+                                        <div class="col-md-12"><label class="labels">Direccion</label><input type="text"
+                                                        class="form-control" value="{{usuario.direccion}}"
+                                                        [disabled]=true></div>
                                         <div class="col-md-12"><label class="labels">Provincia</label><input type="text"
-                                                        class="form-control"
-                                                        value="{{usuario.provincia}}" [disabled]=true></div>
+                                                        class="form-control" value="{{usuario.provincia}}"
+                                                        [disabled]=true></div>
                                 </div>
-                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button"
+                                <div class="mt-5 text-center "><button class="btn btn-primary profile-button btnContrasena"
                                                 type="button" (click)="cambiar()">Cambiar Contraseña</button></div>
                         </div>
                 </div>

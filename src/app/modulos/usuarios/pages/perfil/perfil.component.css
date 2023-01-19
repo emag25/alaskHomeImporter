@@ -28,6 +28,9 @@ button{
     margin: auto;
     display: flex;
     align-items: center;
-  
-    
+}
+
+.btnContrasena{
+    background-color: black !important;
+    color: white !important;
 }

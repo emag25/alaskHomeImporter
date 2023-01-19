@@ -59,13 +59,8 @@ tr:hover {
     margin-top: -20px;
 }
 
-.contenedor-selectColumns button, .btnSolicitud{
+.contenedor-selectColumns button{
     height: 56px;
-}
-
-button.btnSolicitud{
-    background-color: #E45D4C;
-    color: white;
 }
 
 .contenedor-filter{    
