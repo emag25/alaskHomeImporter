@@ -34,13 +34,12 @@ export class UsuariosAdministradorComponent {
   minDate = new Date(2000, 1, 1);
   maxDate = new Date(Date.now());
 
-
-  txtId: FormControl = new FormControl(0);
+  txtId: FormControl = new FormControl(Validators.required, Validators.pattern('[0-9]*'));
   txtNombre: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
   txtApellido: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
   txtEmail: FormControl = new FormControl('');
   txtTelefono: FormControl = new FormControl('', Validators.pattern('[0-9]*'));
-  txtDireccion: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
+  txtDireccion: FormControl = new FormControl('');
   txtRol: FormControl = new FormControl('', Validators.required);
   txtProvincia: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
 

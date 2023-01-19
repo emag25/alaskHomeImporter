@@ -25,5 +25,9 @@ h4{
 }
 button{
     text-align: center;
+    margin: auto;
+    display: flex;
+    align-items: center;
+  
     
 }
