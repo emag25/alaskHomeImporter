@@ -23,13 +23,12 @@
                 <mat-error *ngIf="formLogin.controls['contrasena'].hasError('maxlength')">Contraseña no puede tener mas de 20 caracteres.</mat-error>
             </mat-form-field>       
     
-            <a href="">Recuperar Contraseña</a>
          
             <div class="acciones">
-                <button class="btnEnviar" mat-raised-button [disabled] = "!formLogin.valid" type="submit">Aceptar</button>  
-                <button mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
+                <button class="btnEnviar" mat-raised-button   [disabled] = "!formLogin.valid" type="submit">Aceptar</button>  
+                <button class="btnCancelar" mat-raised-button type="button" (click)="cancelar()">Cancelar</button>
             </div>
-            
+            <button class="btnRegistrar" mat-raised-button type="button" (click)="registroUsuario()">Regístrate</button>
         </form>
     </div>
 </div>

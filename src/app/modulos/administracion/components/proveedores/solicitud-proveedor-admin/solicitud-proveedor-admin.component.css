@@ -6,8 +6,8 @@
     padding: 60px 40px;
 }
 
-.contenedor-tabla{
-    width: 100%; 
+.contenedor-tabla {
+    width: 100%;
     overflow-x: auto;
     padding: 5px;
     margin-top: -5px;
@@ -21,11 +21,11 @@ h1 {
 }
 
 td {
-    min-width: 130px;  
+    min-width: 130px;
 }
 
 th {
-    background-color: rgb(127, 25, 25) !important; 
+    background-color: #E45D4C !important;
     color: white;
 }
 
@@ -33,92 +33,98 @@ tr:hover {
     background-color: rgb(230, 230, 230) !important;
 }
 
-.td-notFound{
+.td-notFound {
     text-align: center;
     font-weight: bold;
     padding: 20px;
 }
 
-.delete{
+.delete {
     color: brown;
 }
 
-.edit{
+.edit {
     color: rgb(6, 6, 132);
 }
 
-.contenido-managerTable{
+.contenido-managerTable {
     display: flex;
     align-items: center;
     gap: 20px;
 }
 
-.contenedor-selectColumns{
+.contenedor-selectColumns {
     display: flex;
     align-items: center;
     margin-top: -20px;
 }
 
-.contenedor-selectColumns button{
+.contenedor-selectColumns button,
+.btnProveedores {
     height: 56px;
 }
 
-.contenedor-filter{    
+button.btnProveedores {
+    background-color: #E45D4C;
+    color: white;
+}
+
+.contenedor-filter {
     display: flex;
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
 }
 
-.contenedor-managerTable{
+.contenedor-managerTable {
     width: 100%;
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
-    justify-content:end;
+    justify-content: space-between;
     margin-bottom: -20px;
 }
 
-mat-menu{
+mat-menu {
     width: 500px;
 }
 
 
-@media screen and (max-width: 710px){
+@media screen and (max-width: 710px) {
 
-    .contenedor-principal{
+    .contenedor-principal {
         padding: 30px;
-    }        
+    }
 
-    .contenedor-managerTable{
+    .contenedor-managerTable {
         justify-content: right;
     }
 
-    .contenido-managerTable{
+    .contenido-managerTable {
         flex-direction: column;
         justify-content: left;
         align-items: flex-end;
     }
-    
+
 }
 
 
-@media screen and (max-width: 520px){
-    
+@media screen and (max-width: 520px) {
+
     .contenedor-managerTable {
         justify-content: center;
     }
 
-    .contenido-managerTable{
+    .contenido-managerTable {
         align-items: center;
     }
-        
+
 }
 
 
-@media screen and (max-width: 490px){
+@media screen and (max-width: 490px) {
     .contenedor-filter {
         gap: 10px;
     }
-    
+
 }
