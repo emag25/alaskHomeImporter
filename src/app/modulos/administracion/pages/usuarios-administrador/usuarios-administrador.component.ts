@@ -313,7 +313,7 @@ export class UsuariosAdministradorComponent {
 
   onChangeFilter() {
 
-    this.txtId.setValue(0);
+    this.txtId.setValue('');
     this.txtNombre.setValue('');
     this.txtApellido.setValue('');
     this.txtTelefono.setValue('');
