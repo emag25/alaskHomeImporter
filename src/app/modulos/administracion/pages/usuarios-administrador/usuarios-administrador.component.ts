@@ -327,8 +327,8 @@ export class UsuariosAdministradorComponent {
 
   filterById() {
     this.dataSource.filter = this.txtId.value.trim();
-    this.dataSource.filterPredicate = function (data: any, filter: number) {
-      return data.id.includes(filter);
+    this.dataSource.filterPredicate = function (data: any, filter:string) {
+      return data.id.toString().includes(filter);
     }
   }
 
