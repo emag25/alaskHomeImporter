@@ -92,7 +92,7 @@ export class CompraComponent {
       email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(150)]),
       telefono: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(9), Validators.pattern('[0-9]*')]),
       provincia: new FormControl('', [Validators.required]),
-      direccion: new FormControl('', [Validators.required, Validators.maxLength(500), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*')])
+      direccion: new FormControl('', [Validators.required, Validators.maxLength(500)])
     });
 
     formDatosTarjeta = new FormGroup({

@@ -5,7 +5,7 @@
         <!-- CONTENEDOR STEPPERS -->
         <mat-stepper
             class="example-stepper"
-            [linear]="false"
+            [linear]="true"
             [orientation]="(stepperOrientation | async)!">
 
             <!-- PRIMER STEP -->
@@ -77,7 +77,6 @@
                         <mat-label>Dirección</mat-label>
                         <input matInput formControlName="direccion">
                         <mat-error *ngIf="formDatosPersonales.controls['direccion'].hasError('required')">Dirección es requerido.</mat-error>
-                        <mat-error *ngIf="formDatosPersonales.controls['direccion'].hasError('pattern')">Dirección no válido.</mat-error>
                         <mat-error *ngIf="formDatosPersonales.controls['direccion'].hasError('maxlength')">Dirección no puede tener mas de 500
                           caracteres.</mat-error>
                     </mat-form-field>
@@ -85,7 +84,7 @@
 
                     <!-- BOTONES -->
                     <div class="botones">
-                        <button mat-button matStepperNext>Continuar</button>
+                        <button mat-button matStepperNext class="btnEnviar">Continuar</button>
                     </div>
                     <!-- FIN BOTONES -->
                 </form>
@@ -173,7 +172,7 @@
                     <!-- BOTONES -->
                     <div class="botones">
                         <button mat-button matStepperPrevious>Volver</button>
-                        <button mat-button matStepperNext>Continuar</button>
+                        <button mat-button matStepperNext class="btnEnviar">Continuar</button>
                     </div>
                     <!-- FIN BOTONES -->
                 </form>
