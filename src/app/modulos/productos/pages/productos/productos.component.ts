@@ -26,6 +26,7 @@ export class ProductosComponent {
   protected categorias = this.dataCategorias.getCategorias();
 
   constructor(private renderer:Renderer2,private dialog:MatDialog, private route: ActivatedRoute, private router: Router, private dataProductos: DataProductosService, private dataCategorias: DataCategoriasService, protected loginService: LoginService) {
+    
   }
   category:string | null= null;
   public selectedVal: string = '0';
@@ -39,16 +40,29 @@ export class ProductosComponent {
       if (this.productId) {
         this.onShowDetail(this.productId);
       }  
-      if (this.category != null) {
-        console.log(this.category);
-          
-                
-        const elemento: any | null = document.getElementById('rol');
-        const elemento2: any | null = document.getElementById(this.category+'-button');
-        elemento.children[0].children[0].ariaPressed = true;
-        console.log(elemento.children[0].children[0].ariaPressed);   
-        console.log(elemento2);   
-      }      
+
+      if (this.category != null) {                
+        console.log(this.category);              
+        const elementoGeneral: any = document.getElementById('rol');
+        for(let i = 0; i < elementoGeneral.children.length; i++){
+          const elemento3: any = document.getElementById(`${i}-but`);
+          elemento3.checked = false;
+        }
+        console.log(elementoGeneral.children);
+        const elemento: any = document.getElementById(`${this.category}-but`);        
+        elemento.checked = true;
+        console.log(elemento.checked);                
+                           
+      }if(this.category == null){
+        const elementoGeneral: any | null = document.getElementById('rol');
+        for(let i = 0; i < elementoGeneral.children.length; i++){
+          const elemento3: any | null = document.getElementById(`${i}-but`);
+          elemento3.checked = false;
+        }
+        const elemento: any | null = document.getElementById('0-but');
+        elemento.checked = true;
+        console.log(elemento.checked);                        
+      }   
     })
   }
 

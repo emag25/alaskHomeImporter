@@ -8,15 +8,27 @@
     padding: 15px;
    height: 40%;
    margin: auto;   
+   
 }
-.imagen{
-    border: 1px solid #000;    
-    border-radius: 10px;
+.imagen, .nombre-producto, .menu-item, .error{     
+    border-radius: 10px;        
+    box-shadow: 0 10px 20px -12px rgb(0 0 0 / 42%), 0 3px 20px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
 }
 
-.nombre-producto{
+.infotextual{
+    display: flex;
+    flex-direction: column;
+}
+
+.menu-item{
+    border-color: gray;
+    width: 150px;
+}
+.nombre-producto, .error{
     text-align: center;
-    padding: 15px;
+    padding: 5px;
+    width: 80%;
+    margin: auto;
 }
 img{ 
     width: 300px;

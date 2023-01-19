@@ -32,7 +32,7 @@ export class DataProductosService {
       carrito: false,
       fav: false,
       cantidad: 1,
-      proveedorId: 0
+      proveedorId: 1555
     },
     {
       id: '3',
@@ -71,7 +71,7 @@ export class DataProductosService {
       carrito: false,
       fav: false,
       cantidad: 1,
-      proveedorId: 0
+      proveedorId: 1555
     },
     {
       id: '6',
@@ -84,7 +84,7 @@ export class DataProductosService {
       carrito: false,
       fav: false,
       cantidad: 1,
-      proveedorId: 0
+      proveedorId: 1116
     },
     {
       id: '7',
@@ -97,7 +97,7 @@ export class DataProductosService {
       carrito: false,
       fav: false,
       cantidad: 1,
-      proveedorId: 0
+      proveedorId: 1555
     },
     {
       id: '8',
@@ -110,7 +110,7 @@ export class DataProductosService {
       carrito: false,
       fav: false,
       cantidad: 1,
-      proveedorId: 0
+      proveedorId: 1777
     },
     //TECHNOLOGIA
     {
