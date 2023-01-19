@@ -6,6 +6,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { CarritoComponent } from './pages/carrito/carrito.component';
 import { CompraComponent } from './pages/compra/compra.component';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatStepperModule} from '@angular/material/stepper';
+import { DataVentasService } from './core/services/data-ventas.service';
 
 @NgModule({
   declarations: [
@@ -16,8 +18,10 @@ import {MatDividerModule} from '@angular/material/divider';
     CommonModule,
     VentasRoutingModule,
     SharedModule,
-    MatDividerModule
+    MatDividerModule,
+    MatStepperModule
   ],
+  providers: [DataVentasService],
   exports: []
 })
 export class VentasModule { }
