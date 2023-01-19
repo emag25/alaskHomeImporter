@@ -3,9 +3,9 @@
     <h1>PRODUCTOS</h1>
   
     <div class="contenedor-managerTable">
-      <button mat-raised-button class="btnSolicitud">
-        <mat-icon>assignment</mat-icon>
-        AGREGAR PRODUCTO
+      <button mat-raised-button class="btnSolicitud" style="background-color: rgb(3, 114, 148);">
+        <mat-icon>add_box</mat-icon>
+        PRODUCTO
       </button>
        <div class="contenido-managerTable">  
         <div class="contenedor-filter">        
@@ -33,9 +33,14 @@
             <mat-error *ngIf="txtNombre.hasError('pattern')">Solo ingrese letras.</mat-error>
           </mat-form-field>
         
-          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Descripcion'">
-            <mat-label>Descripcion</mat-label>
-            <input matInput (keyup)="filterByDescripcion()" [formControl]="txtDescripcion">
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Proveedor'">
+            <mat-label>Proveedor</mat-label>
+            <mat-select [formControl]="txtProveedor" (openedChange)="filterByProveedor()">
+              <mat-option>Ninguna</mat-option>
+              <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.nombre">
+                {{proveedor.nombre}}
+              </mat-option>
+            </mat-select>
           </mat-form-field>
         
           <mat-form-field class="campos-field" *ngIf="selectFilter === 'Imagen'">
@@ -55,7 +60,17 @@
             <input matInput (keyup)="filterByStock()" [formControl]="txtStock">
             <mat-error *ngIf="txtStock.hasError('pattern')">Solo ingrese números.</mat-error>
           </mat-form-field>
-        
+
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Categoria'">
+            <mat-label>Categoria</mat-label>
+            <mat-select [formControl]="txtCategoria" (openedChange)="filterByCategoria()">
+              <mat-option>Ninguna</mat-option>
+              <mat-option *ngFor="let categoria of categorias" [value]="categoria.nombre">
+                {{categoria.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
         </div>
         
         <div class="contenedor-selectColumns">
@@ -69,14 +84,18 @@
                 [disabled]="checkId">Id</mat-list-option>
               <mat-list-option (click)="onclickColumn(1)" [selected]="selectNombre" checkboxPosition="before"
                 [disabled]="checkNombre">Nombre</mat-list-option>
-              <mat-list-option (click)="onclickColumn(2)" [selected]="selectDescripcion" checkboxPosition="before"
-                [disabled]="checkDescripcion">Descripcion</mat-list-option>
+              <mat-list-option (click)="onclickColumn(2)" [selected]="selectProveedor" checkboxPosition="before"
+                [disabled]="checkProveedor">Descripcion</mat-list-option>
               <mat-list-option (click)="onclickColumn(3)" [selected]="selectImagen" checkboxPosition="before"
                 [disabled]="checkImagen">Imagen</mat-list-option>
               <mat-list-option (click)="onclickColumn(4)" [selected]="selectPrecio" checkboxPosition="before"
                 [disabled]="checkPrecio">Precio</mat-list-option>
               <mat-list-option (click)="onclickColumn(5)" [selected]="selectStock" checkboxPosition="before"
                 [disabled]="checkStock">Stock</mat-list-option>
+              <mat-list-option (click)="onclickColumn(6)" [selected]="selectCategoria" checkboxPosition="before"
+              [disabled]="checkCategoria">Categoria</mat-list-option>
+              <mat-list-option (click)="onclickColumn(7)" [selected]="selectProveedor" checkboxPosition="before"
+              [disabled]="checkProveedor">Proveedor</mat-list-option>
             </mat-selection-list>
           </mat-menu>
         
@@ -97,15 +116,20 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por Nombre">Nombre</th>
           <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
         </ng-container>
-      
-        <ng-container matColumnDef="descripcion">
-          <th mat-header-cell *matHeaderCellDef>Descripcion<th>
-          <td mat-cell *matCellDef="let element"> element.descripcion </td>
+
+        <ng-container matColumnDef="proveedor">
+          <th mat-header-cell *matHeaderCellDef>Proveedor</th>
+          <td mat-cell *matCellDef="let element = index"> {{proveedorMostrar[element]}} </td>
         </ng-container>
-      
+        
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef>Categoria</th>
+          <td mat-cell *matCellDef="let element = index"> {{categoriaMostrar[element]}} </td>
+        </ng-container>
+              
         <ng-container matColumnDef="imagen">
           <th mat-header-cell *matHeaderCellDef>Imagen</th>
-          <td mat-cell *matCellDef="let element"> element.imagen </td>
+          <td mat-cell *matCellDef="let element"><img [src]="element.imagen" alt="" style="width: 50px; height: 50px;"> </td>
         </ng-container>
       
         <ng-container matColumnDef="precio">
@@ -117,6 +141,9 @@
           <th mat-header-cell *matHeaderCellDef>Stock</th>
           <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
         </ng-container>
+
+        
+        
       
         <ng-container matColumnDef="accion">
           <th mat-header-cell *matHeaderCellDef></th>
@@ -129,6 +156,7 @@
             </button>
           </td>
         </ng-container>
+        
       
         <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
         <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>

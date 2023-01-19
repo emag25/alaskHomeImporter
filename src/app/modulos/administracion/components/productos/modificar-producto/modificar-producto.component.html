@@ -1,3 +1,72 @@
-<p>
-  modificar-producto works!
-</p>
+<mat-card>
+  <div style="text-align:center;">
+    <mat-card-title>Modificar Producto</mat-card-title>
+  </div>
+  <br>
+  <form [formGroup]="productoModificado">
+    <mat-form-field class="campos-field">
+      <mat-label>Id</mat-label>
+      <input matInput readonly="true" formControlName="id"/>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre"/>
+      <mat-error *ngIf="productoModificado.controls['nombre'].hasError('required')">Nombre es requerido.</mat-error>
+      <mat-error *ngIf="productoModificado.controls['nombre'].hasError('pattern')">Nombre no válido.</mat-error>
+      <mat-error *ngIf="productoModificado.controls['nombre'].hasError('maxLength')">Nombre no puede tener mas de 150
+        caracteres.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Imagen</mat-label>
+      <input matInput formControlName="imagen"/>
+      <mat-error *ngIf="productoModificado.controls['imagen'].hasError('required')">imagen es requerido.</mat-error>
+      <mat-error *ngIf="productoModificado.controls['imagen'].hasError('imagen')">imagen no válido.</mat-error>      
+    </mat-form-field>
+
+    <mat-form-field class="campos-field">
+      <mat-label>Precio</mat-label>
+      <input matInput formControlName="precio"/>
+      <mat-error *ngIf="productoModificado.controls['precio'].hasError('required')">precio es requerido.</mat-error>
+      <mat-error *ngIf="productoModificado.controls['precio'].hasError('pattern')">precio no válido.</mat-error>
+      <mat-error *ngIf="productoModificado.controls['precio'].hasError('maxlength')">precio no puede tener mas de 10
+        caracteres.</mat-error>      
+    </mat-form-field>
+    <mat-form-field class="campos-field">
+      <mat-label>Stoc</mat-label>
+      <input matInput formControlName="stock"/>
+      <mat-error *ngIf="productoModificado.controls['stock'].hasError('required')">stock es requerido.</mat-error>
+      <mat-error *ngIf="productoModificado.controls['stock'].hasError('pattern')">stock no válido.</mat-error>
+      <mat-error *ngIf="productoModificado.controls['stock'].hasError('maxlength')">stock no puede tener mas de 10
+        caracteres.</mat-error>      
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 2;">
+      <mat-label>Proveedor</mat-label>
+      <mat-select formControlName="proveedorId">
+        <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.nombre">
+          {{proveedor.nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="productoModificado.controls['proveedorId'].hasError('required')">proveedor es requerida.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 2;">
+      <mat-label>Categoria</mat-label>
+      <mat-select formControlName="categoriaId">
+        <mat-option *ngFor="let categoria of categorias" [value]="categoria.nombre">
+          {{categoria.nombre}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="productoModificado.controls['proveedorId'].hasError('required')">proveedor es requerida.</mat-error>
+    </mat-form-field>
+
+    <div class="acciones">
+      <button mat-raised-button color="accent" [disabled]="!productoModificado.valid" (click)="onSubmit()">Aceptar</button>
+      <button mat-raised-button (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+
+</mat-card>

@@ -19,7 +19,7 @@ export class DataProductosService {
       carrito: false,
       fav: false,
       cantidad: 1,
-      proveedorId: 0      
+      proveedorId: 1113
     },
     {
       id: '2',
@@ -510,6 +510,22 @@ export class DataProductosService {
       return false;
     }
       
+  }
+  setProducto(producto: Producto) {
+    this.productos.push(producto);
+  }
+
+  editProducto(producto: Producto) {
+    let obj = this.productos.find(p => p.id === producto.id);
+
+    if (obj !== undefined) {
+      let index = this.productos.indexOf(obj);
+      this.productos[index] = producto;
+      return true;
+
+    } else {
+      return false;
+    }
   }
 
 
