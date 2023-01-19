@@ -25,7 +25,7 @@ td {
 }
 
 th {
-    background-color: #E45D4C !important; 
+    background-color: rgb(127, 25, 25) !important; 
     color: white;
 }
 
@@ -39,6 +39,9 @@ tr:hover {
     padding: 20px;
 }
 
+.delete{
+    color: brown;
+}
 
 .edit{
     color: rgb(6, 6, 132);
@@ -60,10 +63,13 @@ tr:hover {
     height: 56px;
 }
 
+button.btnSolicitud{
+    background-color: #E45D4C;
+    color: white;
+}
 
-.contenedor-filter{   
-    margin-right: auto;
-    display:block;
+.contenedor-filter{    
+    display: flex;
     justify-content: center;
     gap: 20px;
     flex-wrap: wrap;
@@ -74,7 +80,7 @@ tr:hover {
     display: flex;
     gap: 40px;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content:end;
     margin-bottom: -20px;
 }
 
@@ -121,4 +127,3 @@ mat-menu{
     }
     
 }
-
