@@ -45,7 +45,7 @@ export class ModificarProveedorComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(150)]),
     telefono: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(9), Validators.pattern('[0-9]*')]),
     provincia: new FormControl('', [Validators.required]),
-    logo: new FormControl('', [Validators.required, Validators.maxLength(150), Validators.minLength(5)])
+    logo: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)])
   });
 
   onSubmit() {

@@ -53,7 +53,7 @@
       <input matInput formControlName="logo" />
       <mat-error *ngIf="proveedorModificado.controls['logo'].hasError('required')">Logo es requerido.</mat-error>
       <mat-error *ngIf="proveedorModificado.controls['logo'].hasError('pattern')">Logo no válido.</mat-error>
-      <mat-error *ngIf="proveedorModificado.controls['logo'].hasError('maxlength')">Logo no puede tener mas de 100
+      <mat-error *ngIf="proveedorModificado.controls['logo'].hasError('maxlength')">Logo no puede tener mas de 10
         caracteres.</mat-error>
       <mat-error *ngIf="proveedorModificado.controls['logo'].hasError('minlength')">Logo debe tener al menos 5
         caracteres.</mat-error>
