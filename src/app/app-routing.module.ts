@@ -30,7 +30,7 @@ const routes: Routes = [
     { 
       path: 'usuario', 
       loadChildren: () => import('./modulos/usuarios/usuarios-routing.module').then((m) => m.UsuariosRoutingModule), 
-      canActivate: [LoginGuardian] 
+      canActivate: [] 
     },  
     {  
       path: 'ventas', 

@@ -22,4 +22,8 @@ export class ProveedoresComponent implements OnInit {
     this.dialog.open(SolicitudProveedorComponent, { disableClose: true, width: '700px' });
   }
 
+  onLoadImage(event: any) {
+    console.log(event);
+  }
+
 }

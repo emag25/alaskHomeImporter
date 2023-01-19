@@ -68,7 +68,7 @@
     </div>
 
     <div class="acciones">
-      <button mat-raised-button color="accent" [disabled]="!solicitudModificada.valid"
+      <button class="btnEnviar" mat-raised-button color="accent" [disabled]="!solicitudModificada.valid"
         (click)="onSubmit()">Aceptar</button>
       <button mat-raised-button (click)="cancelar()">Cancelar</button>
     </div>

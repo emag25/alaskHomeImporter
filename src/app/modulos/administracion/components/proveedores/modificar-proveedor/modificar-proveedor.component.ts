@@ -19,6 +19,7 @@ export class ModificarProveedorComponent implements OnInit {
   email: string = this.data.proveedor.email;
   telefono: string = this.data.proveedor.telefono;
   provincia: string = this.data.proveedor.provincia;
+  logo: string = this.data.proveedor.logo;
   provincias: Provincia[] = this.dataProvincias.getProvincias();
 
 
@@ -30,7 +31,8 @@ export class ModificarProveedorComponent implements OnInit {
       nombre: this.data.proveedor.nombre,
       email: this.data.proveedor.email,
       telefono: this.data.proveedor.telefono,
-      provincia: this.data.proveedor.provincia
+      provincia: this.data.proveedor.provincia,
+      logo: this.data.proveedor.logo
     });
   }
 
@@ -42,8 +44,8 @@ export class ModificarProveedorComponent implements OnInit {
     nombre: new FormControl('', [Validators.required, Validators.maxLength(150), Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*')]),
     email: new FormControl('', [Validators.required, Validators.email, Validators.maxLength(150)]),
     telefono: new FormControl('', [Validators.required, Validators.maxLength(10), Validators.minLength(9), Validators.pattern('[0-9]*')]),
-    provincia: new FormControl('', [Validators.required])
-
+    provincia: new FormControl('', [Validators.required]),
+    logo: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.minLength(5)])
   });
 
   onSubmit() {
@@ -56,6 +58,7 @@ export class ModificarProveedorComponent implements OnInit {
         email: this.proveedorModificado.value.email,
         telefono: this.proveedorModificado.value.telefono,
         provincia: this.proveedorModificado.value.provincia,
+        logo: this.proveedorModificado.value.logo,
         fechaAprobacion: this.data.proveedor.fechaAprobacion,
       },
       skipLocationChange: false,

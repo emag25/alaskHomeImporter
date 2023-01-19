@@ -48,8 +48,19 @@
       <mat-error *ngIf="proveedorModificado.controls['provincia'].hasError('required')">Provincia es requerida.</mat-error>
     </mat-form-field>
 
+    <mat-form-field class="campos-field" style="grid-column: span 2;">
+      <mat-label>Logo</mat-label>
+      <input matInput formControlName="logo" />
+      <mat-error *ngIf="proveedorModificado.controls['logo'].hasError('required')">Logo es requerido.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['logo'].hasError('pattern')">Logo no válido.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['logo'].hasError('maxlength')">Logo no puede tener mas de 10
+        caracteres.</mat-error>
+      <mat-error *ngIf="proveedorModificado.controls['logo'].hasError('minlength')">Logo debe tener al menos 5
+        caracteres.</mat-error>
+    </mat-form-field>
+
     <div class="acciones">
-      <button mat-raised-button color="accent" [disabled]="!proveedorModificado.valid" (click)="onSubmit()">Aceptar</button>
+      <button class="btnEnviar" mat-raised-button color="accent" [disabled]="!proveedorModificado.valid" (click)="onSubmit()">Aceptar</button>
       <button mat-raised-button (click)="cancelar()">Cancelar</button>
     </div>
 
