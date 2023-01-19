@@ -12,6 +12,8 @@ import { ModificarProveedorComponent } from './components/proveedores/modificar-
 import { SolicitudProveedorAdminComponent } from './components/proveedores/solicitud-proveedor-admin/solicitud-proveedor-admin.component';
 import { ModificarSolicitudComponent } from './components/proveedores/modificar-solicitud/modificar-solicitud.component';
 import { ModificarUsuarioComponent } from './components/usuarios/modificar-usuario/modificar-usuario.component';
+import { ModificarProductoComponent } from './components/productos/modificar-producto/modificar-producto.component';
+import { AgregarProductoComponent } from './components/productos/agregar-producto/agregar-producto.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { ModificarUsuarioComponent } from './components/usuarios/modificar-usuar
     VentasAdministradorComponent,
     ModificarSolicitudComponent,
     SolicitudProveedorAdminComponent,
-    ModificarUsuarioComponent
+    ModificarUsuarioComponent,
+    ModificarProductoComponent,
+    AgregarProductoComponent
   ],
   imports: [
     CommonModule,
