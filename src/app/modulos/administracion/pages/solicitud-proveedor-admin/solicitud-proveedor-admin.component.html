@@ -1,0 +1,178 @@
+<div class="contenedor-principal" *ngIf="(active && (rol === 2)) else elseBlock" (window:resize)="onResize($event)">
+
+  <h1>SOLICITUDES PROVEEDORES</h1>
+
+  <div class="contenedor-managerTable">
+
+    <button mat-raised-button class="btnProveedores" (click)="irProveedores()">
+      <mat-icon>domain_add</mat-icon>
+      PROVEEDORES
+    </button>
+
+    <div class="contenido-managerTable">
+
+      <div class="contenedor-filter">
+
+        <mat-form-field class="campos-field">
+          <mat-label>
+            <mat-icon>filter_alt</mat-icon>
+            Filtrar por
+          </mat-label>
+          <mat-select [(value)]="selectFilter">
+            <mat-option *ngFor="let columna of columnasFilter" [value]="columna" (onSelectionChange)="onChangeFilter()">
+              {{columna}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="campos-field" *ngIf="selectFilter === 'RUC'">
+          <mat-label>RUC</mat-label>
+          <input matInput (keyup)="filterByRuc()" [formControl]="txtRuc">
+          <mat-error *ngIf="txtRuc.hasError('pattern')">Solo ingrese números.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="campos-field" *ngIf="selectFilter === 'Nombre'">
+          <mat-label>Nombre</mat-label>
+          <input matInput (keyup)="filterByNombre()" [formControl]="txtNombre">
+          <mat-error *ngIf="txtNombre.hasError('pattern')">Solo ingrese letras.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="campos-field" *ngIf="selectFilter === 'Email'">
+          <mat-label>Email</mat-label>
+          <input matInput (keyup)="filterByEmail()" [formControl]="txtEmail">
+        </mat-form-field>
+
+        <mat-form-field class="campos-field" *ngIf="selectFilter === 'Teléfono'">
+          <mat-label>Teléfono</mat-label>
+          <input matInput (keyup)="filterByTelefono()" [formControl]="txtTelefono">
+          <mat-error *ngIf="txtTelefono.hasError('pattern')">Solo ingrese números.</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="campos-field" *ngIf="selectFilter === 'Provincia'">
+          <mat-label>Provincia</mat-label>
+          <mat-select [formControl]="txtProvincia" (openedChange)="filterByProvincia()">
+            <mat-option>Ninguna</mat-option>
+            <mat-option *ngFor="let provincia of provincias" [value]="provincia.nombre">
+              {{provincia.nombre}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="campos-field" *ngIf="selectFilter === 'Estado'">
+          <mat-label>Estado</mat-label>
+          <mat-select [formControl]="txtEstado" (openedChange)="filterByEstado()">
+            <mat-option>Ninguna</mat-option>
+            <mat-option value="Por revisar">Por revisar</mat-option>
+            <mat-option value="En proceso">En proceso</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" *ngIf="selectFilter === 'Fecha de solicitud'">
+          <mat-label>Fecha</mat-label>
+          <input matInput [matDatepicker]="dp3" [min]="minDate" [max]="maxDate" [formControl]="txtFecha"
+            (dateChange)="filterByFecha()" (keyup)="filterByFecha()">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="dp3"></mat-datepicker-toggle>
+          <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+        </mat-form-field>
+
+      </div>
+
+      <div class="contenedor-selectColumns">
+
+        <button mat-raised-button [matMenuTriggerFor]="beforeMenu">
+          <mat-icon>view_week</mat-icon><span>Columnas</span>
+        </button>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+          <mat-selection-list (click)="$event.stopPropagation()">
+            <mat-list-option (click)="onclickColumn(0)" [selected]="selectRuc" checkboxPosition="before"
+              [disabled]="checkRuc">RUC</mat-list-option>
+            <mat-list-option (click)="onclickColumn(1)" [selected]="selectNombre" checkboxPosition="before"
+              [disabled]="checkNombre">Nombre</mat-list-option>
+            <mat-list-option (click)="onclickColumn(2)" [selected]="selectEmail" checkboxPosition="before"
+              [disabled]="checkEmail">Email</mat-list-option>
+            <mat-list-option (click)="onclickColumn(3)" [selected]="selectTelefono" checkboxPosition="before"
+              [disabled]="checkTelefono">Teléfono</mat-list-option>
+            <mat-list-option (click)="onclickColumn(4)" [selected]="selectProvincia" checkboxPosition="before"
+              [disabled]="checkProvincia">Provincia</mat-list-option>
+            <mat-list-option (click)="onclickColumn(5)" [selected]="selectEstado" checkboxPosition="before"
+              [disabled]="checkEstado">Estado</mat-list-option>
+            <mat-list-option (click)="onclickColumn(6)" [selected]="selectFecha" checkboxPosition="before"
+              [disabled]="checkFecha">Fecha de aprobación</mat-list-option>
+          </mat-selection-list>
+        </mat-menu>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="contenedor-tabla">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort #empTbSort="matSort">
+
+      <ng-container matColumnDef="ruc">
+        <th mat-header-cell *matHeaderCellDef>RUC</th>
+        <td mat-cell *matCellDef="let element"> {{element.ruc}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="nombre">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por Nombre">Nombre</th>
+        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefono">
+        <th mat-header-cell *matHeaderCellDef>Teléfono</th>
+        <td mat-cell *matCellDef="let element"> {{element.telefono}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="provincia">
+        <th mat-header-cell *matHeaderCellDef>Provincia</th>
+        <td mat-cell *matCellDef="let element"> {{element.provincia}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="estado">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let element"> <div [ngStyle]="{'background-color':setColor(element.estado)}">{{element.estado}}</div> </td>
+      </ng-container>
+
+      <ng-container matColumnDef="fechaEnvio">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por Fecha">Fecha de
+          envio
+        </th>
+        <td mat-cell *matCellDef="let element"> {{getFormatedDate(element.fechaEnvio)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="accion">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="openDialogModificar(element)">
+            <mat-icon class="edit">edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="delete(element.id)">
+            <mat-icon class="delete">delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+      <tr *matNoDataRow>
+        <td class="td-notFound" [attr.colspan]="columnsToDisplay.length">
+          No se encontraron coincidencias.
+        </td>
+      </tr>
+
+    </table>
+  </div>
+
+</div>
+
+
+<ng-template #elseBlock>
+  <app-error403></app-error403>
+</ng-template>

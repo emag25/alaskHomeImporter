@@ -1,1 +1,179 @@
-<p>productos-administrador works!</p>
+<div class="contenedor-principal" *ngIf="(active && (rol === 2)) else elseBlock" (window:resize)="onResize($event)">
+
+    <h1>PRODUCTOS</h1>
+  
+    <div class="contenedor-managerTable">
+      <button mat-raised-button class="btnSolicitud" style="background-color: rgb(3, 114, 148);" (click)="openDialogIngresar()">
+        <mat-icon>add_box</mat-icon>
+        PRODUCTO
+      </button>
+       <div class="contenido-managerTable">  
+        <div class="contenedor-filter">        
+          <mat-form-field class="campos-field">
+            <mat-label>
+              <mat-icon>filter_alt</mat-icon>
+              Filtrar por
+            </mat-label>
+            <mat-select [(value)]="selectFilter">
+              <mat-option *ngFor="let columna of columnasFilter" [value]="columna" (onSelectionChange)="onChangeFilter()">
+                {{columna}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Id'">
+            <mat-label>Id</mat-label>
+            <input matInput (keyup)="filterById()" [formControl]="txtId">
+            <mat-error *ngIf="txtId.hasError('pattern')">Solo ingrese números.</mat-error>
+          </mat-form-field>
+        
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Nombre'">
+            <mat-label>Nombre</mat-label>
+            <input matInput (keyup)="filterByNombre()" [formControl]="txtNombre">
+            <mat-error *ngIf="txtNombre.hasError('pattern')">Solo ingrese letras.</mat-error>
+          </mat-form-field>
+        
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Proveedor'">
+            <mat-label>Proveedor</mat-label>
+            <mat-select [formControl]="txtProveedor" (openedChange)="filterByProveedor()">
+              <mat-option>Ninguna</mat-option>
+              <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.nombre">
+                {{proveedor.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Imagen'">
+            <mat-label>Imagen</mat-label>
+            <input matInput (keyup)="filterByImagen()" [formControl]="txtImagen">
+            <mat-error *ngIf="txtImagen.hasError('pattern')">Solo ingrese números.</mat-error>
+          </mat-form-field>
+        
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Precio'">
+            <mat-label>Precio</mat-label>
+            <input matInput (keyup)="filterByPrecio()" [formControl]="txtPrecio">
+            <mat-error *ngIf="txtPrecio.hasError('pattern')">Solo ingrese números.</mat-error>
+          </mat-form-field>
+        
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Stock'">
+            <mat-label>Stock</mat-label>
+            <input matInput (keyup)="filterByStock()" [formControl]="txtStock">
+            <mat-error *ngIf="txtStock.hasError('pattern')">Solo ingrese números.</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="campos-field" *ngIf="selectFilter === 'Categoria'">
+            <mat-label>Categoria</mat-label>
+            <mat-select [formControl]="txtCategoria" (openedChange)="filterByCategoria()">
+              <mat-option>Ninguna</mat-option>
+              <mat-option *ngFor="let categoria of categorias" [value]="categoria.nombre">
+                {{categoria.nombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+        </div>
+        
+        <div class="contenedor-selectColumns">
+        
+          <button mat-raised-button [matMenuTriggerFor]="beforeMenu">
+            <mat-icon>view_week</mat-icon><span>Columnas</span>
+          </button>
+          <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <mat-selection-list (click)="$event.stopPropagation()">
+              <mat-list-option (click)="onclickColumn(0)" [selected]="selectId" checkboxPosition="before"
+                [disabled]="checkId">Id</mat-list-option>
+              <mat-list-option (click)="onclickColumn(1)" [selected]="selectNombre" checkboxPosition="before"
+                [disabled]="checkNombre">Nombre</mat-list-option>
+              <mat-list-option (click)="onclickColumn(2)" [selected]="selectProveedor" checkboxPosition="before"
+                [disabled]="checkProveedor">Descripcion</mat-list-option>
+              <mat-list-option (click)="onclickColumn(3)" [selected]="selectImagen" checkboxPosition="before"
+                [disabled]="checkImagen">Imagen</mat-list-option>
+              <mat-list-option (click)="onclickColumn(4)" [selected]="selectPrecio" checkboxPosition="before"
+                [disabled]="checkPrecio">Precio</mat-list-option>
+              <mat-list-option (click)="onclickColumn(5)" [selected]="selectStock" checkboxPosition="before"
+                [disabled]="checkStock">Stock</mat-list-option>
+              <mat-list-option (click)="onclickColumn(6)" [selected]="selectCategoria" checkboxPosition="before"
+              [disabled]="checkCategoria">Categoria</mat-list-option>
+              <mat-list-option (click)="onclickColumn(7)" [selected]="selectProveedor" checkboxPosition="before"
+              [disabled]="checkProveedor">Proveedor</mat-list-option>
+            </mat-selection-list>
+          </mat-menu>
+        
+        </div>
+      </div>
+  
+    </div>
+    
+    <div class="contenedor-tabla">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort #empTbSort="matSort">
+      
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef>Id</th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="nombre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Ordenar por Nombre">Nombre</th>
+          <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="proveedor">
+          <th mat-header-cell *matHeaderCellDef>Proveedor</th>
+          <td mat-cell *matCellDef="let element = index"> {{proveedorMostrar[element]}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="categoria">
+          <th mat-header-cell *matHeaderCellDef>Categoria</th>
+          <td mat-cell *matCellDef="let element = index"> {{categoriaMostrar[element]}} </td>
+        </ng-container>
+              
+        <ng-container matColumnDef="imagen">
+          <th mat-header-cell *matHeaderCellDef>Imagen</th>
+          <td mat-cell *matCellDef="let element"><img [src]="element.imagen" alt="" style="width: 50px; height: 50px;"> </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="precio">
+          <th mat-header-cell *matHeaderCellDef>Precio</th>
+          <td mat-cell *matCellDef="let element"> {{element.precio}} </td>
+        </ng-container>
+      
+        <ng-container matColumnDef="stock">
+          <th mat-header-cell *matHeaderCellDef>Stock</th>
+          <td mat-cell *matCellDef="let element"> {{element.stock}} </td>
+        </ng-container>
+
+        
+        
+      
+        <ng-container matColumnDef="accion">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button (click)="openDialogModificar(element)">
+              <mat-icon class="edit">edit</mat-icon>
+            </button>
+            <button mat-icon-button (click)="delete(element.id)">
+              <mat-icon class="delete">delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+        
+      
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+        <tr *matNoDataRow>
+          <td class="td-notFound" [attr.colspan]="columnsToDisplay.length">
+            No se encontraron coincidencias.
+          </td>
+        </tr>
+      
+      </table>
+    </div>
+    
+  </div>
+    
+    
+  <ng-template #elseBlock>
+    <app-error403></app-error403>
+  </ng-template>
+    
+    

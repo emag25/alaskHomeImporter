@@ -11,7 +11,7 @@ import { Error404Component } from './components/error404/error404.component';
   ],
   declarations: [
     Error403Component,
-    Error404Component
+    Error404Component,
   ],
   exports: [
     Error403Component, Error404Component, AngularMaterialsModule, CommonModule

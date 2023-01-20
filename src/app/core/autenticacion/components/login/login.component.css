@@ -1,0 +1,58 @@
+*{
+    box-sizing: border-box;
+}
+
+.formulario{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+    gap: 20px;
+    text-align: center;
+}
+
+.acciones {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    grid-column: span 2;
+    gap: 20px;
+    width: 100%;
+}
+
+mat-card {
+    padding: 40px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+input{
+    width: 100%;
+}
+
+.campos-field {
+    width: 100%;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+.btnEnviar:enabled {
+    background-color: black !important;
+    color: white !important;
+}
+
+.btnRegistrar {
+    background-color: black !important;
+    color: white !important;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 700px) {
+    .formulario {
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+    }
+}

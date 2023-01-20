@@ -1,0 +1,56 @@
+<div class="contenedor" style="padding: 10px;" *ngIf="activador;else elseBlock">
+    <div class="nombre-producto">
+        <h1>
+            {{producto.nombre}}
+        </h1>
+    </div>
+    <div class="contenedor-informacion">
+        <div class="imagen">
+            <img [src]="producto.imagen" alt="">
+        </div>
+        <div class="infotextual">
+            <div class="descripcion">
+                <div>
+                    <h2 style="text-align: center;">Descripción</h2>
+                    <p>
+                        {{producto.descripcion}}
+                    </p>
+                </div>
+            </div>
+            <div  style="padding: 10px;">
+                <h3 >
+                   Precio: $ {{producto.precio}}
+                </h3>
+                <h3>
+                    Stock: {{producto.stock}}
+                </h3>
+            </div>
+            <div style="padding: 10px;" class="botones">
+                <mat-button-toggle class="menu-item btnAdd" (click)="accionCarrito()"
+              (change)="producto.carrito = $event.source.checked" checked="{{producto.carrito}}"  *ngIf="active; else otro2">
+              <mat-icon *ngIf="!producto.carrito">add{{iconCarrito}}</mat-icon>
+              <mat-icon *ngIf="producto.carrito">remove{{iconCarrito}}</mat-icon>
+              </mat-button-toggle>
+              <ng-template #otro2>
+                <mat-button-toggle class="menu-item btnAdd" (click)="accionCarrito()"
+                  checked="{{producto.carrito}}" >
+                 <mat-icon *ngIf="!producto.carrito">add{{iconCarrito}}</mat-icon>      
+                </mat-button-toggle>
+              </ng-template>
+                <mat-button-toggle mat-raised-button type="button" (click)="cancelar()" routerLink="productos" class="menu-item">Cancelar</mat-button-toggle>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #elseBlock>
+    <div style="padding: 20px;">
+        <div class="error">
+            <h1 style="text-align: center;">
+                EL PRODUCTO QUE USTED QUIERE BUSCAR NO EXISTE, VERIFICAR EL ID
+            </h1>
+        </div>
+        <div style="padding: 20px;">
+            <mat-button-toggle mat-raised-button type="button" (click)="cancelar()" routerLink="productos" class="menu-item">Cancelar</mat-button-toggle>
+        </div>
+    </div>
+</ng-template>

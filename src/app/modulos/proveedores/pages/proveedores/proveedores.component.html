@@ -1,0 +1,39 @@
+<!-- ENCABEZADO -->
+<section id="encabezado">
+    <div class="imagen-encabezado"></div>
+    <div class="contenido-encabezado">
+        <h1>PROVEEDORES</h1>
+        <p>Aliados con empresas de prestigio!</p>
+        <button class="button" (click)="irSolicitudProveedor()">QUIERO SER PROVEEDOR</button>
+    </div>
+</section>
+
+
+<!-- CUERPO -->
+<div class="contenedor-principal">
+
+    <!-- NUESTROS PROVEEDORES -->
+    <section class="cuerpo-empresas">
+        <h1>NUESTROS PROVEEDORES</h1>
+        <div class="contenido-empresas">
+            <div class="empresa" *ngFor="let proveedor of proveedores">
+                <img src="{{proveedor.logo}}" alt="{{proveedor.nombre}}" onerror="this.onerror = null; this.src='https://bit.ly/3WsWcY9'">
+                <span>{{proveedor.nombre}}</span>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FORMULARIO -->
+    <section class="cuerpo-serproveedor">
+        <div class="contenedor-serproveedor-letras">
+            <h1>¿QUIERES CONVERTIRTE EN PROVEEDOR?</h1>
+            <p>Llena el siguiente formulario para solicitar unirte a nuestra lista de proveedores. Nos pondremos en
+                contacto contigo lo más pronto posible.</p>
+        </div>
+        <div>
+            <button (click)="irSolicitudProveedor()">QUIERO SER PROVEEDOR</button>
+        </div>
+    </section>
+
+</div>

@@ -1,3 +1,41 @@
-<p>
-  modificar-usuario works!
-</p>
+<mat-card>
+  <div style="text-align:center;">
+    <mat-card-title>Modificar Usuario</mat-card-title>
+  </div>
+  <br>
+  <form [formGroup]="usuarioModificado">
+
+
+      <mat-form-field class="campos-field" style="grid-column: span 2;">
+        <mat-label>Nombre</mat-label>
+        <input matInput readonly="false" formControlName="nombre" readonly="true"/>
+      </mat-form-field>
+
+        <mat-form-field class="campos-field" style="grid-column: span 2;">
+          <mat-label>Apellido</mat-label>
+          <input matInput readonly="false" formControlName="apellido" readonly="true"/>
+        
+        </mat-form-field>
+
+
+          <div class="radio" style="grid-column: span 2;">
+            <mat-label>Rol: </mat-label>
+          <mat-radio-group formControlName="rol">
+            <mat-radio-button value="1" >Cliente</mat-radio-button>
+            <mat-radio-button value="2">Administrador</mat-radio-button>
+          </mat-radio-group>
+          </div>
+          
+        
+    
+        
+  
+     <div class="acciones">
+      <button class="btnEnviar" mat-raised-button color="accent" [disabled]="!usuarioModificado.valid" (click)="onSubmit()">Aceptar</button>
+      <button mat-raised-button (click)="cancelar()">Cancelar</button>
+    </div>
+
+  </form>
+  
+
+</mat-card>

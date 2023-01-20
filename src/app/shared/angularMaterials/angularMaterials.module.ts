@@ -16,6 +16,14 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatTableModule } from '@angular/material/table';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSortModule } from '@angular/material/sort';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
   imports: [
@@ -35,7 +43,15 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonToggleModule,
     MatTableModule,
     MatSnackBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSelectModule,
+    MatSortModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatStepperModule
   ],
   declarations: [],
   exports: [
@@ -55,7 +71,15 @@ import { MatDividerModule } from '@angular/material/divider';
     MatButtonToggleModule,
     MatTableModule,
     MatSnackBarModule,
-    MatDividerModule
+    MatDividerModule,
+    MatSelectModule,
+    MatSortModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    MatListModule,
+    MatStepperModule
   ]
 })
 export class AngularMaterialsModule { }

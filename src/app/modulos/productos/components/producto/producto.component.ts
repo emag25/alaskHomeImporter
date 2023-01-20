@@ -1,7 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { DataProductosService } from '../../core/services/dataProductos.service';
-import { ListenerService } from 'src/app/core/services/listener.service';
+import { Producto } from '../../models/producto.model';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginComponent } from 'src/app/core/autenticacion/components/login/login.component';
+import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { ListenerService } from 'src/app/shared/services/listener.service';
+import { LoginService } from 'src/app/shared/services/login.service';
+import { DataProductosService } from '../../services/dataProductos.service';
+
 
 @Component({
   selector: 'app-producto',
@@ -9,78 +15,111 @@ import { ListenerService } from 'src/app/core/services/listener.service';
   styleUrls: ['./producto.component.css']
 })
 export class ProductoComponent {
-  @Input() producto: any;
+  @Input() producto: Producto ={
+    id: '',
+    nombre: '',
+    descripcion: '',
+    imagen: '',
+    precio: 0,
+    stock: 0,
+    cantidad: 0,
+    categoriaId: 0,
+    proveedorId: 0,
+    carrito: false,
+    fav: false,
+  };
+  @Input() categoriaNombre:string | null= null;
+  
+  active: boolean = this.loginService.getActive();
 
+  @Output() showProduct = new EventEmitter<string>();
+
+  onShowDetail() {
+    this.showProduct.emit(this.producto.id);
+  }
   // Variables de carrito
   carritoMB = 0;
-  checkedCarrito = false;
-  iconCarrito = "add_shopping_cart";
-  colorCarrito = "";
+  iconCarrito = "_shopping_cart";
 
   // Variables de favoritos
   favoritoMB = 0;
-  checkedFavorito = false;
-  iconFavorito = "";
-  colorFavorito = "#23212B";
 
-  constructor(private dataProductos:DataProductosService, private router:Router, private listener:ListenerService) { }
+  idUsuario = 0;
+  constructor(
+    private dialog: MatDialog,
+    private loginService: LoginService,
+    private dataProductos: DataProductosService,
+    private router: Router,
+    private listener: ListenerService,
+    private DataUsuario: DataUsuariosService
+  ) { }
 
   ngOnInit() {
     this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
+    this.listener.customFavoritoMB.subscribe(favoritoMB => this.favoritoMB = favoritoMB);
+    this.idUsuario = this.loginService.getLoggedUserId();
   }
 
   irEditar(id: number) {
     this.router.navigate(['/peliculas-editar',id]); // componente no creado aun
   }
 
-  eliminar(id: number) {
+  
+
+  eliminar(id: string) {
     this.dataProductos.deleteProducto(id);
   }
 
   accionCarrito() {
-    console.log(this.iconCarrito)
-    if (this.checkedCarrito) {
-      this.addCarrito();
-    }
-    else {
-      this.removeCarrito();
-    }
+    if(this.active){
+      if (this.producto.carrito) {
+        this.addCarrito();
+      }
+      else {
+        this.removeCarrito();
+      }
+    }else this.openDialogSesion();
+    
   }
 
   addCarrito() {
     this.listener.addMatBadge(this.listener.getMatBadge());
-    this.producto.carrito = true;
-    this.iconCarrito = "remove_shopping_cart";
+    this.DataUsuario.addCarrito(this.idUsuario, {id: parseInt(this.producto.id)})
+
   }
 
   removeCarrito() {
     this.listener.restMatBadge(this.listener.getMatBadge());
-    this.producto.carrito = false;
-    this.iconCarrito = "add_shopping_cart";
+    this.DataUsuario.removeCarrito(this.idUsuario, parseInt(this.producto.id));
   }
 
   // Controlador de agregar o eliminar favorito
   accionFavorito() {
-    if (this.checkedFavorito) {
-      this.addFavorito();
-    }
-    else {
-      this.removeFavorito();
-    }
+    if(this.active){
+      if (this.producto.fav) {
+        this.addFavorito();
+      }
+      else {
+        this.removeFavorito();
+      }
+    }else this.openDialogSesion();
+    
   }
 
   // Agregar favorito
   addFavorito() {
     this.listener.addFavoritoMB(this.listener.getFavoritoMB());
-    this.producto.favorito = true;
-    this.colorFavorito = "#E45D4C";
+    this.DataUsuario.addFavorito(this.idUsuario, {id: parseInt(this.producto.id)})
   }
 
   // Eliminar favorito
   removeFavorito() {
     this.listener.removeFavoritoMB(this.listener.getFavoritoMB());
-    this.producto.favorito = false;
-    this.colorFavorito = "#23212B";
+    this.DataUsuario.removeFavorito(this.idUsuario, parseInt(this.producto.id));
+  }
+
+  openDialogSesion(): void {
+    this.dialog.open(LoginComponent, { disableClose: true, width: '500px' });
   }
 
 }

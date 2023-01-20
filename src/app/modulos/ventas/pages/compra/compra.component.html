@@ -1,0 +1,203 @@
+<div class="contenedor-principal mt-4">
+
+    <div class="container">
+        
+        <!-- CONTENEDOR STEPPERS -->
+        <mat-stepper
+            class="example-stepper"
+            [linear]="true"
+            [orientation]="(stepperOrientation | async)!">
+
+            <!-- PRIMER STEP -->
+            <mat-step [stepControl]="formDatosPersonales" label="Confirma tus datos">
+                
+                <!-- FORMULARIO DATOS PERSONALES -->
+                <form [formGroup]="formDatosPersonales">
+
+                    <!-- CAMPO NOMBRE -->
+                    <mat-form-field class="campos-field">
+                      <mat-label>Nombre</mat-label>
+                      <input matInput formControlName="nombre">
+                      <mat-error *ngIf="formDatosPersonales.controls['nombre'].hasError('required')">Nombre es requerido.</mat-error>
+                      <mat-error *ngIf="formDatosPersonales.controls['nombre'].hasError('pattern')">Nombre no válido.</mat-error>
+                      <mat-error *ngIf="formDatosPersonales.controls['nombre'].hasError('maxlength')">Nombre no puede tener mas de 150
+                        caracteres.</mat-error>
+                    </mat-form-field>
+                    <!-- FIN CAMPO NOMBRE -->
+
+                    <!-- CAMPO APELLIDO -->
+                    <mat-form-field class="campos-field">
+                        <mat-label>Apellido</mat-label>
+                        <input matInput formControlName="apellido">
+                        <mat-error *ngIf="formDatosPersonales.controls['apellido'].hasError('required')">Apellido es requerido.</mat-error>
+                        <mat-error *ngIf="formDatosPersonales.controls['apellido'].hasError('pattern')">Apellido no válido.</mat-error>
+                        <mat-error *ngIf="formDatosPersonales.controls['apellido'].hasError('maxlength')">Apellido no puede tener mas de 150
+                          caracteres.</mat-error>
+                    </mat-form-field>
+                    <!-- FIN CAMPO APELLIDO -->
+                  
+                    <!-- CAMPO EMAIL -->
+                    <mat-form-field class="campos-field">
+                      <mat-label>Email</mat-label>
+                      <input matInput formControlName="email">
+                      <mat-error *ngIf="formDatosPersonales.controls['email'].hasError('required')">Email es requerido.</mat-error>
+                      <mat-error *ngIf="formDatosPersonales.controls['email'].hasError('email')">Email no válido.</mat-error>
+                      <mat-error *ngIf="formDatosPersonales.controls['email'].hasError('maxlength')">Email no puede tener mas de 150
+                        caracteres.</mat-error>
+                    </mat-form-field>
+                    <!-- FIN CAMPO EMAIL -->
+                  
+                    <!-- CAMPO TELEFONO -->
+                    <mat-form-field class="campos-field">
+                      <mat-label>Teléfono</mat-label>
+                      <input matInput formControlName="telefono">
+                      <mat-error *ngIf="formDatosPersonales.controls['telefono'].hasError('required')">Teléfono es requerido.</mat-error>
+                      <mat-error *ngIf="formDatosPersonales.controls['telefono'].hasError('pattern')">Teléfono no válido.</mat-error>
+                      <mat-error *ngIf="formDatosPersonales.controls['telefono'].hasError('maxlength')">Teléfono no puede tener mas de 10
+                        caracteres.</mat-error>
+                      <mat-error *ngIf="formDatosPersonales.controls['telefono'].hasError('minlength')">Teléfono debe tener al menos 9
+                        caracteres.</mat-error>
+                    </mat-form-field>
+                    <!-- FIN CAMPO TELÉFONO -->
+                  
+                    <!-- CAMPO PROVINCIA -->
+                    <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 2;">
+                      <mat-label>Provincia</mat-label>
+                      <mat-select formControlName="provincia">
+                        <mat-option *ngFor="let provincia of provincias" [value]="provincia.nombre">
+                          {{provincia.nombre}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="formDatosPersonales.controls['provincia'].hasError('required')">Provincia es requerida.</mat-error>
+                    </mat-form-field>
+                    <!-- FIN CAMPO PROVINCIA -->
+
+                    <!-- CAMPO DIRECCIÓN -->
+                    <mat-form-field class="campos-field" style="grid-column: span 2;">
+                        <mat-label>Dirección</mat-label>
+                        <input matInput formControlName="direccion">
+                        <mat-error *ngIf="formDatosPersonales.controls['direccion'].hasError('required')">Dirección es requerido.</mat-error>
+                        <mat-error *ngIf="formDatosPersonales.controls['direccion'].hasError('maxlength')">Dirección no puede tener mas de 500
+                          caracteres.</mat-error>
+                    </mat-form-field>
+                    <!-- FIN CAMPO DIRECCIÓN -->
+
+                    <!-- BOTONES -->
+                    <div class="botones">
+                        <button mat-button matStepperNext class="btnEnviar">Continuar</button>
+                    </div>
+                    <!-- FIN BOTONES -->
+                </form>
+                <!-- FIN FORMULARIO -->
+            </mat-step>
+            <!-- FIN PRIMER STEP -->
+
+            <!-- SEGUNDO STEP -->
+            <mat-step [stepControl]="formDatosTarjeta" label="Agregar tarjeta">
+
+                <!-- FORMULARIO DATOS DE LA TARJETA -->
+                <form [formGroup]="formDatosTarjeta" id="form">
+
+                    <!-- CAMPO TIPO DE TARJETA -->
+                    <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 3;">
+                        <mat-label>Tipo de tarjeta</mat-label>
+                        <mat-select formControlName="tipo">
+                          <mat-option value="debito">
+                            Débito
+                          </mat-option>
+                          <mat-option value="credito">
+                            Crédito
+                          </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="formDatosTarjeta.controls['tipo'].hasError('required')">Tipo de tarjeta es requerido.</mat-error>
+                    </mat-form-field>
+                      <!-- FIN CAMPO TIPO DE TARJETA -->
+
+                      <!-- CAMPO NÚMERO DE TARJETA -->
+                    <mat-form-field class="campos-field"  style="grid-column: span 3;">
+                        <mat-label>Número de tarjeta</mat-label>
+                        <input matInput formControlName="numero">
+                        <mat-error *ngIf="formDatosTarjeta.controls['numero'].hasError('required')">Número de tarjeta es requerido.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['numero'].hasError('pattern')">Número de tarjeta no válido.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['numero'].hasError('maxlength')">Número de tarjeta no puede tener mas de 16
+                          caracteres.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['numero'].hasError('minlength')">Número de tarjeta debe tener al menos 16
+                          caracteres.</mat-error>
+                    </mat-form-field>
+                      <!-- FIN CAMPO NÚMERO DE TARJETA -->
+
+                      <p style="grid-column: span 2;">FECHA DE VENCIMIENTO (MM/YY)</p>
+                      <p>CÓDIGO DE SEGURIDAD</p>
+
+
+                      <!-- CAMPO MES DE VENCIMIENTO -->
+                    <mat-form-field class="campos-field">
+                        <mat-label>MM</mat-label>
+                        <input matInput formControlName="mes">
+                        <mat-error *ngIf="formDatosTarjeta.controls['mes'].hasError('required')">MM es requerido.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['mes'].hasError('pattern')">MM no válido.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['mes'].hasError('maxlength')">MM no puede tener mas de 2
+                          caracteres.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['mes'].hasError('minlength')">MM debe tener al menos 1
+                          caracter.</mat-error>
+                    </mat-form-field>
+                      <!-- FIN CAMPO MES DE VENCIMIENTO -->
+
+                       <!-- CAMPO AÑO DE VENCIMIENTO -->
+                    <mat-form-field class="campos-field">
+                        <mat-label>YY</mat-label>
+                        <input matInput formControlName="year">
+                        <mat-error *ngIf="formDatosTarjeta.controls['year'].hasError('required')">YY es requerido.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['year'].hasError('pattern')">YY no válido.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['year'].hasError('maxlength')">YY no puede tener mas de 2
+                          caracteres.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['year'].hasError('minlength')">YY debe tener al menos 2
+                          caracter.</mat-error>
+                    </mat-form-field>
+                      <!-- FIN CAMPO AÑO DE VENCIMIENTO -->
+
+                        <!-- CAMPO CÓDIGO DE SEGURIDAD -->
+                    <mat-form-field class="campos-field">
+                        <mat-label>CVV</mat-label>
+                        <input matInput formControlName="cvv">
+                        <mat-error *ngIf="formDatosTarjeta.controls['cvv'].hasError('required')">CVV es requerido.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['cvv'].hasError('pattern')">CVV no válido.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['cvv'].hasError('maxlength')">CVV no puede tener mas de 3
+                          caracteres.</mat-error>
+                        <mat-error *ngIf="formDatosTarjeta.controls['cvv'].hasError('minlength')">CVV debe tener al menos 3
+                          caracter.</mat-error>
+                    </mat-form-field>
+                      <!-- FIN CAMPO CÓDIGO DE SEGURIDAD -->
+
+                    <!-- BOTONES -->
+                    <div class="botones">
+                        <button mat-button matStepperPrevious>Volver</button>
+                        <button mat-button matStepperNext class="btnEnviar">Continuar</button>
+                    </div>
+                    <!-- FIN BOTONES -->
+                </form>
+                <!-- FIN FORMULARIO -->
+            </mat-step>
+            <!-- FIN SEGUNDO STEP -->
+
+            <!-- TERCER STEP -->
+            <mat-step>
+              <ng-template matStepLabel>Finalizar</ng-template>
+              <div class="tercer-step">
+                <p style="grid-column: span 2; text-align: center;">Todo listo, clic en FINALIZAR para realizar la compra.</p>
+                <div style="grid-column: span 2; text-align: center;">
+                  <button class="finalizar" (click)="onSubmit()">FINALIZAR</button>
+                </div>
+              </div>
+              <div>
+                <button mat-button matStepperPrevious>Volver</button>
+              </div>
+            </mat-step>
+            <!-- FIN TERCER STEP -->
+        
+        </mat-stepper>
+        <!-- FIN CONTENEDOR STEPPERS -->
+    </div>
+    
+    <div class="separador"></div>
+</div>

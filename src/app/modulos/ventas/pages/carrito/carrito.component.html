@@ -1,0 +1,94 @@
+<div class="contenedor-principal mt-4">
+    <!-- <h1 class="mt-3 title">Carrito de Compras</h1> -->
+    <h1 class="mt-4 text-center "><span class="titulo">CARRITO DE COMPRAS</span></h1>
+    <div class="container" *ngIf="productos.length > 0 else elseBlock">
+        
+        <div class="contenedor-secundario">
+
+            <!-- LADO IZQUIERDO -->
+            <div class="box box-left">
+            
+                <div class="table-responsive-xxl">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">Producto</th>
+                                <th scope="col" class="text-center">Precio</th>
+                                <th scope="col" class="text-center">Cantidad</th>
+                                <th scope="col" class="text-center">Total</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr *ngFor="let product of productos">
+                                <td>
+                                    <img [src]="product.imagen" class="card-img-top" alt="Imagen del producto {{product.nombre}}">
+                                    <span class="nombre-producto">{{product.nombre}}</span>
+                                </td>
+                                <td class="text-center">
+                                    ${{product.precio}}
+                                </td>
+                                <td class="text-center cantidad">
+                                    <button class="menu-item" (click)="removeCantidad(product.id)">
+                                        <i class="fa-solid fa-minus"></i>
+                                    </button>
+                                    <input type="text" value="{{product.cantidad}}" readonly>
+                                    <button class="menu-item" (click)="addCantidad(product.id)">
+                                        <i class="fa-solid fa-plus"></i>
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    ${{product.precio * product.cantidad}}
+                                </td>
+                                <td class="text-center">
+                                    <button class="btn btn-danger" (click)="deleteProducto(product.id)">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- LADO DERECHO -->
+            <div class="box box-right">
+                <div class="title-compra">
+                    <span>FACTURACIÓN ELECTRÓNICA</span>
+                </div>
+                <div class="entrega">
+                    <h1>ENTREGA</h1>
+                    <p>Realizamos entregas a domicilio en todo el Ecuador con todas las medidas de seguridad e higiene.</p>
+                </div>
+                <button class="productos" (click)="irProductos()">AGREGAR MÁS PRODUCTOS</button>
+                <div class="factura">
+                    <div class="subtotal">
+                        <span>Subtotal</span>
+                        <span>${{subtotal}}</span>
+                    </div>
+                    <div class="impuestos">
+                        <span>Impuestos</span>
+                        <span>${{iva}}</span>
+                    </div>
+                    <div class="total">
+                        <span>TOTAL</span>
+                        <span>${{total}}</span>
+                    </div>
+                </div>
+                <button class="comprar" (click)="irProceso()">COMPRAR</button>
+            </div>
+        </div>
+
+    </div>
+
+    <ng-template #elseBlock>
+        <div class="else">
+        <img class="img" src="https://bit.ly/3iT5OxR" alt="no hay productos">
+        <h2 class="text-center ">No tienes ningún producto agregado a tu carrito de compras.</h2>
+
+        </div>
+        
+    </ng-template>
+    
+    <div class="separador"></div>
+</div>

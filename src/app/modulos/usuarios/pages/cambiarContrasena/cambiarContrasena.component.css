@@ -1,0 +1,52 @@
+* {
+    box-sizing: border-box;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 20px;
+}
+
+.acciones {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    grid-column: span 2;
+    gap: 20px;
+    width: 100%;
+}
+
+mat-card {
+    padding: 40px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.btnEnviar {
+    margin-top: 20px;
+}
+
+.btnEnviar:enabled {
+    background-color: black !important;
+    color: white !important;
+}
+
+input {
+    width: 200%;
+}
+
+.campos-field {
+    width: 100%;
+}
+
+@media screen and (max-width: 700px) {
+    form {
+        display: flex;
+        flex-direction: column;
+        padding: 0px;
+    }
+}

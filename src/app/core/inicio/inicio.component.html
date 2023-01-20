@@ -1,0 +1,92 @@
+<!-- ENCABEZADO -->
+<section id="encabezado">
+    <div class="imagen-encabezado"></div>
+    <div class="contenido-encabezado">
+        <h1>ALASK HOME IMPORTER</h1>
+        <p>Productos para el hogar de la mejor calidad</p>
+        <a class="button" routerLink="/productos" class="button" >VER PRODUCTOS</a>
+    </div>
+</section>
+
+
+<!-- CUERPO -->
+<div class="contenedor-principal">
+
+    <!-- NUESTROS PROVEEDORES -->
+    <section class="cuerpo-empresas">
+        <h1>TECHNOLOGIA</h1>
+        <div class="contenido-empresas">
+            <div class="empresa" *ngFor="let producto of getProductos(1)" (click)="openDescripcion(producto.id)">
+                <img src="{{producto.imagen}}" alt="{{producto.nombre}}"
+                    onerror="this.onerror = null; this.src='https://bit.ly/3WsWcY9'">
+                <span>{{producto.nombre}}</span>
+            </div>
+            <div class="empresa">
+                <a routerLink="/productos" [queryParams]="{categoria:'1'}">VER TODOS</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cuerpo-empresas">
+        <h1>ELECTROHOGAR</h1>
+        <div class="contenido-empresas">
+            <div class="empresa" *ngFor="let producto of getProductos(2)" (click)="openDescripcion(producto.id)">
+                <img src="{{producto.imagen}}" alt="{{producto.nombre}}"
+                    onerror="this.onerror = null; this.src='https://bit.ly/3WsWcY9'">
+                <span>{{producto.nombre}}</span>
+            </div>
+            <div class="empresa">
+                <a routerLink="/productos" [queryParams]="{categoria:'2'}">VER TODOS</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="cuerpo-empresas">
+        <h1>HOGAR</h1>
+        <div class="contenido-empresas">
+            <div class="empresa" *ngFor="let producto of getProductos(3)" (click)="openDescripcion(producto.id)">
+                <img src="{{producto.imagen}}" alt="{{producto.nombre}}"
+                    onerror="this.onerror = null; this.src='https://bit.ly/3WsWcY9'">
+                <span>{{producto.nombre}}</span>
+            </div>
+            <div class="empresa">
+                <a routerLink="/productos" [queryParams]="{categoria:'3'}">VER TODOS</a>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="cuerpo-empresas">
+        <h1>MUEBLES</h1>
+        <div class="contenido-empresas">
+            <div class="empresa" *ngFor="let producto of getProductos(4)" (click)="openDescripcion(producto.id)">
+                <img src="{{producto.imagen}}" alt="{{producto.nombre}}"
+                    onerror="this.onerror = null; this.src='https://bit.ly/3WsWcY9'">
+                <span>{{producto.nombre}}</span>
+            </div>
+            <div class="empresa">
+                <a routerLink="/productos" [queryParams]="{categoria:'4'}">VER TODOS</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="cuerpo-empresas">
+        <h1>OTRAS CATEGORIAS</h1>
+        <div class="contenido-empresas">
+            <div class="empresa">
+                <a routerLink="/productos" [queryParams]="{categoria:'5'}">FERRETERIA</a>
+            </div>
+            <div class="empresa">
+                <a routerLink="/productos" [queryParams]="{categoria:'6'}">MOVILIDAD</a>
+            </div>
+        </div>
+    </section>
+
+
+</div>
+
+
+<div class="separador"></div>
+
+<div class="separador"></div>

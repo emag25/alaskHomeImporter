@@ -1,0 +1,79 @@
+.contenedor-principal {
+    padding: 20px;
+}
+
+.separador {
+    height: 100px;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 20px;    
+}
+
+input {
+    width: 100%;
+}
+
+.campos-field{
+    width: 100%;
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    grid-column: span 2;
+    gap: 20px;
+    width: 100%;
+}
+
+#form {
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#form .botones {
+    grid-column: span 3;
+}
+
+.tercer-step {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    gap: 20px; 
+}
+
+.finalizar {
+    width: 200px;
+    padding: 20px;
+    border-radius: 3px;
+    border: none;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    transition: all 0.5s ease-in-out;
+}
+
+.finalizar:hover {
+    box-shadow: 0 10px 20px -12px rgb(0 0 0 / 42%), 0 3px 20px 0px rgb(0 0 0 / 12%), 0 8px 10px -5px rgb(0 0 0 / 20%);
+    font-size: 20px;
+}
+
+.btnEnviar:enabled {
+    background-color: black !important;
+    color: white !important;
+}
+
+@media screen and (max-width: 700px) {
+    form {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+    
+}

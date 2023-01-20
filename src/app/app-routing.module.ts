@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginGuardian } from './core/autenticacion/components/login/loginGuardian';
+import { InicioComponent } from './core/inicio/inicio.component';
 
 import { Error404Component } from './shared/components/error404/error404.component';
-import { InicioComponent } from './inicio/inicio.component';
-import { LoginGuardian } from './autenticacion/components/login/loginGuardian';
 
 
 const routes: Routes = [
@@ -34,7 +34,8 @@ const routes: Routes = [
     },  
     {  
       path: 'ventas', 
-      loadChildren: () => import('./modulos/ventas/ventas-routing.module').then((m) => m.VentasRoutingModule)
+      loadChildren: () => import('./modulos/ventas/ventas-routing.module').then((m) => m.VentasRoutingModule),
+      canActivate: [LoginGuardian]
     },  
   { 
     path: '**', 
