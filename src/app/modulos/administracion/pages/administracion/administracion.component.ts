@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DataProductosService } from 'src/app/modulos/productos/services/dataProductos.service';
 import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { DataVentasService } from 'src/app/modulos/ventas/services/data-ventas.service';
 import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
@@ -20,12 +21,12 @@ export class AdministracionComponent implements OnInit {
   ventas: number = 0;
 
   constructor(private router: Router, private dataUsuarios: DataUsuariosService, protected loginService: LoginService,
-              private dataProveedores: DataProveedoresService, private dataProductos: DataProductosService){
+              private dataProveedores: DataProveedoresService, private dataProductos: DataProductosService, private dataVentas: DataVentasService){
     this.rol = Number(this.dataUsuarios.getRol(loginService.getLoggedUserId()));  
     this.usuarios = this.dataUsuarios.getlistaUsuarios().length;
     this.proveedores = this.dataProveedores.getProveedores().length;
     this.productos = this.dataProductos.getProductos().length;
-    this.ventas = 0;
+    this.ventas = this.dataVentas.getVentas().length;
   }
 
   ngOnInit() {
