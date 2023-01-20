@@ -3,8 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoginComponent } from 'src/app/core/autenticacion/components/login/login.component';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
-import { ListenerService } from '../../services/listener.service';
-import { LoginService } from '../../services/login.service';
+import { ListenerService } from 'src/app/shared/services/listener.service';
+import { LoginService } from 'src/app/shared/services/login.service';
 
 @Component({
   selector: 'app-header',
@@ -47,6 +47,18 @@ export class HeaderComponent {
 
   irCarrito() {
     this.router.navigate(['/ventas']);
+  }
+
+  irInicio() {
+    this.router.navigate(['/']);
+  }
+
+  irProductos() {
+    this.router.navigate(['/productos']);
+  }
+
+  irProveedores() {
+    this.router.navigate(['/proveedores']);
   }
 
   irFavorito() {

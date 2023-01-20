@@ -14,11 +14,15 @@ import { InicioComponent } from './core/inicio/inicio.component';
 import { DataUsuariosService } from './modulos/usuarios/services/dataUsuarios.service';
 import { ListenerService } from './shared/services/listener.service';
 import { LoginService } from './shared/services/login.service';
+import { FooterComponent } from './core/footer/footer.component';
+import { HeaderComponent } from './core/header/header.component';
 
 @NgModule({
   declarations: [							
     AppComponent,
-    InicioComponent
+    InicioComponent,
+    HeaderComponent,
+    FooterComponent
    ],
   imports: [
     BrowserModule,

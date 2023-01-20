@@ -12,6 +12,7 @@
     flex-wrap: wrap;
     width: 100%;
     justify-content: center;
+    margin-top: 120px;
 }
 
 .box-left {
@@ -100,6 +101,7 @@
     .box-right {
       width: 40%;
       align-self: center;
+      margin-top: 40px;
     }
 }
 
@@ -109,6 +111,7 @@
     }
     .box-right {
       width: 60%;
+    margin-top: 40px;
     }
 }
 
@@ -118,6 +121,7 @@
     }
     .box-right {
       width: 80%;
+    margin-top: 40px;
     }
 }
 
@@ -127,6 +131,7 @@
     }
     .box-right {
       width: 90%;
+    margin-top: 40px;
     }
 }
 
@@ -148,4 +153,46 @@ td img {
 .cantidad input {
     text-align: center;
     width: 50px;
+}
+
+*:before,
+*:after {
+    box-sizing: inherit;
+}
+
+.titulo {
+    line-height: normal;
+    text-align: center;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25pt;
+    margin-bottom: 80px;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.titulo:before {
+    content: "";
+    position: absolute;
+    width: 50%;
+    bottom: 0;
+    left: 25%;
+    right: 25%;
+    border-bottom: #85e3f0 solid 5px;
+}
+
+.else{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.img{
+    margin-top: 90px;
+    width: 100%;
+    max-width: 100px;
+}
+
+h2{
+    margin-top: 40px;
 }

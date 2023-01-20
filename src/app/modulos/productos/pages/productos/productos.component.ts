@@ -19,6 +19,7 @@ export class ProductosComponent {
   showProductDetail = false;
   productId: string | null = null
   valor = '0';
+  checkedCategoria = false;
 
 
   protected active: boolean = this.loginService.getActive();
@@ -37,11 +38,17 @@ export class ProductosComponent {
       this.productId = params.get('producto');
       this.category = params.get('categoria');
 
+      
+
       if (this.productId) {
         this.onShowDetail(this.productId);
       }
 
       if (this.category != null) {
+
+        this.clasificarProductos(Number(this.category));
+
+
         const elementoGeneral: any = document.getElementById('rol');
         for (let i = 0; i < elementoGeneral.children.length; i++) {
           const elemento3: any = document.getElementById(`${i}-but`);
@@ -60,6 +67,10 @@ export class ProductosComponent {
         elemento.checked = true;
       }
     })
+  }
+
+  setChecked(id: number) {
+    return this.category == id.toString();    
   }
 
   public onValChange(val: string) {
@@ -85,6 +96,7 @@ export class ProductosComponent {
 
 
   }
+  
   openDialogSesion(): void {
     this.dialog.open(DescripcionComponent, { disableClose: true, width: '700px' }).componentInstance.id = this.productId;
   }
