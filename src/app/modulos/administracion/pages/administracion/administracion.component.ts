@@ -17,6 +17,7 @@ export class AdministracionComponent implements OnInit {
   rol: number = 0;
   usuarios: number = 0;
   proveedores: number = 0;
+  categorias: number = 0;
   productos: number = 0;
   ventas: number = 0;
 

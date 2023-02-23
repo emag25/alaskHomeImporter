@@ -32,8 +32,20 @@ export class ProductosComponent {
   category: string | null = null;
   public selectedVal: string = '0';
 
+  post = {
+    transaccion: 'consultar_todo',    
+  };
+  ngOnInit() {    
+    this.dataProductos.obtenerProductos(this.post).toPromise().then(
+      resp => {
+        console.log(resp);
+      }).catch(
+        err => {
+          console.error(err);
+        }
+      );
+  
 
-  ngOnInit() {
     this.route.queryParamMap.subscribe(params => {
       this.productId = params.get('producto');
       this.category = params.get('categoria');

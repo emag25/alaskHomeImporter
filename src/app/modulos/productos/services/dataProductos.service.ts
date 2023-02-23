@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { Producto } from '../models/producto.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -480,7 +483,7 @@ export class DataProductosService {
     }
   ];  
   
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getProductos(): Producto[] {
     return this.productos;
@@ -526,7 +529,12 @@ export class DataProductosService {
     } else {
       return false;
     }
-  }
+  }  
 
+  obtenerProductos(post: any): Observable<any> {    
+    const url = `${environment.urlBAse}${environment.pathUrl.urlGetProductos}`;
+    console.log(url, post);
+    return this.http.post(url, {json: post});
+  }
 
 }
