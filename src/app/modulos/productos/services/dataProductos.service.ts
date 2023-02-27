@@ -532,9 +532,15 @@ export class DataProductosService {
   }  
 
   obtenerProductos(post: any): Observable<any> {    
-    const url = `${environment.urlBAse}${environment.pathUrl.urlGetProductos}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlGetProductos}`;    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',        
+        'Access-Control-Allow-Origin': '*'
+      })
+    }
     console.log(url, post);
-    return this.http.post(url, {json: post});
+    return this.http.post(url, post,httpOptions);
   }
 
-}
+} 
