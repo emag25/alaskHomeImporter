@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { SolicitudProveedorComponent } from '../../components/solicitud-proveedor/solicitud-proveedor.component';
+import { Proveedor } from '../../models/proveedor.model';
 import { DataProveedoresService } from '../../services/dataProveedores.service';
 
 @Component({
@@ -10,11 +11,15 @@ import { DataProveedoresService } from '../../services/dataProveedores.service';
 })
 export class ProveedoresComponent implements OnInit {
   
-  proveedores: any[] = this.dataProveedores.getProveedores();
+  proveedores: Proveedor[] = [];
 
-  constructor(private dataProveedores: DataProveedoresService, private dialog:MatDialog) { }
+  constructor(private _dataProveedores: DataProveedoresService, private dialog:MatDialog) { }
 
   ngOnInit(): void {
+
+    this._dataProveedores.getProveedores().subscribe(data => {
+      this.proveedores = data;
+    });
 
   }
 
@@ -22,8 +27,5 @@ export class ProveedoresComponent implements OnInit {
     this.dialog.open(SolicitudProveedorComponent, { disableClose: true, width: '700px' });
   }
 
-  onLoadImage(event: any) {
-    console.log(event);
-  }
 
 }

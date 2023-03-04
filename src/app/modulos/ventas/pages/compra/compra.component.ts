@@ -22,7 +22,7 @@ import { DataVentasService } from '../../services/data-ventas.service';
 })
 export class CompraComponent {
 
-  provincias: Provincia [] = this.dataProvincias.getProvincias();
+  provincias: Provincia [] = [];
   idUsuario = 0;
   usuario: any;
   carrito: any;
@@ -41,7 +41,7 @@ export class CompraComponent {
   constructor(
     private _formBuilder: FormBuilder,
     breakpointObserver: BreakpointObserver,
-    private dataProvincias: DataProvinciasService,
+    private _dataProvincias: DataProvinciasService,
     private login: LoginService,
     private dataUsuario: DataUsuariosService,
     private dataVentas: DataVentasService,
@@ -67,6 +67,11 @@ export class CompraComponent {
   }
 
   ngOnInit() {
+
+    this._dataProvincias.getProvincias().subscribe(data => {
+      this.provincias = data;
+    });
+
     this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
     this.idUsuario = this.login.getLoggedUserId();
     this.usuario = this.dataUsuario.findUserbyID(this.idUsuario);

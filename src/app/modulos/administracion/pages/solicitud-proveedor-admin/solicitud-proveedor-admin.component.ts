@@ -25,7 +25,8 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   active: boolean = this.loginService.getActive();
   rol: number = 0;
 
-  provincias: Provincia[] = this.dataProvincias.getProvincias();
+  provincias: Provincia[] = [];
+  solicitudes: SolicitudProveedor[] = [];
   datosRecibidos: any;
   nav: any;
 
@@ -62,15 +63,30 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   selectFecha: boolean = true;
 
 
-  constructor(private router: Router, private dataSolicitudes: DataSolicitudProveedorService, private dialog:MatDialog, private dataProveedores: DataProveedoresService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataProvincias: DataProvinciasService) {
+  constructor(private router: Router, private _dataSolicitudes: DataSolicitudProveedorService, private dialog: MatDialog,
+              private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService,
+              private _dataProvincias: DataProvinciasService) {
+    
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
     this.getDatosRecibidos();
+    
   }
 
 
   ngOnInit(): void {
+
+    this._dataProvincias.getProvincias().subscribe(data => {
+      this.provincias = data;
+    });
+
+    this._dataSolicitudes.getSolicitudes().subscribe(data => {
+      this.solicitudes = data;
+    });
+
+
+    
     this.onResize('');
-    this.dataSource = new MatTableDataSource<SolicitudProveedor>(this.dataSolicitudes.getSolicitudesProveedores());
+    this.dataSource = new MatTableDataSource<SolicitudProveedor>(this.solicitudes);
   }
 
 
@@ -85,7 +101,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
     this.nav = this.router.getCurrentNavigation();
     this.datosRecibidos = this.nav.extras.state;
 
-    if (this.datosRecibidos != null) {
+    /* if (this.datosRecibidos != null) {
 
       if (this.datosRecibidos.datosSolicitud.queryParams.estado === 'Aprobado') { // Agregar Proveedor
 
@@ -112,7 +128,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
           this.snackbar.open('Error al modificar la solicitud. Intenta de nuevo.', 'OK', { duration: 7000 });
         }
       }
-    }
+    } */
 
   }
 
@@ -236,7 +252,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
 
 
   delete(id: number) {
-    if (this.dataSolicitudes.deleteSolicitudProveedor(id)) {
+    if (this._dataSolicitudes.deleteSolicitud(id)) {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
         this.router.navigate(['/administracion/AdminProveedores/solicitudes']));
       this.snackbar.open('Solicitud eliminada con éxito', 'OK', { duration: 3000 });

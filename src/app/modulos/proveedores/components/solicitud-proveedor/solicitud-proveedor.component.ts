@@ -14,11 +14,17 @@ import { DialogExitoComponent } from '../dialogExito/dialogExito.component';
 })
 export class SolicitudProveedorComponent implements OnInit {
 
-  provincias:Provincia [] = this.dataProvincias.getProvincias();
+  provincias:Provincia [] = [];
 
-  constructor(private dialogRef: MatDialogRef<SolicitudProveedorComponent>, private dataProvincias: DataProvinciasService, private dialog: MatDialog, private dataSolicitudProveedor: DataSolicitudProveedorService ) { }
+  constructor(private dialogRef: MatDialogRef<SolicitudProveedorComponent>, private _dataProvincias: DataProvinciasService,
+              private dialog: MatDialog, private _dataSolicitudProveedor: DataSolicitudProveedorService) { }
 
   ngOnInit(): void {
+
+    this._dataProvincias.getProvincias().subscribe(data => {
+      this.provincias = data;
+    });
+    
   }
 
   formSolicitud = new FormGroup({
@@ -32,27 +38,23 @@ export class SolicitudProveedorComponent implements OnInit {
 
 
   onSubmit() {    
+
+    let s: SolicitudProveedor = {
+      ruc: this.formSolicitud.value.ruc ?? '',
+      nombre: this.formSolicitud.value.nombre ?? '',
+      email: this.formSolicitud.value.email ?? '',
+      telefono: this.formSolicitud.value.telefono ?? '',
+      provincia: {
+        id: Number(this.formSolicitud.value.provincia)
+      }
+    }
     
-    this.dataSolicitudProveedor.setSolicitudProveedor(new SolicitudProveedor(
-      this.random(3000, 4000),
-      this.formSolicitud.value.ruc ?? '',
-      this.formSolicitud.value.nombre ?? '',
-      this.formSolicitud.value.email ?? '',
-      this.formSolicitud.value.telefono ?? '',
-      this.formSolicitud.value.provincia ?? '',
-      'Por revisar',
-      new Date()
-    ));
+    this._dataSolicitudProveedor.setSolicitud(s);
 
     this.dialogRef.close();
     this.dialog.open(DialogExitoComponent);
+
   }
-
-
-  random(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
 
   cancelar() {
     this.dialogRef.close();

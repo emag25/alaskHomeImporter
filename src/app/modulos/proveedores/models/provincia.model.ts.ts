@@ -1,7 +1,6 @@
-export class Provincia {
-    constructor(
-        public id: number,
-        public nombre: string
-    ) { }
+export interface Provincia {
+
+    id: number,
+    nombre?: string
 
 }

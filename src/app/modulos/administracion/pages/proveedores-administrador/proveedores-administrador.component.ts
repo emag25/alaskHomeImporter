@@ -25,9 +25,9 @@ export class ProveedoresAdministradorComponent implements OnInit {
 
   active: boolean = this.loginService.getActive();
   rol: number = 0;
-  cantSolicitudes: number = this.dataSolicitud.getSolicitudesProveedoresByEstado('Por revisar').length;
+  cantSolicitudes: number = 0;
   
-  provincias: Provincia[] = this.dataProvincias.getProvincias();
+  provincias: Provincia[] = [];
   datosRecibidos: any;
   nav: any;
 
@@ -60,16 +60,35 @@ export class ProveedoresAdministradorComponent implements OnInit {
   selectProvincia: boolean = true;
   selectFecha: boolean = true; 
 
+  proveedores: Proveedor[] = [];
 
-  constructor(private router: Router, private dialog: MatDialog, private dataProveedores: DataProveedoresService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataProvincias: DataProvinciasService, private dataSolicitud: DataSolicitudProveedorService) {
+  constructor(private router: Router, private dialog: MatDialog, private _dataProveedores: DataProveedoresService,
+              private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService,
+              private loginService: LoginService, private _dataProvincias: DataProvinciasService,
+              private _dataSolicitud: DataSolicitudProveedorService) {
+    
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
     this.getDatosRecibidos();    
   }
 
   
   ngOnInit(): void {
+
+    this._dataSolicitud.getSolicitudesByEstado().subscribe(data => {
+      this.cantSolicitudes = data.length;
+    });
+
+    this._dataProveedores.getProveedores().subscribe(data => {
+      this.proveedores = data;
+    });
+
+    this._dataProvincias.getProvincias().subscribe(data => {
+      this.provincias = data;
+    });
+
     this.onResize('');
-    this.dataSource = new MatTableDataSource<Proveedor>(this.dataProveedores.getProveedores());
+    this.dataSource = new MatTableDataSource<Proveedor>(this.proveedores);
+    
   }
 
 
@@ -84,7 +103,7 @@ export class ProveedoresAdministradorComponent implements OnInit {
     this.nav = this.router.getCurrentNavigation();
     this.datosRecibidos = this.nav.extras.state;
 
-    if (this.datosRecibidos != null) {
+    /* if (this.datosRecibidos != null) {
 
       if (this.dataProveedores.editProveedor(this.datosRecibidos.datosProveedor.queryParams)) {
         this.snackbar.open('Proveedor modificado con éxito', 'OK', { duration: 3000 });
@@ -92,7 +111,7 @@ export class ProveedoresAdministradorComponent implements OnInit {
         this.snackbar.open('Error al modificar el proveedor. Intenta de nuevo.', 'OK', { duration: 7000 });
       }
       
-    }
+    } */
   }
 
 
@@ -188,13 +207,13 @@ export class ProveedoresAdministradorComponent implements OnInit {
 
 
   delete(id: number) {
-    if (this.dataProveedores.deleteProveedor(id)) {
+    /* if (this.dataProveedores.deleteProveedor(id)) {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
       this.router.navigate(['/administracion/AdminProveedores']));
       this.snackbar.open('Proveedor eliminado con éxito', 'OK', { duration: 3000 });
     } else {
       this.snackbar.open('Error al eliminar el proveedor. Intenta de nuevo.', 'OK', { duration: 7000 });
-    }
+    } */
   }
 
 

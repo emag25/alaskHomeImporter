@@ -19,10 +19,14 @@ export class RegistroUsuarioComponent implements OnInit {
 
   provincias: Provincia[] = []
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<RegistroUsuarioComponent>, private snackBar: MatSnackBar, private dataProvincias: DataProvinciasService, private dataUsuarios: DataUsuariosService) { }
+  constructor(private router: Router, private dialogRef: MatDialogRef<RegistroUsuarioComponent>, private snackBar: MatSnackBar, private _dataProvincias: DataProvinciasService, private dataUsuarios: DataUsuariosService) { }
 
   ngOnInit(): void {
-    this.provincias = this.dataProvincias.getProvincias();
+
+    this._dataProvincias.getProvincias().subscribe(data => {
+      this.provincias = data;
+    });
+
   }
 
   registro = new FormGroup({

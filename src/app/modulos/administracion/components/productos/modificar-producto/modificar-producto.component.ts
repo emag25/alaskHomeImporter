@@ -19,7 +19,7 @@ export class ModificarProductoComponent implements OnInit {
   id: string = this.data.producto.id;
   nombre: string = this.data.producto.nombre;
   categorias: Categoria[] = this.dataCategorias.getCategorias();
-  proveedores: Proveedor[] = this.dataProveedores.getProveedores();
+  proveedores: Proveedor[] = [];
   imagen: string = this.data.producto.imagen;
   precio: number = this.data.producto.precio;
   descripcion: string = this.data.producto.descripcion;
@@ -73,7 +73,7 @@ export class ModificarProductoComponent implements OnInit {
 
 
   constructor(private router: Router, private dialogRef: MatDialogRef<ModificarProductoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { producto: Producto}, private dataCategorias: DataCategoriasService, private dataProveedores:DataProveedoresService) {
+    @Inject(MAT_DIALOG_DATA) public data: { producto: Producto}, private dataCategorias: DataCategoriasService, private _dataProveedores:DataProveedoresService) {
     
     this.productoModificado.setValue({
       id: this.data.producto.id,
@@ -91,6 +91,10 @@ export class ModificarProductoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this._dataProveedores.getProveedores().subscribe(data => {
+      this.proveedores = data;
+    });
   }
 
   productoModificado = new FormGroup({

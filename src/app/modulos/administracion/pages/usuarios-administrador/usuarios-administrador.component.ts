@@ -23,7 +23,7 @@ export class UsuariosAdministradorComponent {
   rol: number = 0;
   selectFilter: string = 'Id';
 
-  provincias: Provincia[] = this.dataProvincias.getProvincias();
+  provincias: Provincia[] = []
   datosRecibidos: any;
   nav: any;
 
@@ -65,13 +65,18 @@ export class UsuariosAdministradorComponent {
 
 
 
-  constructor(private router: Router, private dialog: MatDialog, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataProvincias: DataProvinciasService) {
+  constructor(private router: Router, private dialog: MatDialog, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private _dataProvincias: DataProvinciasService) {
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
     this.getDatosRecibidos();
   }
 
 
   ngOnInit(): void {
+
+    this._dataProvincias.getProvincias().subscribe(data => {
+      this.provincias = data;
+    });
+    
     this.onResize('');
     this.dataSource = new MatTableDataSource<Usuario>(this.dataUsuarios.getlistaUsuarios());
   }

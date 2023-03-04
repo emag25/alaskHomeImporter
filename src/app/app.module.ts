@@ -16,6 +16,7 @@ import { ListenerService } from './shared/services/listener.service';
 import { LoginService } from './shared/services/login.service';
 import { FooterComponent } from './core/footer/footer.component';
 import { HeaderComponent } from './core/header/header.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [							
@@ -31,7 +32,8 @@ import { HeaderComponent } from './core/header/header.component';
     SharedModule,
     ProductosModule,
     ProveedoresModule,
-    AutenticacionModule
+    AutenticacionModule,
+    HttpClientModule
   ],
 
   providers: [DataUsuariosService, CookieService, ListenerService, LoginService, LoginGuardian],

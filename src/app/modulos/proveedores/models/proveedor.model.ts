@@ -1,14 +1,13 @@
-export class Proveedor {
+import { Provincia } from "./provincia.model.ts";
 
-    constructor(
-        public id: number,
-        public ruc: string,
-        public nombre: string,
-        public email: string,
-        public telefono: string,
-        public provincia: string,
-        public logo: string,
-        public fechaAprobacion: Date
-    ) { }
+export interface Proveedor {
 
+    id?: number,
+    ruc?: string,
+    nombre: string,
+    email: string,
+    telefono: string,
+    provincia: Provincia,
+    logo?: string,
+    fechaAprobacion?: Date
 }

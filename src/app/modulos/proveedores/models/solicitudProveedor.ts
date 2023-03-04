@@ -1,13 +1,14 @@
-export class SolicitudProveedor {
-    constructor(
-        public id: number,
-        public ruc: string,
-        public nombre: string,
-        public email: string,
-        public telefono: string,
-        public provincia: string,
-        public estado: string,
-        public fechaEnvio: Date,
-    ) { }
+import { Provincia } from "./provincia.model.ts";
+
+export interface SolicitudProveedor {
+   
+    id?: number,
+    ruc: string,
+    nombre: string,
+    email: string,
+    telefono: string,
+    provincia: Provincia,
+    estado?: string,
+    fechaEnvio?: Date
 
 }
