@@ -14,7 +14,6 @@ export const environment = {
         urlProveedores: {
 
             GetProveedores: "/api/Proveedores/Get",
-            SetProveedor: "/api/Proveedores/Set",
             UpdateProveedor: "/api/Proveedores/Update",
             DeleteProveedor: "/api/Proveedores/Delete"
 
