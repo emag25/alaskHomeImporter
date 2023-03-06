@@ -29,7 +29,7 @@ export class ProductosAdministradorComponent implements OnInit {
   categorias: Categoria[] = this.dataCategorias.getCategorias();  
   categoriaMostrar: any =[];
   categoriaMostrarId: any =[];
-  proveedores: Proveedor[] = this.dataProveedor.getProveedores();  
+  proveedores: Proveedor[] = [];  
   proveedorMostrar: any =[];
   proveedorMostrarId: any =[];
 
@@ -70,13 +70,17 @@ export class ProductosAdministradorComponent implements OnInit {
   selectCategoria: boolean = true; 
 
 
-  constructor(private router: Router, private dialog: MatDialog, private dataProductos: DataProductosService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataCategorias: DataCategoriasService, private dataProveedor: DataProveedoresService) {
+  constructor(private router: Router, private dialog: MatDialog, private dataProductos: DataProductosService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataCategorias: DataCategoriasService, private _dataProveedores: DataProveedoresService) {
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
     this.getDatosRecibidos();        
   }
 
   
   ngOnInit(): void {
+
+    this._dataProveedores.getProveedores().subscribe(data => {
+      this.proveedores = data;
+    });
     
     this.onResize('');
     this.dataSource = new MatTableDataSource<Producto>(this.dataProductos.getProductos());        

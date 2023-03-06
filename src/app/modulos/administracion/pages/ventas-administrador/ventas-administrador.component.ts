@@ -23,7 +23,7 @@ export class VentasAdministradorComponent {
   active: boolean = this.loginService.getActive();
   rol: number = 0;
   
-  provincias: Provincia[] = this.dataProvincias.getProvincias();
+  provincias: Provincia[] = [];
   ventas: Venta[] = this.dataVentas.getVentas();
   productVentas: any = [];
   arrayproduct: any = [];
@@ -68,7 +68,7 @@ export class VentasAdministradorComponent {
   selectTotal: boolean = true;
 
 
-  constructor(private router: Router, private dialog: MatDialog, private dataVentas: DataVentasService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataProvincias: DataProvinciasService, private dataSolicitud: DataSolicitudProveedorService) {
+  constructor(private router: Router, private dialog: MatDialog, private dataVentas: DataVentasService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private _dataProvincias: DataProvinciasService, private dataSolicitud: DataSolicitudProveedorService) {
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
     this.getDatosRecibidos();
     
@@ -98,6 +98,11 @@ export class VentasAdministradorComponent {
 
   
   ngOnInit(): void {
+
+    this._dataProvincias.getProvincias().subscribe(data => {
+      this.provincias = data;
+    });
+
     this.onResize('');
     this.dataSource = new MatTableDataSource<Venta>(this.dataVentas.getVentas());
   }

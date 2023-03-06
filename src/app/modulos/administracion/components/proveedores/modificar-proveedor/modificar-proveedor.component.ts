@@ -1,10 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router, NavigationExtras } from '@angular/router';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
 import { Provincia } from 'src/app/modulos/proveedores/models/provincia.model.ts';
+import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
 import { DataProvinciasService } from 'src/app/modulos/proveedores/services/dataProvincias.service';
+import { DialogErrorComponent } from 'src/app/shared/components/dialogError/dialogError.component';
+import { DialogExitoComponent } from 'src/app/shared/components/dialogExito/dialogExito.component';
 
 @Component({
   selector: 'app-modificar-proveedor',
@@ -13,30 +15,36 @@ import { DataProvinciasService } from 'src/app/modulos/proveedores/services/data
 })
 export class ModificarProveedorComponent implements OnInit {
 
-  id: number = this.data.proveedor.id;
-  ruc: string = this.data.proveedor.ruc;
+  id: number = this.data.proveedor.id?? 0;
+  ruc: string = this.data.proveedor.ruc?? '';
   nombre: string = this.data.proveedor.nombre;
   email: string = this.data.proveedor.email;
   telefono: string = this.data.proveedor.telefono;
-  provincia: string = this.data.proveedor.provincia;
-  logo: string = this.data.proveedor.logo;
-  provincias: Provincia[] = this.dataProvincias.getProvincias();
+  provincia: string = this.data.proveedor.provincia.nombre?? '';
+  logo: string = this.data.proveedor.logo?? '';
+  provincias: Provincia[] = [];
 
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<ModificarProveedorComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { proveedor: Proveedor }, private dataProvincias: DataProvinciasService) {
+  constructor(private dialogRef: MatDialogRef<ModificarProveedorComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { proveedor: Proveedor }, private _dataProvincias: DataProvinciasService,
+    private _dataProveedor: DataProveedoresService, public dialog: MatDialog) {
     
     this.proveedorModificado.setValue({
-      ruc: this.data.proveedor.ruc,
+      ruc: this.data.proveedor.ruc?? '',
       nombre: this.data.proveedor.nombre,
       email: this.data.proveedor.email,
       telefono: this.data.proveedor.telefono,
-      provincia: this.data.proveedor.provincia,
-      logo: this.data.proveedor.logo
+      provincia: this.data.proveedor.provincia.nombre?? '',
+      logo: this.data.proveedor.logo?? ''
     });
   }
 
   ngOnInit(): void {
+
+    this._dataProvincias.getProvincias().subscribe(data => {
+      this.provincias = data;
+    });
+    
   }
 
   proveedorModificado = new FormGroup({
@@ -50,29 +58,66 @@ export class ModificarProveedorComponent implements OnInit {
 
   onSubmit() {
 
-    let objToSend: NavigationExtras = {
-      queryParams: {
-        id: this.data.proveedor.id,
-        ruc: this.data.proveedor.ruc,
-        nombre: this.proveedorModificado.value.nombre,
-        email: this.proveedorModificado.value.email,
-        telefono: this.proveedorModificado.value.telefono,
-        provincia: this.proveedorModificado.value.provincia,
-        logo: this.proveedorModificado.value.logo,
-        fechaAprobacion: this.data.proveedor.fechaAprobacion,
-      },
-      skipLocationChange: false,
-      fragment: 'top'
-    }
+    let idProvincia = this.getProvinciaID(this.proveedorModificado.value.provincia ?? '');
 
-    this.dialogRef.close();
-    this.redirectTo('/administracion/AdminProveedores', objToSend);
+    if (idProvincia > 0) {
+
+      let p: Proveedor = {
+        id: this.data.proveedor.id,
+        nombre: this.proveedorModificado.value.nombre ?? '',
+        email: this.proveedorModificado.value.email ?? '',
+        telefono: this.proveedorModificado.value.telefono ?? '',
+        provincia: {
+          id: this.getProvinciaID(this.proveedorModificado.value.provincia ?? ''),
+        },
+        logo: this.proveedorModificado.value.logo ?? ''
+      }
+
+      this._dataProveedor.editProveedor(p).subscribe(data => {
+
+        this.dialogRef.close();
+
+        if (data.respuesta === 'EXITO') {
+
+          this.dialog.open(DialogExitoComponent, {
+            data: { respuesta: 'Proveedor editado.' },
+            width: '400px'
+          });
+
+        } else if (data.respuesta === 'ERROR') {
+
+          this.dialog.open(DialogErrorComponent, {
+            data: { respuesta: 'Proveedor no editado. Lamentamos los inconvenientes, intente más tarde.' }
+          });
+
+        } else {
+
+          this.dialog.open(DialogErrorComponent, {
+            data: { respuesta: data.respuesta = data.respuesta }
+          });
+
+        }
+
+      });
+
+    } else {
+
+      this.dialog.open(DialogErrorComponent, {
+        data: { respuesta: 'Proveedor no editado. Lamentamos los inconvenientes, intente más tarde.' }
+      });
+
+    }
 
   }
 
-  redirectTo(uri: string, objToSend: NavigationExtras) {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate([uri], { state: { datosProveedor: objToSend } }));
+  getProvinciaID(nombre: string) {
+    let id: number = 0;
+    this.provincias.forEach(p => {
+      if (p.nombre === nombre) {
+        id = p.id;
+      }
+    });
+    return id;
   }
 
   cancelar() {

@@ -22,12 +22,18 @@ export class AdministracionComponent implements OnInit {
   ventas: number = 0;
 
   constructor(private router: Router, private dataUsuarios: DataUsuariosService, protected loginService: LoginService,
-              private dataProveedores: DataProveedoresService, private dataProductos: DataProductosService, private dataVentas: DataVentasService){
+              private _dataProveedores: DataProveedoresService, private dataProductos: DataProductosService, private dataVentas: DataVentasService){
+    
     this.rol = Number(this.dataUsuarios.getRol(loginService.getLoggedUserId()));  
     this.usuarios = this.dataUsuarios.getlistaUsuarios().length;
-    this.proveedores = this.dataProveedores.getProveedores().length;
+    
+    this._dataProveedores.getProveedores().subscribe(data => {
+      this.proveedores = data.length;
+    });
+    
     this.productos = this.dataProductos.getProductos().length;
     this.ventas = this.dataVentas.getVentas().length;
+    
   }
 
   ngOnInit() {

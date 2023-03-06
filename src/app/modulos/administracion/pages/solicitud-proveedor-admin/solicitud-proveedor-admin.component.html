@@ -67,7 +67,7 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field appearance="fill" *ngIf="selectFilter === 'Fecha de solicitud'">
+        <mat-form-field appearance="fill" *ngIf="selectFilter === 'Fecha de Envio'">
           <mat-label>Fecha</mat-label>
           <input matInput [matDatepicker]="dp3" [min]="minDate" [max]="maxDate" [formControl]="txtFecha"
             (dateChange)="filterByFecha()" (keyup)="filterByFecha()">
@@ -132,7 +132,7 @@
 
       <ng-container matColumnDef="provincia">
         <th mat-header-cell *matHeaderCellDef>Provincia</th>
-        <td mat-cell *matCellDef="let element"> {{element.provincia}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.provincia.nombre}} </td>
       </ng-container>
 
       <ng-container matColumnDef="estado">
@@ -153,7 +153,7 @@
           <button mat-icon-button (click)="openDialogModificar(element)">
             <mat-icon class="edit">edit</mat-icon>
           </button>
-          <button mat-icon-button (click)="delete(element.id)">
+          <button mat-icon-button (click)="openDialogDelete(element.id, element.nombre)">
             <mat-icon class="delete">delete</mat-icon>
           </button>
         </td>
@@ -163,7 +163,7 @@
       <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
       <tr *matNoDataRow>
         <td class="td-notFound" [attr.colspan]="columnsToDisplay.length">
-          No se encontraron coincidencias.
+          No se encontraron resultados.
         </td>
       </tr>
 

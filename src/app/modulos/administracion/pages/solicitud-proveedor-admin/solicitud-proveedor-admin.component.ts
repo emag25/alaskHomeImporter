@@ -5,14 +5,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
 import { Provincia } from 'src/app/modulos/proveedores/models/provincia.model.ts';
 import { SolicitudProveedor } from 'src/app/modulos/proveedores/models/solicitudProveedor';
-import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
 import { DataProvinciasService } from 'src/app/modulos/proveedores/services/dataProvincias.service';
 import { DataSolicitudProveedorService } from 'src/app/modulos/proveedores/services/dataSolicitudProveedor.service';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
 import { LoginService } from 'src/app/shared/services/login.service';
+import { DialogAdvertenciaComponent } from '../../components/proveedores/dialogAdvertencia/dialogAdvertencia.component';
 import { ModificarSolicitudComponent } from '../../components/proveedores/modificar-solicitud/modificar-solicitud.component';
 
 @Component({
@@ -25,7 +24,8 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   active: boolean = this.loginService.getActive();
   rol: number = 0;
 
-  provincias: Provincia[] = this.dataProvincias.getProvincias();
+  provincias: Provincia[] = [];
+  solicitudes: SolicitudProveedor[] = [];
   datosRecibidos: any;
   nav: any;
 
@@ -33,7 +33,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   displayedColumns: string[] = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'estado', 'fechaEnvio', 'accion'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   selectFilter: string = 'RUC';
-  columnasFilter: string[] = ['RUC', 'Nombre', 'Email', 'Teléfono', 'Provincia', 'Estado', 'Fecha de aprobación'];
+  columnasFilter: string[] = ['RUC', 'Nombre', 'Email', 'Teléfono', 'Provincia', 'Estado', 'Fecha de Envio'];
   minDate = new Date(2000, 1, 1);
   maxDate = new Date(Date.now());
 
@@ -62,58 +62,37 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   selectFecha: boolean = true;
 
 
-  constructor(private router: Router, private dataSolicitudes: DataSolicitudProveedorService, private dialog:MatDialog, private dataProveedores: DataProveedoresService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataProvincias: DataProvinciasService) {
+  constructor(private router: Router, private _dataSolicitudes: DataSolicitudProveedorService, private dialog: MatDialog,
+              private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService,
+              private _dataProvincias: DataProvinciasService) {
+    
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
-    this.getDatosRecibidos();
+    
   }
 
 
   ngOnInit(): void {
+    
+    this.cargarDatos();
     this.onResize('');
-    this.dataSource = new MatTableDataSource<SolicitudProveedor>(this.dataSolicitudes.getSolicitudesProveedores());
+    
+  }
+
+  cargarDatos() {
+    this._dataProvincias.getProvincias().subscribe(data => {
+      this.provincias = data;
+    });
+
+    this._dataSolicitudes.getSolicitudes().subscribe(data => {
+      this.solicitudes = data;
+      this.dataSource = new MatTableDataSource<SolicitudProveedor>(this.solicitudes);
+    });
   }
 
 
   @ViewChild('empTbSort') empTbSort = new MatSort();
   ngAfterViewInit() {
     this.dataSource.sort = this.empTbSort;
-  }
-
-
-  getDatosRecibidos() {
-
-    this.nav = this.router.getCurrentNavigation();
-    this.datosRecibidos = this.nav.extras.state;
-
-    if (this.datosRecibidos != null) {
-
-      if (this.datosRecibidos.datosSolicitud.queryParams.estado === 'Aprobado') { // Agregar Proveedor
-
-        this.dataSolicitudes.deleteSolicitudProveedor(this.datosRecibidos.datosSolicitud.queryParams.id);
-        let proveedor = new Proveedor(this.datosRecibidos.datosSolicitud.queryParams.id,
-          this.datosRecibidos.datosSolicitud.queryParams.ruc,
-          this.datosRecibidos.datosSolicitud.queryParams.nombre,
-          this.datosRecibidos.datosSolicitud.queryParams.email,
-          this.datosRecibidos.datosSolicitud.queryParams.telefono,
-          this.datosRecibidos.datosSolicitud.queryParams.provincia, '',
-          new Date());
-        this.dataProveedores.setProveedor(proveedor);
-        this.snackbar.open('Proveedor agregado con éxito', 'OK', { duration: 3000 });
-
-      } else { // Modificar Solicitud
-
-        console.log(this.dataSolicitudes.getSolicitudesProveedores())
-        if (this.dataSolicitudes.editSolicitudProveedor(this.datosRecibidos.datosSolicitud.queryParams)) {
-          console.log(this.datosRecibidos.datosSolicitud.queryParams);
-          console.log(this.dataSolicitudes.getSolicitudesProveedores())
-          this.snackbar.open('Solicitud modificada con éxito', 'OK', { duration: 3000 });
-
-        } else {
-          this.snackbar.open('Error al modificar la solicitud. Intenta de nuevo.', 'OK', { duration: 7000 });
-        }
-      }
-    }
-
   }
 
 
@@ -132,11 +111,35 @@ export class SolicitudProveedorAdminComponent implements OnInit {
 
 
   openDialogModificar(solicitud: SolicitudProveedor) {
-    this.dialog.open(ModificarSolicitudComponent, {
+
+    const dialogRef  = this.dialog.open(ModificarSolicitudComponent, {
       data: { solicitud: solicitud },
       disableClose: true,
       width: '700px'
     }); 
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cargarDatos();
+    });
+
+  }
+
+
+  openDialogDelete(id: number, nombre: string) {
+
+    const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
+      data: {
+        id: id,
+        nombre: nombre,
+        mensaje: '¿Está seguro que desea eliminar la solicitud de proveedor',
+        origen: 'solicitudes'
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cargarDatos();
+    });
+
   }
 
 
@@ -235,17 +238,6 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   }
 
 
-  delete(id: number) {
-    if (this.dataSolicitudes.deleteSolicitudProveedor(id)) {
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-        this.router.navigate(['/administracion/AdminProveedores/solicitudes']));
-      this.snackbar.open('Solicitud eliminada con éxito', 'OK', { duration: 3000 });
-    } else {
-      this.snackbar.open('Error al eliminar la solicitud. Intenta de nuevo.', 'OK', { duration: 7000 });
-    }
-  }
-
-
   onclickColumn(index: number) {
     if (this.columnsToDisplay.includes(this.displayedColumns[index])) {
       this.removeColumn(index);
@@ -326,11 +318,12 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   }
 
 
-  getFormatedDate(date: Date) {
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    return day + '/' + month + '/' + year;
+  getFormatedDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${month}/${day}/${year}`;
   }
 
 
@@ -386,7 +379,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
       this.dataSource.filter = '';
     }
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.provincia.toLocaleLowerCase().includes(filter);
+      return data.provincia.nombre.toLocaleLowerCase().includes(filter);
     }
   }
 
@@ -403,7 +396,7 @@ export class SolicitudProveedorAdminComponent implements OnInit {
   }
 
   filterByFecha() {
-    let fecha = this.getFormatedDate(new Date(this.txtFecha.value));
+    let fecha = this.getFormatedDate(this.txtFecha.value);
     if (fecha !== '31/12/1969') {
       this.dataSource.filter = fecha.trim();
       this.dataSource.filterPredicate = function (data: any, filter: string) {

@@ -1,0 +1,14 @@
+<div class="contenedor-principal">
+  <h2>ADVERTENCIA</h2>
+
+  <p>
+    Esta acción es irreversible. {{mensaje}} <strong>{{nombre}}</strong>?
+  </p>
+
+  <div mat-dialog-actions align="center" class="botones">
+
+    <button class="btnEnviar" mat-raised-button mat-dialog-close (click)="delete()">Si</button>
+    <button class="btnCancelar" mat-raised-button mat-dialog-close (click)="cancelar()">No</button>
+
+  </div>
+</div>

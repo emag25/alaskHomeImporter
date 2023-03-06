@@ -15,13 +15,19 @@ import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dat
 export class AgregarProductoComponent implements OnInit {
   
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<AgregarProductoComponent>,private dataCategorias: DataCategoriasService, private dataProveedores:DataProveedoresService) { }
+  constructor(private router: Router, private dialogRef: MatDialogRef<AgregarProductoComponent>,private dataCategorias: DataCategoriasService, private _dataProveedores:DataProveedoresService) { }
 
 
   ngOnInit(): void {
+
+    this._dataProveedores.getProveedores().subscribe(data => {
+      this.proveedores = data;
+    });
+
   }
+
   categorias: Categoria[] = this.dataCategorias.getCategorias();
-  proveedores: Proveedor[] = this.dataProveedores.getProveedores();
+  proveedores: Proveedor[] = [];
   categoriaNombre = '';
   proveedorNombre = '';
 
