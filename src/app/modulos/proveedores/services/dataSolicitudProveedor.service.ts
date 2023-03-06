@@ -17,11 +17,10 @@ export class DataSolicitudProveedorService {
   getSolicitudes(): Observable<SolicitudProveedor[]> {
 
     const body = {
-      transaccion: 'consultar_byEstado',
-      estado: 'Por revisar'
+      transaccion: 'consultar_todo'
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlGetSolicitudes}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlSolicitudes.GetSolicitudes}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -40,11 +39,11 @@ export class DataSolicitudProveedorService {
   getSolicitudesByEstado(): Observable<SolicitudProveedor[]> {
 
     const body = {
-      transaccion: 'consultar_todo',
-      estado: 'Rechazada'
+      transaccion: 'consultar_porEstado',
+      estado: 'Por revisar'
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlGetSolicitudes}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlSolicitudes.GetSolicitudes}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -73,7 +72,7 @@ export class DataSolicitudProveedorService {
       }
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlSetSolicitud}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlSolicitudes.SetSolicitud}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -100,10 +99,11 @@ export class DataSolicitudProveedorService {
       telefono: solicitud.telefono,
       provincia: {
         id: solicitud.provincia.id,
-      }
+      },
+      estado: solicitud.estado
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlSetSolicitud}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlSolicitudes.UpdateSolicitud}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -127,7 +127,7 @@ export class DataSolicitudProveedorService {
       id: id
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlSetSolicitud}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlSolicitudes.DeleteSolicitud}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -136,10 +136,8 @@ export class DataSolicitudProveedorService {
       })
     }
 
-    return this.http.delete(url, httpOptions);
+    return this.http.delete(url, { ...httpOptions, body });
 
   }
-
-
 
 }

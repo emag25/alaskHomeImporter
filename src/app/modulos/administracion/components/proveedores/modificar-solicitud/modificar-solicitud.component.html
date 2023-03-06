@@ -62,7 +62,7 @@
       <mat-radio-group formControlName="estado">
         <mat-radio-button [disabled]="originalState === 'En proceso'" value="Por revisar">Por revisar</mat-radio-button>
         <mat-radio-button value="En proceso">En proceso</mat-radio-button>
-        <mat-radio-button [disabled]="originalState === 'Por revisar'" value="Aprobado">Aprobado</mat-radio-button>
+        <mat-radio-button [disabled]="originalState === 'Por revisar'" value="Aprobada">Aprobada</mat-radio-button>
       </mat-radio-group>
       <mat-error *ngIf="solicitudModificada.controls['estado'].hasError('required')">Estado es requerido.</mat-error>
     </div>

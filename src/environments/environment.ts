@@ -11,13 +11,29 @@ export const environment = {
         urlGetFavoritos: "/api/Favoritos/Get",
         urlSetFavoritos: "/api/Favoritos/Get",
 
-        urlGetProveedores: "/api/Proveedores/Get",
-        urlSetProveedor: "/api/Proveedores/Set",
+        urlProveedores: {
 
-        urlGetSolicitudes: "/api/Solicitudes/Get",
-        urlSetSolicitud: "/api/Solicitudes/Set",
+            GetProveedores: "/api/Proveedores/Get",
+            SetProveedor: "/api/Proveedores/Set",
+            UpdateProveedor: "/api/Proveedores/Update",
+            DeleteProveedor: "/api/Proveedores/Delete"
 
-        urlGetProvincias: "/api/Provincias/Get"
+        },
+
+        urlSolicitudes: {
+
+            GetSolicitudes: "/api/Solicitudes/Get",
+            SetSolicitud: "/api/Solicitudes/Set",
+            UpdateSolicitud: "/api/Solicitudes/Update",
+            DeleteSolicitud: "/api/Solicitudes/Delete"
+
+        },
+
+        urlProvincias: {
+
+            GetProvincias: "/api/Provincias/Get"
+            
+        }
 
     }
 }

@@ -5,7 +5,8 @@ import { Provincia } from '../../models/provincia.model.ts';
 import { SolicitudProveedor } from '../../models/solicitudProveedor';
 import { DataProvinciasService } from '../../services/dataProvincias.service';
 import { DataSolicitudProveedorService } from '../../services/dataSolicitudProveedor.service';
-import { DialogExitoComponent } from '../dialogExito/dialogExito.component';
+import { DialogErrorComponent } from '../../../../shared/components/dialogError/dialogError.component';
+import { DialogExitoComponent } from '../../../../shared/components/dialogExito/dialogExito.component';
 
 @Component({
   selector: 'app-solicitud-proveedor',
@@ -48,11 +49,34 @@ export class SolicitudProveedorComponent implements OnInit {
         id: Number(this.formSolicitud.value.provincia)
       }
     }
-    
-    this._dataSolicitudProveedor.setSolicitud(s);
 
     this.dialogRef.close();
-    this.dialog.open(DialogExitoComponent);
+
+    this._dataSolicitudProveedor.setSolicitud(s).subscribe(data => {
+
+      if (data.respuesta === 'EXITO') {
+
+        this.dialog.open(DialogExitoComponent, {
+          data: { respuesta: 'Solicitud enviada. Nos pondremos en contacto contigo.' }
+        });
+
+      } else if (data.respuesta === 'ERROR') {
+
+        this.dialog.open(DialogErrorComponent, {
+          data: { respuesta: 'Solicitud no enviada. Lamentamos los inconvenientes, intente más tarde' }
+        });
+        
+      } else {
+        
+        this.dialog.open(DialogErrorComponent, {
+          data: { respuesta: data.respuesta = data.respuesta }
+        });
+        
+      }
+
+    });
+
+    
 
   }
 

@@ -13,6 +13,7 @@ import { DataProvinciasService } from 'src/app/modulos/proveedores/services/data
 import { DataSolicitudProveedorService } from 'src/app/modulos/proveedores/services/dataSolicitudProveedor.service';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
 import { LoginService } from 'src/app/shared/services/login.service';
+import { DialogAdvertenciaComponent } from '../../components/proveedores/dialogAdvertencia/dialogAdvertencia.component';
 
 
 
@@ -28,9 +29,7 @@ export class ProveedoresAdministradorComponent implements OnInit {
   cantSolicitudes: number = 0;
   
   provincias: Provincia[] = [];
-  datosRecibidos: any;
-  nav: any;
-
+  
   dataSource: any = [];  
   displayedColumns: string[] = ['ruc', 'nombre', 'email', 'telefono', 'provincia', 'fechaAprobacion', 'accion'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
@@ -60,7 +59,7 @@ export class ProveedoresAdministradorComponent implements OnInit {
   selectProvincia: boolean = true;
   selectFecha: boolean = true; 
 
-  proveedores: Proveedor[] = [];
+  proveedores!: Proveedor[];
 
   constructor(private router: Router, private dialog: MatDialog, private _dataProveedores: DataProveedoresService,
               private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService,
@@ -68,11 +67,18 @@ export class ProveedoresAdministradorComponent implements OnInit {
               private _dataSolicitud: DataSolicitudProveedorService) {
     
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
-    this.getDatosRecibidos();    
+   
   }
 
   
   ngOnInit(): void {
+
+    this.cargarDatos();
+    this.onResize('');
+    
+  }
+
+  cargarDatos() {
 
     this._dataSolicitud.getSolicitudesByEstado().subscribe(data => {
       this.cantSolicitudes = data.length;
@@ -80,15 +86,13 @@ export class ProveedoresAdministradorComponent implements OnInit {
 
     this._dataProveedores.getProveedores().subscribe(data => {
       this.proveedores = data;
+      this.dataSource = new MatTableDataSource<Proveedor>(this.proveedores);
     });
 
     this._dataProvincias.getProvincias().subscribe(data => {
       this.provincias = data;
     });
 
-    this.onResize('');
-    this.dataSource = new MatTableDataSource<Proveedor>(this.proveedores);
-    
   }
 
 
@@ -98,34 +102,41 @@ export class ProveedoresAdministradorComponent implements OnInit {
   }
 
 
-  getDatosRecibidos() {    
-
-    this.nav = this.router.getCurrentNavigation();
-    this.datosRecibidos = this.nav.extras.state;
-
-    /* if (this.datosRecibidos != null) {
-
-      if (this.dataProveedores.editProveedor(this.datosRecibidos.datosProveedor.queryParams)) {
-        this.snackbar.open('Proveedor modificado con éxito', 'OK', { duration: 3000 });
-      } else {
-        this.snackbar.open('Error al modificar el proveedor. Intenta de nuevo.', 'OK', { duration: 7000 });
-      }
-      
-    } */
-  }
-
-
   irSolicitudes() {
     this.router.navigate(['administracion/AdminProveedores/solicitudes']);
   }
 
 
   openDialogModificar(proveedor: Proveedor) {
-    this.dialog.open(ModificarProveedorComponent, {
+
+    const dialogRef = this.dialog.open(ModificarProveedorComponent, {
       data: { proveedor: proveedor },
       disableClose: true,
       width: '700px'
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cargarDatos();
+    });
+    
+  }
+
+
+  openDialogDelete(id: number, nombre: string) {
+
+    const dialogRef = this.dialog.open(DialogAdvertenciaComponent, {
+      data: {
+        id: id,
+        nombre: nombre,
+        mensaje: '¿Está seguro que desea eliminar el proveedor',
+        origen: 'proveedores'
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.cargarDatos();
+    });
+
   }
 
 
@@ -206,17 +217,6 @@ export class ProveedoresAdministradorComponent implements OnInit {
   }
 
 
-  delete(id: number) {
-    /* if (this.dataProveedores.deleteProveedor(id)) {
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(['/administracion/AdminProveedores']));
-      this.snackbar.open('Proveedor eliminado con éxito', 'OK', { duration: 3000 });
-    } else {
-      this.snackbar.open('Error al eliminar el proveedor. Intenta de nuevo.', 'OK', { duration: 7000 });
-    } */
-  }
-
-
   onclickColumn(index: number) {   
     if (this.columnsToDisplay.includes(this.displayedColumns[index])) {
       this.removeColumn(index);
@@ -293,12 +293,14 @@ export class ProveedoresAdministradorComponent implements OnInit {
   }
 
 
-  getFormatedDate(date: Date) {
-    let day = date.getDate();
-    let month = date.getMonth() + 1;
-    let year = date.getFullYear();
-    return day + '/' + month + '/' + year;
+  getFormatedDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${month}/${day}/${year}`;
   }
+
   
 
   onChangeFilter() {
@@ -347,12 +349,12 @@ export class ProveedoresAdministradorComponent implements OnInit {
       this.dataSource.filter = '';
     }
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.provincia.toLocaleLowerCase().includes(filter);
+      return data.provincia.nombre.toLocaleLowerCase().includes(filter);
     }
   }
 
   filterByFecha() {
-    let fecha = this.getFormatedDate(new Date(this.txtFecha.value));
+    let fecha = this.getFormatedDate(this.txtFecha.value);
     if (fecha !== '31/12/1969') {
       this.dataSource.filter = fecha.trim();
       this.dataSource.filterPredicate = function (data: any, filter: string) {

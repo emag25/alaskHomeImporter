@@ -49,7 +49,7 @@
       <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 2;">
         <mat-label>Provincia</mat-label>
         <mat-select formControlName="provincia">
-          <mat-option *ngFor="let provincia of provincias" [value]="provincia.nombre">
+          <mat-option *ngFor="let provincia of provincias" [value]="provincia.id">
             {{provincia.nombre}}
           </mat-option>
         </mat-select>

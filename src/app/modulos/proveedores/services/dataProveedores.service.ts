@@ -19,7 +19,7 @@ export class DataProveedoresService {
       transaccion: 'consultar_todo'
     };
     
-    const url = `${environment.urlBAse}${environment.pathUrl.urlGetProveedores}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlProveedores.GetProveedores}`;
     
     const httpOptions = {
       headers: new HttpHeaders({
@@ -45,7 +45,7 @@ export class DataProveedoresService {
       }
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlSetProveedor}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlProveedores.SetProveedor}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -71,7 +71,7 @@ export class DataProveedoresService {
       logo: proveedor.logo,
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlSetProveedor}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlProveedores.UpdateProveedor}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -80,7 +80,7 @@ export class DataProveedoresService {
       })
     }
 
-    return this.http.post(url, body, httpOptions);
+    return this.http.put(url, body, httpOptions);
   }
 
 
@@ -92,7 +92,7 @@ export class DataProveedoresService {
       id: id
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlSetProveedor}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlProveedores.DeleteProveedor}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -101,7 +101,7 @@ export class DataProveedoresService {
       })
     }
 
-    return this.http.delete(url, httpOptions);
+    return this.http.delete(url, { ...httpOptions, body });
   }
 
 }

@@ -19,7 +19,7 @@ export class DataProvinciasService {
       transaccion: 'consultar_todo'
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlGetProvincias}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlProvincias.GetProvincias}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -40,7 +40,7 @@ export class DataProvinciasService {
       nombre: nombre
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlGetProvincias}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlProvincias.GetProvincias}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -61,7 +61,7 @@ export class DataProvinciasService {
       id: id
     };
 
-    const url = `${environment.urlBAse}${environment.pathUrl.urlGetProvincias}`;
+    const url = `${environment.urlBAse}${environment.pathUrl.urlProvincias.GetProvincias}`;
 
     const httpOptions = {
       headers: new HttpHeaders({
