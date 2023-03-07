@@ -32,31 +32,6 @@ export class DataProveedoresService {
   }
 
 
-  setProveedor(proveedor: Proveedor): Observable<any> {
-
-    const body = {
-      transaccion: 'insertar',
-      ruc: proveedor.ruc,
-      nombre: proveedor.nombre,
-      email: proveedor.email,
-      telefono: proveedor.telefono,
-      provincia: {
-        id: proveedor.provincia.id,
-      }
-    };
-
-    const url = `${environment.urlBAse}${environment.pathUrl.urlProveedores.SetProveedor}`;
-
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
-      })
-    }
-    
-    return this.http.post(url, body, httpOptions);
-  }
-
   editProveedor(proveedor: Proveedor): Observable<any> {
 
     const body = {
