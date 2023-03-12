@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DataCategoriasService } from 'src/app/modulos/productos/services/dataCategorias.service';
 import { DataProductosService } from 'src/app/modulos/productos/services/dataProductos.service';
 import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
@@ -22,7 +23,10 @@ export class AdministracionComponent implements OnInit {
   ventas: number = 0;
 
   constructor(private router: Router, private dataUsuarios: DataUsuariosService, protected loginService: LoginService,
-              private _dataProveedores: DataProveedoresService, private dataProductos: DataProductosService, private dataVentas: DataVentasService){
+              private _dataProveedores: DataProveedoresService,
+              private dataProductos: DataProductosService, 
+              private dataVentas: DataVentasService,
+              private dataCategorias: DataCategoriasService){
     
     this.rol = Number(this.dataUsuarios.getRol(loginService.getLoggedUserId()));  
     this.usuarios = this.dataUsuarios.getlistaUsuarios().length;
@@ -30,13 +34,24 @@ export class AdministracionComponent implements OnInit {
     this._dataProveedores.getProveedores().subscribe(data => {
       this.proveedores = data.length;
     });
-    
-    this.productos = this.dataProductos.getProductos().length;
+        
     this.ventas = this.dataVentas.getVentas().length;
     
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    await this.dataCategorias.obtenerCategorias().toPromise().then(resp => {
+      this.categorias = resp.length;
+    }).catch(err =>{
+      console.error(err);
+    });
+
+    this.dataProductos.obtenerProductos().toPromise().then(
+      resp => {
+        console.log(resp);
+        this.productos = resp.length;       
+      });
+      
   }
 
   irAdminProveedores() {

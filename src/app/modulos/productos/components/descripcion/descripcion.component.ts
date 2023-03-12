@@ -1,10 +1,11 @@
-import { Component, Input, OnInit} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginComponent } from 'src/app/core/autenticacion/components/login/login.component';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
 import { ListenerService } from 'src/app/shared/services/listener.service';
 import { LoginService } from 'src/app/shared/services/login.service';
+import { Producto } from '../../interfaces/producto.interface';
 import { DataProductosService } from '../../services/dataProductos.service';
 
 
@@ -14,7 +15,7 @@ import { DataProductosService } from '../../services/dataProductos.service';
   templateUrl: './descripcion.component.html',
   styleUrls: ['./descripcion.component.css']
 })
-export class DescripcionComponent implements OnInit{
+export class DescripcionComponent implements OnInit {
   @Input() id: string | null = null;
   producto: any;
   carritoMB = 0;
@@ -22,20 +23,30 @@ export class DescripcionComponent implements OnInit{
   active: boolean = this.loginService.getActive();
   activador = false;
   idUsuario = 0;
-
-  constructor(private DataUsuario:DataUsuariosService, private dialog:MatDialog,private loginService: LoginService,private dialogRef:MatDialogRef<DescripcionComponent>, private dataProductosService:DataProductosService,private listener:ListenerService){
-  }  
+  productos: Producto [] = [];
+  constructor(private DataUsuario: DataUsuariosService,
+    private dialog: MatDialog,
+    private loginService: LoginService,
+    private dialogRef: MatDialogRef<DescripcionComponent>,
+    private dataProductos: DataProductosService,
+    private listener: ListenerService) {
+  }
   ngOnInit(): void {
-    this.idUsuario = this.loginService.getLoggedUserId();
-    this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
-    if(this.id){
-      if(this.dataProductosService.findProductobyID(this.id)){
-        this.activador = true;
-      }else{
-        this.activador = false;
-      }
-      this.producto = this.dataProductosService.findProductobyID(this.id);
-    }
+    this.dataProductos.obtenerProductos().toPromise().then(
+      resp => {
+        console.log(resp);
+        this.productos = resp;
+        this.idUsuario = this.loginService.getLoggedUserId();
+        this.listener.customMatBadge.subscribe(carritoMB => this.carritoMB = carritoMB);
+        if (this.id) {          
+          if (this.productos.find(producto => producto.id =this.id!)) {
+            this.activador = true;
+          } else {
+            this.activador = false;
+          }
+          this.producto = this.productos.find(producto => producto.id =this.id!);
+        }
+      });
   }
 
   cancelar() {
@@ -44,15 +55,15 @@ export class DescripcionComponent implements OnInit{
 
 
   accionCarrito() {
-    if(this.active){
+    if (this.active) {
       if (this.producto.carrito) {
         this.addCarrito();
       }
       else {
         this.removeCarrito();
       }
-    }else this.openDialogSesion();
-    
+    } else this.openDialogSesion();
+
   }
 
   addCarrito() {

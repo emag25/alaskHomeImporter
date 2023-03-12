@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
-import { Categoria } from 'src/app/modulos/productos/models/categoria.model';
+import { Categoria } from 'src/app/modulos/productos/interfaces/categoria.interface';
 import { DataCategoriasService } from 'src/app/modulos/productos/services/dataCategorias.service';
 import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
 import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
@@ -18,7 +18,12 @@ export class AgregarProductoComponent implements OnInit {
   constructor(private router: Router, private dialogRef: MatDialogRef<AgregarProductoComponent>,private dataCategorias: DataCategoriasService, private _dataProveedores:DataProveedoresService) { }
 
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    await this.dataCategorias.obtenerCategorias().toPromise().then(resp => {
+      this.categorias = resp;
+    }).catch(err =>{
+      console.error(err);
+    });
 
     this._dataProveedores.getProveedores().subscribe(data => {
       this.proveedores = data;
@@ -26,7 +31,7 @@ export class AgregarProductoComponent implements OnInit {
 
   }
 
-  categorias: Categoria[] = this.dataCategorias.getCategorias();
+  categorias: Categoria[] = [];
   proveedores: Proveedor[] = [];
   categoriaNombre = '';
   proveedorNombre = '';

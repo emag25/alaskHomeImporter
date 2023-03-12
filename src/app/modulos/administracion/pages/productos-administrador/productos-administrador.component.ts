@@ -5,11 +5,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ModificarProductoComponent } from '../../components/productos/modificar-producto/modificar-producto.component';
 import { AgregarProductoComponent } from '../../components/productos/agregar-producto/agregar-producto.component';
-import { Producto } from 'src/app/modulos/productos/models/producto.model';
+import { Producto } from 'src/app/modulos/productos/interfaces/producto.interface';
 import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
 import { MatSort } from '@angular/material/sort';
 import { FormControl, Validators } from '@angular/forms';
-import { Categoria } from 'src/app/modulos/productos/models/categoria.model';
+import { Categoria } from 'src/app/modulos/productos/interfaces/categoria.interface';
 import { DataCategoriasService } from 'src/app/modulos/productos/services/dataCategorias.service';
 import { DataProductosService } from 'src/app/modulos/productos/services/dataProductos.service';
 import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
@@ -25,35 +25,36 @@ export class ProductosAdministradorComponent implements OnInit {
 
   active: boolean = this.loginService.getActive();
   rol: number = 0;
-  
-  categorias: Categoria[] = this.dataCategorias.getCategorias();  
-  categoriaMostrar: any =[];
-  categoriaMostrarId: any =[];
-  proveedores: Proveedor[] = [];  
-  proveedorMostrar: any =[];
-  proveedorMostrarId: any =[];
+
+  categorias: Categoria[] = []
+  categoriaMostrar: any = [];
+  categoriaMostrarId: any = [];
+  proveedores: Proveedor[] = [];
+  proveedorMostrar: any = [];
+  proveedorMostrarId: any = [];
+  productos: Producto[] = [];
 
   datosRecibidos: any;
   nav: any;
 
-  dataSource: any = [];      
-  displayedColumns: string[] = ['id', 'nombre','categoria', 'proveedor', 'imagen', 'precio', 'stock', 'accion'];
+  dataSource: any = [];
+  displayedColumns: string[] = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'stock', 'accion'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   selectFilter: string = 'Id';
-  columnasFilter: string[] = ['Id', 'Nombre','Categoria', 'Proveedor', 'Imagen', 'Precio','Stock'];
+  columnasFilter: string[] = ['Id', 'Nombre', 'Categoria', 'Proveedor', 'Imagen', 'Precio', 'Stock'];
 
   minDate = new Date(2000, 1, 1);
   maxDate = new Date(Date.now());
-      
+
   txtProveedor: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
   txtCategoria: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
   txtId: FormControl = new FormControl('', Validators.pattern('[0-9]*'));
-  txtNombre: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));  
+  txtNombre: FormControl = new FormControl('', Validators.pattern('[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*'));
   txtImagen: FormControl = new FormControl('');
   txtPrecio: FormControl = new FormControl('', Validators.pattern('[0-9,]+[^.]'));
   txtStock: FormControl = new FormControl('', Validators.pattern('[0-9]*'));
-  
-  checkId: boolean = false;  
+
+  checkId: boolean = false;
   checkNombre: boolean = false;
   checkProveedor: boolean = false;
   checkImagen: boolean = false;
@@ -66,128 +67,140 @@ export class ProductosAdministradorComponent implements OnInit {
   selectProveedor: boolean = true;
   selectImagen: boolean = true;
   selectPrecio: boolean = true;
-  selectStock: boolean = true; 
-  selectCategoria: boolean = true; 
+  selectStock: boolean = true;
+  selectCategoria: boolean = true;
 
 
   constructor(private router: Router, private dialog: MatDialog, private dataProductos: DataProductosService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataCategorias: DataCategoriasService, private _dataProveedores: DataProveedoresService) {
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
-    this.getDatosRecibidos();        
+
   }
 
-  
-  ngOnInit(): void {
 
-    this._dataProveedores.getProveedores().subscribe(data => {
-      this.proveedores = data;
+  async ngOnInit(): Promise<void> {
+    await this.dataCategorias.obtenerCategorias().toPromise().then(resp => {
+      this.categorias = resp;
+    }).catch(err =>{
+      console.error(err);
     });
     
-    this.onResize('');
-    this.dataSource = new MatTableDataSource<Producto>(this.dataProductos.getProductos());        
-    
-    for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-      const categoria = this.dataSource.filteredData[i].categoriaId;            
-      const nombre = this.categorias.find(n => n.id == categoria); 
-      this.categoriaMostrar.push(nombre?.nombre);
-    }
-    for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-      const proveedor = this.dataSource.filteredData[i].proveedorId;            
-      const nombre = this.proveedores.find(n => n.id == proveedor); 
-      this.proveedorMostrar.push(nombre?.nombre);
-    }  
-    for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-      const categoria = this.dataSource.filteredData[i].categoriaId;            
-      const nombre = this.categorias.find(n => n.id == categoria); 
-      this.categoriaMostrarId.push(nombre?.id);
-    }
-    for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-      const proveedor = this.dataSource.filteredData[i].proveedorId;            
-      const nombre = this.proveedores.find(n => n.id == proveedor); 
-      this.proveedorMostrarId.push(nombre?.id);
-    }      
+    this.dataProductos.obtenerProductos().toPromise().then(
+      resp => {
+        console.log(resp);
+        this.productos = resp;
+        this.dataSource = new MatTableDataSource<Producto>(this.productos);
+        this._dataProveedores.getProveedores().subscribe(data => {
+          this.proveedores = data;
+          this.categoriaMostrar.length = this.categoriaMostrar.length - this.categoriaMostrar.length;
+          for (let i = 0; i < this.dataSource.filteredData.length; i++) {            
+            const categoria = this.dataSource.filteredData[i].categoria;
+            const nombre = this.categorias.find(n => n.id == categoria);
+            this.categoriaMostrar.push(nombre?.nombre);
+          }
+          this.nav = this.router.getCurrentNavigation();
+          this.datosRecibidos = this.nav.extras.state;
+
+          if (this.datosRecibidos != null) {
+
+            if (this.datosRecibidos.datosProducto.queryParams.id === undefined) { // Agregar
+              this.idGeneral = 0;
+              for (let i = 0; i < this.categoriaMostrar.length; i++) {
+                this.idGeneral = this.idGeneral + 1;
+                console.log(this.idGeneral);
+              }
+              this.idGeneral = this.idGeneral + 1;
+              let producto: Producto = {
+                id: this.idGeneral + '',
+                nombre: this.datosRecibidos.datosProducto.queryParams.nombre,
+                descripcion: this.datosRecibidos.datosProducto.queryParams.descripcion,
+                imagen: this.datosRecibidos.datosProducto.queryParams.imagen,
+                precio: this.datosRecibidos.datosProducto.queryParams.precio,
+                stock: this.datosRecibidos.datosProducto.queryParams.stock,
+                cantidad: 1,
+                categoria: this.datosRecibidos.datosProducto.queryParams.categoria,
+                proveedor: this.datosRecibidos.datosProducto.queryParams.proveedor,
+                carrito: false,
+                fav: false
+              }
+              this.dataProductos.insertarProductos(producto).toPromise().then(resp => {
+                console.log(resp);
+              }).catch(err => {
+                console.error(err);
+              });
+              this.snackbar.open('Producto agregado con éxito', 'OK', { duration: 3000 });
+
+            } else { // Modificar
+              // if (this.dataProductos.editProducto(this.datosRecibidos.datosProducto.queryParams)) {
+                
+                this.proveedorMostrar.length = this.proveedorMostrar.length - this.proveedorMostrar.length;
+                this.categoriaMostrar.length = this.categoriaMostrar.length - this.categoriaMostrar.length;
+                this.proveedorMostrarId.length = this.proveedorMostrarId.length - this.proveedorMostrarId.length;
+                this.categoriaMostrarId.length = this.categoriaMostrarId.length - this.categoriaMostrarId.length;
+                for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+                  const categoria = this.dataSource.filteredData[i].categoriaId;
+                  const nombre = this.categorias.find(n => n.id == categoria);
+                  this.categoriaMostrar.push(nombre?.nombre);
+                }
+                for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+                  const proveedor = this.dataSource.filteredData[i].proveedorId;
+                  const nombre = this.proveedores.find(n => n.id == proveedor);
+                  this.proveedorMostrar.push(nombre?.nombre);
+                }
+                for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+                  const categoria = this.dataSource.filteredData[i].categoriaId;
+                  const nombre = this.categorias.find(n => n.id == categoria);
+                  this.categoriaMostrarId.push(nombre?.id);
+                }
+                for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+                  const proveedor = this.dataSource.filteredData[i].proveedorId;
+                  const nombre = this.proveedores.find(n => n.id == proveedor);
+                  this.proveedorMostrarId.push(nombre?.id);
+                }
+
+
+                this.snackbar.open('Producto modificado con éxito', 'OK', { duration: 3000 });
+              // } else {
+              //   this.snackbar.open('Error al modificar el producto. Intenta de nuevo.', 'OK', { duration: 7000 });
+              // }
+            }
+          }
+          this.onResize('');
+          this.dataSource = new MatTableDataSource<Producto>(this.productos);
+
+          for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+            const categoria = this.dataSource.filteredData[i].categoriaId;
+            const nombre = this.categorias.find(n => n.id == categoria);
+            this.categoriaMostrar.push(nombre?.nombre);
+          }
+          for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+            const proveedor = this.dataSource.filteredData[i].proveedorId;
+            const nombre = this.proveedores.find(n => n.id == proveedor);
+            this.proveedorMostrar.push(nombre?.nombre);
+          }
+          for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+            const categoria = this.dataSource.filteredData[i].categoriaId;
+            const nombre = this.categorias.find(n => n.id == categoria);
+            this.categoriaMostrarId.push(nombre?.id);
+          }
+          for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+            const proveedor = this.dataSource.filteredData[i].proveedorId;
+            const nombre = this.proveedores.find(n => n.id == proveedor);
+            this.proveedorMostrarId.push(nombre?.id);
+          }
+        });
+      });
   }
 
 
   @ViewChild('empTbSort') empTbSort = new MatSort();
   ngAfterViewInit() {
-    this.dataSource.sort = this.empTbSort;   
+    this.dataSource.sort = this.empTbSort;
   }
 
   idGeneral = 0;
-  
-  getDatosRecibidos() {    
-    this.dataSource = new MatTableDataSource<Producto>(this.dataProductos.getProductos());  
-    this.categoriaMostrar.length=this.categoriaMostrar.length-this.categoriaMostrar.length;          
-    for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-      const categoria = this.dataSource.filteredData[i].categoriaId;            
-      const nombre = this.categorias.find(n => n.id == categoria); 
-      this.categoriaMostrar.push(nombre?.nombre);
-    }
-    this.nav = this.router.getCurrentNavigation();
-    this.datosRecibidos = this.nav.extras.state;
 
-    if (this.datosRecibidos != null) {
 
-      if (this.datosRecibidos.datosProducto.queryParams.id === undefined) { // Agregar
-        this.idGeneral = 0;
-        for(let i = 0; i<this.categoriaMostrar.length;i++){
-          this.idGeneral = this.idGeneral+1;
-          console.log(this.idGeneral);        
-        }
-        this.idGeneral=this.idGeneral+1;
-        console.log(this.dataProductos.getProductos.length);        
-        let producto = new Producto(this.idGeneral+'', 
-                                    this.datosRecibidos.datosProducto.queryParams.nombre, 
-                                    this.datosRecibidos.datosProducto.queryParams.descripcion, 
-                                    this.datosRecibidos.datosProducto.queryParams.imagen, 
-                                    this.datosRecibidos.datosProducto.queryParams.precio,
-                                    this.datosRecibidos.datosProducto.queryParams.stock,
-                                    1, 
-                                    this.datosRecibidos.datosProducto.queryParams.categoriaId, 
-                                    this.datosRecibidos.datosProducto.queryParams.proveedorId,
-                                    false,
-                                    false);
-        this.dataProductos.setProducto(producto);
-        this.snackbar.open('Producto agregado con éxito', 'OK', { duration: 3000 });
 
-      } else { // Modificar
-        if (this.dataProductos.editProducto(this.datosRecibidos.datosProducto.queryParams)) {
-          this.dataSource = new MatTableDataSource<Producto>(this.dataProductos.getProductos());  
-          this.proveedorMostrar.length = this.proveedorMostrar.length-this.proveedorMostrar.length;
-          this.categoriaMostrar.length=this.categoriaMostrar.length-this.categoriaMostrar.length;            
-          this.proveedorMostrarId.length = this.proveedorMostrarId.length-this.proveedorMostrarId.length;
-          this.categoriaMostrarId.length=this.categoriaMostrarId.length-this.categoriaMostrarId.length;    
-          for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-            const categoria = this.dataSource.filteredData[i].categoriaId;            
-            const nombre = this.categorias.find(n => n.id == categoria); 
-            this.categoriaMostrar.push(nombre?.nombre);
-          }
-          for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-            const proveedor = this.dataSource.filteredData[i].proveedorId;            
-            const nombre = this.proveedores.find(n => n.id == proveedor); 
-            this.proveedorMostrar.push(nombre?.nombre);
-          }       
-          for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-            const categoria = this.dataSource.filteredData[i].categoriaId;            
-            const nombre = this.categorias.find(n => n.id == categoria); 
-            this.categoriaMostrarId.push(nombre?.id);
-          }
-          for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-            const proveedor = this.dataSource.filteredData[i].proveedorId;            
-            const nombre = this.proveedores.find(n => n.id == proveedor); 
-            this.proveedorMostrarId.push(nombre?.id);
-          }      
-          
-
-          this.snackbar.open('Producto modificado con éxito', 'OK', { duration: 3000 });          
-        } else {
-          this.snackbar.open('Error al modificar el producto. Intenta de nuevo.', 'OK', { duration: 7000 });
-        }        
-      }
-    }          
-
-  }
-    
 
 
   openDialogModificar(producto: Producto) {
@@ -198,7 +211,7 @@ export class ProductosAdministradorComponent implements OnInit {
     });
   }
   openDialogIngresar() {
-    this.dialog.open(AgregarProductoComponent, {      
+    this.dialog.open(AgregarProductoComponent, {
       disableClose: true,
       width: '700px'
     });
@@ -209,7 +222,7 @@ export class ProductosAdministradorComponent implements OnInit {
     switch (true) {
 
       case window.matchMedia('(max-width: 600px)').matches || event?.target?.innerWidth <= 600:
-        this.columnsToDisplay = ['id','nombre', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'accion'];
         this.selectId = true; this.checkId = true;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = false; this.checkProveedor = false;
@@ -218,7 +231,7 @@ export class ProductosAdministradorComponent implements OnInit {
         this.selectStock = false; this.checkStock = false;
         this.selectCategoria = false; this.checkCategoria = false;
         break;
-      
+
       case window.matchMedia('(max-width: 800px)').matches || event?.target?.innerWidth <= 800:
         this.columnsToDisplay = ['id', 'nombre', 'accion'];
         this.selectId = true; this.checkId = false;
@@ -229,18 +242,18 @@ export class ProductosAdministradorComponent implements OnInit {
         this.selectStock = false; this.checkStock = false;
         this.selectCategoria = false; this.checkCategoria = false;
         break;
-      
+
       case window.matchMedia('(max-width: 900px)').matches || event?.target?.innerWidth <= 900:
         this.columnsToDisplay = ['id', 'nombre', 'categoria', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = true; this.checkProveedor = false;
         this.selectImagen = false; this.checkImagen = false;
-        this.selectPrecio= false; this.checkPrecio = false;
+        this.selectPrecio = false; this.checkPrecio = false;
         this.selectStock = false; this.checkStock = false;
         this.selectCategoria = false; this.checkCategoria = false;
         break;
-      
+
       case window.matchMedia('(max-width: 1000px)').matches || event?.target?.innerWidth <= 1000:
         this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'accion'];
         this.selectId = true; this.checkId = false;
@@ -251,9 +264,9 @@ export class ProductosAdministradorComponent implements OnInit {
         this.selectStock = false; this.checkStock = false;
         this.selectCategoria = false; this.checkCategoria = false;
         break;
-      
+
       case window.matchMedia('(max-width: 1134px)').matches || event?.target?.innerWidth <= 1134:
-        this.columnsToDisplay = ['id', 'nombre','categoria', 'proveedor', 'imagen', 'precio', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = true; this.checkProveedor = false;
@@ -262,9 +275,9 @@ export class ProductosAdministradorComponent implements OnInit {
         this.selectStock = false; this.checkStock = false;
         this.selectCategoria = false; this.checkCategoria = false;
         break;
-      
+
       case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth > 1134:
-        this.columnsToDisplay = ['id', 'nombre','categoria', 'proveedor', 'imagen', 'precio', 'stock', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'stock', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = true; this.checkProveedor = false;
@@ -272,10 +285,10 @@ export class ProductosAdministradorComponent implements OnInit {
         this.selectPrecio = true; this.checkPrecio = false;
         this.selectStock = true; this.checkStock = false;
         this.selectCategoria = true; this.checkCategoria = false;
-        break;      
-      
+        break;
+
       default:
-        this.columnsToDisplay = ['id', 'nombre','categoria', 'proveedor', 'imagen', 'precio', 'stock', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'stock', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = true; this.checkProveedor = false;
@@ -283,27 +296,27 @@ export class ProductosAdministradorComponent implements OnInit {
         this.selectPrecio = true; this.checkPrecio = false;
         this.selectStock = true; this.checkStock = false;
         this.selectCategoria = true; this.checkCategoria = false;
-        break; 
+        break;
     }
   }
 
 
   delete(id: string) {
-    if (this.dataProductos.deleteProducto(id)) {
-      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-      this.router.navigate(['/administracion/AdminProductos']));
-      this.snackbar.open('Producto eliminado con éxito', 'OK', { duration: 3000 });
-    } else {
-      this.snackbar.open('Error al eliminar el producto. Intenta de nuevo.', 'OK', { duration: 7000 });
-    }
+    // if (this.dataProductos.deleteProducto(id)) {
+    //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    //   this.router.navigate(['/administracion/AdminProductos']));
+    //   this.snackbar.open('Producto eliminado con éxito', 'OK', { duration: 3000 });
+    // } else {
+    //   this.snackbar.open('Error al eliminar el producto. Intenta de nuevo.', 'OK', { duration: 7000 });
+    // }
   }
 
 
-  onclickColumn(index: number) {   
+  onclickColumn(index: number) {
     if (this.columnsToDisplay.includes(this.displayedColumns[index])) {
       this.removeColumn(index);
 
-    } else { 
+    } else {
       this.addColumn(index);
     }
   }
@@ -314,7 +327,7 @@ export class ProductosAdministradorComponent implements OnInit {
     let column = this.displayedColumns[index];
     let temp = this.columnsToDisplay;
     this.columnsToDisplay = [];
-    
+
     for (let i = 0; i < this.displayedColumns.length; i++) {
       console.log(this.displayedColumns);
       if (this.displayedColumns[i] === column || temp.includes(this.displayedColumns[i])) {
@@ -339,19 +352,19 @@ export class ProductosAdministradorComponent implements OnInit {
     if (this.columnsToDisplay.length === 3) {
       this.columnsToDisplay.splice(this.columnsToDisplay.indexOf(this.displayedColumns[index]), 1);
       this.disableColumn(this.columnsToDisplay[0]);
-    
+
     } else if (this.columnsToDisplay.length === 2) {
       this.snackbar.open('Debe mostrar al menos una columna', 'OK', { duration: 3000 });
-    
+
     } else if (this.columnsToDisplay.length > 2) {
       this.columnsToDisplay.splice(this.columnsToDisplay.indexOf(this.displayedColumns[index]), 1);
-    
+
     }
   }
 
 
   disableColumn(columna: string) {
-    switch (columna) {      
+    switch (columna) {
       case 'Id':
         this.checkId = true;
         break;
@@ -387,12 +400,12 @@ export class ProductosAdministradorComponent implements OnInit {
   }
 
 
-  random(min:number, max:number) {
+  random(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
 
 
-  onChangeFilter() {        
+  onChangeFilter() {
     this.txtId.setValue('');
     this.txtNombre.setValue('');
     this.txtProveedor.setValue('');
@@ -400,51 +413,51 @@ export class ProductosAdministradorComponent implements OnInit {
     this.txtPrecio.setValue('');
     this.txtStock.setValue('');
     this.txtCategoria.setValue('');
-    this.dataSource.filter = '';   
+    this.dataSource.filter = '';
     this.getCategorias();
     this.getProveedores();
   }
-    
-  filterById() {           
-    this.dataSource.filter = this.txtId.value.trim().toLowerCase();    
+
+  filterById() {
+    this.dataSource.filter = this.txtId.value.trim().toLowerCase();
     this.getCategorias();
     this.getProveedores();
-    this.dataSource.filterPredicate = function (data: any, filter: string) {      
-      return data.id.toLocaleLowerCase().includes(filter);      
+    this.dataSource.filterPredicate = function (data: any, filter: string) {
+      return data.id.toLocaleLowerCase().includes(filter);
     }
   }
-  filterByNombre() {     
+  filterByNombre() {
     this.dataSource.filter = this.txtNombre.value.trim().toLowerCase();
     this.getCategorias();
-    this.getProveedores();    
-    this.dataSource.filterPredicate = function (data: any, filter: string) {      
-      return data.nombre.toLocaleLowerCase().includes(filter);      
+    this.getProveedores();
+    this.dataSource.filterPredicate = function (data: any, filter: string) {
+      return data.nombre.toLocaleLowerCase().includes(filter);
     }
   }
 
-  filterByProveedor() {    
-    if (this.txtProveedor.value !== undefined) {          
-      const vari = this.proveedores.find(n => n.nombre.toLowerCase() == this.txtProveedor.value.trim().toLowerCase());        
-      if(vari){        
-        this.dataSource.filter = vari.id;                
-        this.getProveedores(); 
-      }else{
-        this.dataSource.filter ='';          
+  filterByProveedor() {
+    if (this.txtProveedor.value !== undefined) {
+      const vari = this.proveedores.find(n => n.nombre.toLowerCase() == this.txtProveedor.value.trim().toLowerCase());
+      if (vari) {
+        this.dataSource.filter = vari.id;
+        this.getProveedores();
+      } else {
+        this.dataSource.filter = '';
       }
     } else {
-      this.getProveedores(); 
+      this.getProveedores();
     }
-    this.getCategorias(); 
-    this.dataSource.filterPredicate = function (data: any, filter: string) {                
+    this.getCategorias();
+    this.dataSource.filterPredicate = function (data: any, filter: string) {
       return data.proveedorId.toString().includes(filter);
     }
   }
 
-  filterByImagen(){         
+  filterByImagen() {
     this.dataSource.filter = this.txtImagen.value.trim().toLowerCase();
     this.getCategorias();
     this.getProveedores();
-    this.dataSource.filterPredicate = function (data: any, filter: string) {      
+    this.dataSource.filterPredicate = function (data: any, filter: string) {
       return data.imagen.toLocaleLowerCase().includes(filter);
     }
   }
@@ -452,68 +465,68 @@ export class ProductosAdministradorComponent implements OnInit {
     this.dataSource.filter = this.txtPrecio.value.trim().toLowerCase();
     this.getCategorias();
     this.getProveedores();
-    this.dataSource.filterPredicate = function (data: any, filter: string) {      
-      return data.precio.toString().includes(filter);      
+    this.dataSource.filterPredicate = function (data: any, filter: string) {
+      return data.precio.toString().includes(filter);
     }
   }
 
-  filterByStock() {         
+  filterByStock() {
     this.dataSource.filter = this.txtStock.value.trim().toLowerCase();
     this.getCategorias();
     this.getProveedores();
-    this.dataSource.filterPredicate = function (data: any, filter: string) {         
-      return data.slock.toString().includes(filter);      
+    this.dataSource.filterPredicate = function (data: any, filter: string) {
+      return data.slock.toString().includes(filter);
     }
   }
 
-  filterByCategoria() {    
+  filterByCategoria() {
     if (this.txtCategoria.value !== undefined) {
-      const vari = this.categorias.find(n => n.nombre.toLowerCase() == this.txtCategoria.value.trim().toLowerCase());       
-      if(vari){
-        this.dataSource.filter = vari.id;   
-        this.getCategorias();              
-      }else{
-        this.dataSource.filter ='';
+      const vari = this.categorias.find(n => n.nombre.toLowerCase() == this.txtCategoria.value.trim().toLowerCase());
+      if (vari) {
+        this.dataSource.filter = vari.id;
+        this.getCategorias();
+      } else {
+        this.dataSource.filter = '';
       }
     } else {
       this.dataSource.filter = '';
-      this.getCategorias();      
+      this.getCategorias();
     }
     this.getProveedores();
-    this.dataSource.filterPredicate = function (data: any, filter: string) {      
+    this.dataSource.filterPredicate = function (data: any, filter: string) {
       return data.categoriaId.toString().includes(filter);
     }
   }
 
-  getCategorias(){
-    this.categoriaMostrar.length=this.categoriaMostrar.length-this.categoriaMostrar.length;            
-        for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-          const categoria = this.dataSource.filteredData[i].categoriaId;            
-          const nombre = this.categorias.find(n => n.id == categoria); 
-          this.categoriaMostrar.push(nombre?.nombre);
-        }
-    this.categoriaMostrarId.length=this.categoriaMostrarId.length-this.categoriaMostrarId.length;      
-        for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-          const categoria = this.dataSource.filteredData[i].categoriaId;            
-          const nombre = this.categorias.find(n => n.id == categoria); 
-          this.categoriaMostrarId.push(nombre?.id);
-        }
+  getCategorias() {
+    this.categoriaMostrar.length = this.categoriaMostrar.length - this.categoriaMostrar.length;
+    for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+      const categoria = this.dataSource.filteredData[i].categoriaId;
+      const nombre = this.categorias.find(n => n.id == categoria);
+      this.categoriaMostrar.push(nombre?.nombre);
+    }
+    this.categoriaMostrarId.length = this.categoriaMostrarId.length - this.categoriaMostrarId.length;
+    for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+      const categoria = this.dataSource.filteredData[i].categoriaId;
+      const nombre = this.categorias.find(n => n.id == categoria);
+      this.categoriaMostrarId.push(nombre?.id);
+    }
   }
-  
-  getProveedores(){
-    this.proveedorMostrar.length = this.proveedorMostrar.length-this.proveedorMostrar.length;
-        for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-          const proveedor = this.dataSource.filteredData[i].proveedorId;            
-          const nombre = this.proveedores.find(n => n.id == proveedor); 
-          this.proveedorMostrar.push(nombre?.nombre);
-        }
-    this.proveedorMostrarId.length = this.proveedorMostrarId.length-this.proveedorMostrarId.length;
-        for(let i = 0; i<this.dataSource.filteredData.length;i++){      
-          const proveedor = this.dataSource.filteredData[i].proveedorId;            
-          const nombre = this.proveedores.find(n => n.id == proveedor); 
-          this.proveedorMostrarId.push(nombre?.id);
-        }
-  } 
+
+  getProveedores() {
+    this.proveedorMostrar.length = this.proveedorMostrar.length - this.proveedorMostrar.length;
+    for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+      const proveedor = this.dataSource.filteredData[i].proveedorId;
+      const nombre = this.proveedores.find(n => n.id == proveedor);
+      this.proveedorMostrar.push(nombre?.nombre);
+    }
+    this.proveedorMostrarId.length = this.proveedorMostrarId.length - this.proveedorMostrarId.length;
+    for (let i = 0; i < this.dataSource.filteredData.length; i++) {
+      const proveedor = this.dataSource.filteredData[i].proveedorId;
+      const nombre = this.proveedores.find(n => n.id == proveedor);
+      this.proveedorMostrarId.push(nombre?.id);
+    }
+  }
 
 }
 

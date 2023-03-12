@@ -2,8 +2,8 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
-import { Categoria } from 'src/app/modulos/productos/models/categoria.model';
-import { Producto } from 'src/app/modulos/productos/models/producto.model';
+import { Categoria } from 'src/app/modulos/productos/interfaces/categoria.interface';
+import { Producto } from 'src/app/modulos/productos/interfaces/producto.interface';
 import { DataCategoriasService } from 'src/app/modulos/productos/services/dataCategorias.service';
 import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
 import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
@@ -16,16 +16,16 @@ import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dat
 })
 export class ModificarProductoComponent implements OnInit {
 
-  id: string = this.data.producto.id;
+  id?: string = this.data.producto.id;
   nombre: string = this.data.producto.nombre;
-  categorias: Categoria[] = this.dataCategorias.getCategorias();
+  categorias: Categoria[] = [];
   proveedores: Proveedor[] = [];
   imagen: string = this.data.producto.imagen;
   precio: number = this.data.producto.precio;
   descripcion: string = this.data.producto.descripcion;
   stock: number = this.data.producto.stock;
-  categoriaId: number = this.data.producto.categoriaId;
-  proveedorId: number = this.data.producto.proveedorId;
+  categoria?: number = this.data.producto.categoria;
+  proveedor?: number = this.data.producto.proveedor;
 
   categoriaNombre = '';
   proveedorNombre = '';
@@ -33,7 +33,7 @@ export class ModificarProductoComponent implements OnInit {
 
   getCategoria(){
     for(let i=0; i<this.categorias.length;i++){                
-      const nombre = this.categorias.find(n => n.id == this.categoriaId); 
+      const nombre = this.categorias.find(n => n.id == this.categoria); 
       if(nombre){
         this.categoriaNombre = nombre.nombre;
         return nombre.nombre;
@@ -43,7 +43,7 @@ export class ModificarProductoComponent implements OnInit {
   }
   getProveedor(){
     for(let i=0; i<this.proveedores.length;i++){                
-      const nombre = this.proveedores.find(n => n.id == this.proveedorId); 
+      const nombre = this.proveedores.find(n => n.id == this.proveedor); 
       if(nombre){
         this.proveedorNombre = nombre.nombre;
         return nombre.nombre;
@@ -76,7 +76,7 @@ export class ModificarProductoComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { producto: Producto}, private dataCategorias: DataCategoriasService, private _dataProveedores:DataProveedoresService) {
     
     this.productoModificado.setValue({
-      id: this.data.producto.id,
+      id: this.data.producto.id ?? '',
       nombre: this.data.producto.nombre,
       imagen: this.data.producto.imagen,
       stock: this.data.producto.stock,
@@ -84,14 +84,19 @@ export class ModificarProductoComponent implements OnInit {
       proveedorId: this.getProveedor(),
       categoriaId: this.getCategoria(),
       cantidad: this.data.producto.cantidad,
-      carrito: this.data.producto.carrito,
-      fav: this.data.producto.fav,
+      carrito: this.data.producto.carrito!,
+      fav: this.data.producto.fav!,
       descripcion: this.data.producto.descripcion,
     });
   }
 
-  ngOnInit(): void {
-
+  async ngOnInit(): Promise<void> {
+    await this.dataCategorias.obtenerCategorias().toPromise().then(resp => {
+      this.categorias = resp;
+    }).catch(err =>{
+      console.error(err);
+    });
+    
     this._dataProveedores.getProveedores().subscribe(data => {
       this.proveedores = data;
     });
