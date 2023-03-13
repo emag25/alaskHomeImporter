@@ -164,6 +164,20 @@ const headers = new HttpHeaders().set('Content-Type', 'application/json; charset
 return this.http.post<User[]>(baseURL,{'headers':headers  }); //Si tuviera GET se cambia por get, responseType no va porque no responde <> para indicar que la respuesta es de tipo usuario
 
 }
+EditRolUsuario(id_u: number|undefined, rol_u:string|undefined|null, transaccion_u:string){
+  let baseURL=environment.urlBAse+ environment.pathUrl.urlUsuarios.SetUsuarios;
+
+  const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  const body=JSON.stringify({
+    id: id_u,
+    rol: rol_u,
+    transaccion: transaccion_u
+  });
+  console.log(body)
+  return this.http.post<any>(baseURL, body,{'headers':headers});
+
+}
+
 
 
 }

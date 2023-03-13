@@ -75,6 +75,8 @@ export class UsuariosAdministradorComponent {
     await servicios.GetUsuarios().subscribe((data:User[]) => {
       this.usuarios = data;
       console.log("Hola",this.usuarios);
+      this.dataSource = new MatTableDataSource<User>(this.usuarios);
+
 
     });
     console.log("Hola",this.usuarios);
@@ -83,7 +85,6 @@ export class UsuariosAdministradorComponent {
     this.obtenerUsuario();
     
     this.onResize('');
-    this.dataSource = new MatTableDataSource<User>(this.usuarios);
   }
 
 
@@ -112,7 +113,7 @@ export class UsuariosAdministradorComponent {
 
 
 
-  openDialogModificar(usuario: Usuario) {
+  openDialogModificar(usuario: User) {
     this.dialog.open(ModificarUsuarioComponent, {
       data: { usuario: usuario },
       disableClose: true,
@@ -402,12 +403,9 @@ export class UsuariosAdministradorComponent {
 
   }
 
-  convertir(rol_usuario: string) {
-    if (rol_usuario === "1") {
-      return "Cliente"
-    } else {
-      return "Administrador"
-    }
-  }
+  
+  
+
+  
 
 }
