@@ -38,7 +38,7 @@ export class ProductosAdministradorComponent implements OnInit {
   nav: any;
 
   dataSource: any = [];
-  displayedColumns: string[] = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'stock', 'accion'];
+  displayedColumns: string[] = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'stock', 'estado', 'accion'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   selectFilter: string = 'Id';
   columnasFilter: string[] = ['Id', 'Nombre', 'Categoria', 'Proveedor', 'Imagen', 'Precio', 'Stock'];
@@ -61,6 +61,7 @@ export class ProductosAdministradorComponent implements OnInit {
   checkPrecio: boolean = false;
   checkStock: boolean = false;
   checkCategoria: boolean = false;
+  checkEstado: boolean = false;
 
   selectId: boolean = true;
   selectNombre: boolean = true;
@@ -71,124 +72,18 @@ export class ProductosAdministradorComponent implements OnInit {
   selectCategoria: boolean = true;
 
 
-  constructor(private router: Router, private dialog: MatDialog, private dataProductos: DataProductosService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private dataCategorias: DataCategoriasService, private _dataProveedores: DataProveedoresService) {
+  constructor(private router: Router, private dialog: MatDialog, private dataProductos: DataProductosService,
+    private snackbar: MatSnackBar,
+    private dataUsuarios: DataUsuariosService, private loginService: LoginService,
+    private dataCategorias: DataCategoriasService, private _dataProveedores: DataProveedoresService) {
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
 
   }
 
 
   async ngOnInit(): Promise<void> {
-    await this.dataCategorias.obtenerCategorias().toPromise().then(resp => {
-      this.categorias = resp;
-    }).catch(err =>{
-      console.error(err);
-    });
-    
-    this.dataProductos.obtenerProductos().toPromise().then(
-      resp => {
-        console.log(resp);
-        this.productos = resp;
-        this.dataSource = new MatTableDataSource<Producto>(this.productos);
-        this._dataProveedores.getProveedores().subscribe(data => {
-          this.proveedores = data;
-          this.categoriaMostrar.length = this.categoriaMostrar.length - this.categoriaMostrar.length;
-          for (let i = 0; i < this.dataSource.filteredData.length; i++) {            
-            const categoria = this.dataSource.filteredData[i].categoria;
-            const nombre = this.categorias.find(n => n.id == categoria);
-            this.categoriaMostrar.push(nombre?.nombre);
-          }
-          this.nav = this.router.getCurrentNavigation();
-          this.datosRecibidos = this.nav.extras.state;
-
-          if (this.datosRecibidos != null) {
-
-            if (this.datosRecibidos.datosProducto.queryParams.id === undefined) { // Agregar
-              this.idGeneral = 0;
-              for (let i = 0; i < this.categoriaMostrar.length; i++) {
-                this.idGeneral = this.idGeneral + 1;
-                console.log(this.idGeneral);
-              }
-              this.idGeneral = this.idGeneral + 1;
-              let producto: Producto = {
-                id: this.idGeneral + '',
-                nombre: this.datosRecibidos.datosProducto.queryParams.nombre,
-                descripcion: this.datosRecibidos.datosProducto.queryParams.descripcion,
-                imagen: this.datosRecibidos.datosProducto.queryParams.imagen,
-                precio: this.datosRecibidos.datosProducto.queryParams.precio,
-                stock: this.datosRecibidos.datosProducto.queryParams.stock,
-                cantidad: 1,
-                categoria: this.datosRecibidos.datosProducto.queryParams.categoria,
-                proveedor: this.datosRecibidos.datosProducto.queryParams.proveedor,
-                carrito: false,
-                fav: false
-              }
-              this.dataProductos.insertarProductos(producto).toPromise().then(resp => {
-                console.log(resp);
-              }).catch(err => {
-                console.error(err);
-              });
-              this.snackbar.open('Producto agregado con éxito', 'OK', { duration: 3000 });
-
-            } else { // Modificar
-              // if (this.dataProductos.editProducto(this.datosRecibidos.datosProducto.queryParams)) {
-                
-                this.proveedorMostrar.length = this.proveedorMostrar.length - this.proveedorMostrar.length;
-                this.categoriaMostrar.length = this.categoriaMostrar.length - this.categoriaMostrar.length;
-                this.proveedorMostrarId.length = this.proveedorMostrarId.length - this.proveedorMostrarId.length;
-                this.categoriaMostrarId.length = this.categoriaMostrarId.length - this.categoriaMostrarId.length;
-                for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-                  const categoria = this.dataSource.filteredData[i].categoriaId;
-                  const nombre = this.categorias.find(n => n.id == categoria);
-                  this.categoriaMostrar.push(nombre?.nombre);
-                }
-                for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-                  const proveedor = this.dataSource.filteredData[i].proveedorId;
-                  const nombre = this.proveedores.find(n => n.id == proveedor);
-                  this.proveedorMostrar.push(nombre?.nombre);
-                }
-                for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-                  const categoria = this.dataSource.filteredData[i].categoriaId;
-                  const nombre = this.categorias.find(n => n.id == categoria);
-                  this.categoriaMostrarId.push(nombre?.id);
-                }
-                for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-                  const proveedor = this.dataSource.filteredData[i].proveedorId;
-                  const nombre = this.proveedores.find(n => n.id == proveedor);
-                  this.proveedorMostrarId.push(nombre?.id);
-                }
-
-
-                this.snackbar.open('Producto modificado con éxito', 'OK', { duration: 3000 });
-              // } else {
-              //   this.snackbar.open('Error al modificar el producto. Intenta de nuevo.', 'OK', { duration: 7000 });
-              // }
-            }
-          }
-          this.onResize('');
-          this.dataSource = new MatTableDataSource<Producto>(this.productos);
-
-          for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-            const categoria = this.dataSource.filteredData[i].categoriaId;
-            const nombre = this.categorias.find(n => n.id == categoria);
-            this.categoriaMostrar.push(nombre?.nombre);
-          }
-          for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-            const proveedor = this.dataSource.filteredData[i].proveedorId;
-            const nombre = this.proveedores.find(n => n.id == proveedor);
-            this.proveedorMostrar.push(nombre?.nombre);
-          }
-          for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-            const categoria = this.dataSource.filteredData[i].categoriaId;
-            const nombre = this.categorias.find(n => n.id == categoria);
-            this.categoriaMostrarId.push(nombre?.id);
-          }
-          for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-            const proveedor = this.dataSource.filteredData[i].proveedorId;
-            const nombre = this.proveedores.find(n => n.id == proveedor);
-            this.proveedorMostrarId.push(nombre?.id);
-          }
-        });
-      });
+    await this.cargarDatos();
+    this.onResize('');
   }
 
 
@@ -199,21 +94,48 @@ export class ProductosAdministradorComponent implements OnInit {
 
   idGeneral = 0;
 
+  async cargarDatos() {
+    await this.dataCategorias.obtenerCategorias().toPromise().then(resp => {
+      this.categorias = resp;
+      this._dataProveedores.getProveedores().subscribe(async data => {
+        this.proveedores = data;
+        await this.dataProductos.obtenerProductos().toPromise().then(
+          async resp => {
+            console.log(resp);
+            this.dataSource = new MatTableDataSource<Producto>(resp);
+          });
+        this.getCategorias();
+        this.getProveedores();
+      });
+    }).catch(err => {
+      console.error(err);
+    });
 
+
+  }
 
 
 
   openDialogModificar(producto: Producto) {
-    this.dialog.open(ModificarProductoComponent, {
+    const dialogref= this.dialog.open(ModificarProductoComponent, {
       data: { producto: producto },
       disableClose: true,
       width: '700px'
     });
+    dialogref.afterClosed().subscribe(async result => {
+      this.vaciar();
+      await this.cargarDatos();  
+    });
   }
   openDialogIngresar() {
-    this.dialog.open(AgregarProductoComponent, {
+    const dialogref = this.dialog.open(AgregarProductoComponent, {
       disableClose: true,
       width: '700px'
+    });
+
+    dialogref.afterClosed().subscribe(async result => {
+      this.vaciar();
+      await this.cargarDatos();  
     });
   }
 
@@ -222,7 +144,7 @@ export class ProductosAdministradorComponent implements OnInit {
     switch (true) {
 
       case window.matchMedia('(max-width: 600px)').matches || event?.target?.innerWidth <= 600:
-        this.columnsToDisplay = ['id', 'nombre', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'estado', 'accion'];
         this.selectId = true; this.checkId = true;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = false; this.checkProveedor = false;
@@ -233,7 +155,7 @@ export class ProductosAdministradorComponent implements OnInit {
         break;
 
       case window.matchMedia('(max-width: 800px)').matches || event?.target?.innerWidth <= 800:
-        this.columnsToDisplay = ['id', 'nombre', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'estado', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = false; this.checkProveedor = false;
@@ -244,7 +166,7 @@ export class ProductosAdministradorComponent implements OnInit {
         break;
 
       case window.matchMedia('(max-width: 900px)').matches || event?.target?.innerWidth <= 900:
-        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'estado', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = true; this.checkProveedor = false;
@@ -255,7 +177,7 @@ export class ProductosAdministradorComponent implements OnInit {
         break;
 
       case window.matchMedia('(max-width: 1000px)').matches || event?.target?.innerWidth <= 1000:
-        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'estado', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = true; this.checkProveedor = false;
@@ -266,7 +188,7 @@ export class ProductosAdministradorComponent implements OnInit {
         break;
 
       case window.matchMedia('(max-width: 1134px)').matches || event?.target?.innerWidth <= 1134:
-        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'estado', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = true; this.checkProveedor = false;
@@ -277,7 +199,7 @@ export class ProductosAdministradorComponent implements OnInit {
         break;
 
       case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth > 1134:
-        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'stock', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'stock', 'estado', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = true; this.checkProveedor = false;
@@ -288,7 +210,7 @@ export class ProductosAdministradorComponent implements OnInit {
         break;
 
       default:
-        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'stock', 'accion'];
+        this.columnsToDisplay = ['id', 'nombre', 'categoria', 'proveedor', 'imagen', 'precio', 'stock', 'estado', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectProveedor = true; this.checkProveedor = false;
@@ -301,14 +223,29 @@ export class ProductosAdministradorComponent implements OnInit {
   }
 
 
+  vaciar() {
+    this.productos = [];
+    this.dataSource = [];
+    this.proveedores = [];
+    this.categorias = [];
+    this.categoriaMostrar = [];
+    this.categoriaMostrarId = [];
+    this.proveedorMostrarId = [];
+    this.proveedorMostrar = [];
+  }
   delete(id: string) {
-    // if (this.dataProductos.deleteProducto(id)) {
-    //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    //   this.router.navigate(['/administracion/AdminProductos']));
-    //   this.snackbar.open('Producto eliminado con éxito', 'OK', { duration: 3000 });
-    // } else {
-    //   this.snackbar.open('Error al eliminar el producto. Intenta de nuevo.', 'OK', { duration: 7000 });
-    // }
+    this.dataProductos.eliminarProducto('Inactivo', id).toPromise().then(async resp => {
+      this.vaciar();
+      await this.cargarDatos();      
+      this.snackbar.open('Producto eliminado con éxito', 'OK', { duration: 3000 });
+    })
+  }
+  unDelete(id: string) {
+    this.dataProductos.eliminarProducto('Activo', id).toPromise().then(async resp => {
+      this.vaciar();
+      await this.cargarDatos();      
+      this.snackbar.open('Producto eliminado con éxito', 'OK', { duration: 3000 });
+    })
   }
 
 
@@ -414,16 +351,14 @@ export class ProductosAdministradorComponent implements OnInit {
     this.txtStock.setValue('');
     this.txtCategoria.setValue('');
     this.dataSource.filter = '';
-    this.getCategorias();
-    this.getProveedores();
   }
 
-  filterById() {
+  async filterById() {
     this.dataSource.filter = this.txtId.value.trim().toLowerCase();
-    this.getCategorias();
-    this.getProveedores();
+    await this.getCategorias();
+    await this.getProveedores();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.id.toLocaleLowerCase().includes(filter);
+      return data.id.toString().includes(filter);
     }
   }
   filterByNombre() {
@@ -435,7 +370,7 @@ export class ProductosAdministradorComponent implements OnInit {
     }
   }
 
-  filterByProveedor() {
+  async filterByProveedor() {
     if (this.txtProveedor.value !== undefined) {
       const vari = this.proveedores.find(n => n.nombre.toLowerCase() == this.txtProveedor.value.trim().toLowerCase());
       if (vari) {
@@ -445,11 +380,12 @@ export class ProductosAdministradorComponent implements OnInit {
         this.dataSource.filter = '';
       }
     } else {
+      this.dataSource.filter = '';
       this.getProveedores();
     }
     this.getCategorias();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.proveedorId.toString().includes(filter);
+      return data.proveedor.toString().includes(filter);
     }
   }
 
@@ -494,20 +430,20 @@ export class ProductosAdministradorComponent implements OnInit {
     }
     this.getProveedores();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.categoriaId.toString().includes(filter);
+      return data.categoria.toString().includes(filter);
     }
   }
 
   getCategorias() {
     this.categoriaMostrar.length = this.categoriaMostrar.length - this.categoriaMostrar.length;
     for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-      const categoria = this.dataSource.filteredData[i].categoriaId;
+      const categoria = this.dataSource.filteredData[i].categoria;
       const nombre = this.categorias.find(n => n.id == categoria);
       this.categoriaMostrar.push(nombre?.nombre);
     }
     this.categoriaMostrarId.length = this.categoriaMostrarId.length - this.categoriaMostrarId.length;
     for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-      const categoria = this.dataSource.filteredData[i].categoriaId;
+      const categoria = this.dataSource.filteredData[i].categoria;
       const nombre = this.categorias.find(n => n.id == categoria);
       this.categoriaMostrarId.push(nombre?.id);
     }
@@ -516,17 +452,19 @@ export class ProductosAdministradorComponent implements OnInit {
   getProveedores() {
     this.proveedorMostrar.length = this.proveedorMostrar.length - this.proveedorMostrar.length;
     for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-      const proveedor = this.dataSource.filteredData[i].proveedorId;
+      const proveedor = this.dataSource.filteredData[i].proveedor;
       const nombre = this.proveedores.find(n => n.id == proveedor);
       this.proveedorMostrar.push(nombre?.nombre);
     }
     this.proveedorMostrarId.length = this.proveedorMostrarId.length - this.proveedorMostrarId.length;
     for (let i = 0; i < this.dataSource.filteredData.length; i++) {
-      const proveedor = this.dataSource.filteredData[i].proveedorId;
+      const proveedor = this.dataSource.filteredData[i].proveedor;
       const nombre = this.proveedores.find(n => n.id == proveedor);
       this.proveedorMostrarId.push(nombre?.id);
     }
   }
+
+
 
 }
 

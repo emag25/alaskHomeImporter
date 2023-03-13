@@ -123,3 +123,12 @@ th{
     }
     
 }
+
+.button-container{
+    display: flex;
+    flex-direction: row;
+}
+
+th{
+    text-align: center;
+}

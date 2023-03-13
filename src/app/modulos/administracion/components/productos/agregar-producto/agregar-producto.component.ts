@@ -4,6 +4,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
 import { Categoria } from 'src/app/modulos/productos/interfaces/categoria.interface';
 import { DataCategoriasService } from 'src/app/modulos/productos/services/dataCategorias.service';
+import { DataProductosService } from 'src/app/modulos/productos/services/dataProductos.service';
 import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
 import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
 
@@ -13,9 +14,10 @@ import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dat
   styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent implements OnInit {
+  snackbar: any;
   
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<AgregarProductoComponent>,private dataCategorias: DataCategoriasService, private _dataProveedores:DataProveedoresService) { }
+  constructor(private router: Router, private dialogRef: MatDialogRef<AgregarProductoComponent>,private dataCategorias: DataCategoriasService, private _dataProveedores:DataProveedoresService,private dataProductos:DataProductosService) { }
 
 
   async ngOnInit(): Promise<void> {
@@ -69,23 +71,22 @@ export class AgregarProductoComponent implements OnInit {
 
 
   onSubmit() {
-    let objToSend: NavigationExtras = {
-      queryParams: {
-        nombre: this.productoNuevo.value.nombre,
-        imagen: this.productoNuevo.value.imagen,
-        stock: this.productoNuevo.value.stock,
-        precio: this.productoNuevo.value.precio,
-        proveedorId: this.getProveedorNombre(),
-        categoriaId: this.getCategoriaNombre(),
-        descripcion:this.productoNuevo.value.precio
-      },
-      skipLocationChange: false,
-      fragment: 'top'
-    };
-
-    this.dialogRef.close();
-    this.redirectTo('/administracion/AdminProductos', objToSend);
-
+    let objToSend = {     
+              
+      nombre: this.productoNuevo.value.nombre,
+      imagen: this.productoNuevo.value.imagen,
+      stock: this.productoNuevo.value.stock,
+      precio: this.productoNuevo.value.precio,
+      proveedor: this.getProveedorNombre(),
+      categoria: this.getCategoriaNombre(),        
+      descripcion: this.productoNuevo.value.descripcion      
+    } 
+    this.dataProductos.insertarProductos(objToSend).toPromise().then(resp =>{
+      this.dialogRef.close();
+    }).catch(error =>{
+      this.snackbar.open('Error al insertar', 'OK', { duration: 3000 });
+      console.error(error);
+    });    
   }
 
   redirectTo(uri: string, objToSend: NavigationExtras) {

@@ -44,22 +44,22 @@
 
     <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 2;">
       <mat-label>Proveedor</mat-label>
-      <mat-select formControlName="proveedorId">
+      <mat-select formControlName="proveedor">
         <mat-option *ngFor="let proveedor of proveedores" [value]="proveedor.nombre">
           {{proveedor.nombre}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="productoModificado.controls['proveedorId'].hasError('required')">Proveedor es requerida.</mat-error>
+      <mat-error *ngIf="productoModificado.controls['proveedor'].hasError('required')">Proveedor es requerida.</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 2;">
       <mat-label>Categoria</mat-label>
-      <mat-select formControlName="categoriaId">
+      <mat-select formControlName="categoria">
         <mat-option *ngFor="let categoria of categorias" [value]="categoria.nombre">
           {{categoria.nombre}}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="productoModificado.controls['categoriaId'].hasError('required')">Categoria es requerida.</mat-error>
+      <mat-error *ngIf="productoModificado.controls['categoria'].hasError('required')">Categoria es requerida.</mat-error>
     </mat-form-field>
     <div class="acciones">
       <mat-form-field appearance="fill">

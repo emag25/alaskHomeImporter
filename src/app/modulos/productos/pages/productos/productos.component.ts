@@ -38,7 +38,7 @@ export class ProductosComponent implements OnInit {
       this.categorias = resp;
     }).catch(err =>{
       console.error(err);
-    })
+    });
      this.obtenerData();
 
   }

@@ -14,9 +14,9 @@ export const environment = {
         },
         urlProductos:{
             urlObtenerProductos: "/api/Productos/ConsultarProductos",
-            urlInsertarProductos: "/api/Productos/Get",
-            urlModificarProductos: "/api/Productos/Get",
-            urlModificarEstadoProductos: "/api/Productos/Get",
+            urlInsertarProductos: "/api/Productos/AgregarNuevoProducto",
+            urlModificarProductos: "/api/Productos/ModificarDatos",
+            urlModificarEstadoProductos: "/api/Productos/ModificarEstado",
         },
         urlProveedores: {
             SetProveedor: "",
