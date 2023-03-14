@@ -178,9 +178,36 @@ EditRolUsuario(id_u: number|undefined, rol_u:string|undefined|null, transaccion_
 
 }
 
+EditClaveUsuario(id_u: number|undefined, pass_u:string|undefined|null, transaccion_u:string){
+  let baseURL=environment.urlBAse+ environment.pathUrl.urlUsuarios.SetUsuarios;
+
+  const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  const body=JSON.stringify({
+    id: id_u,
+    password: pass_u,
+    transaccion: transaccion_u
+  });
+  console.log(body)
+  return this.http.post<any>(baseURL, body,{'headers':headers});
+
+}
+
+VerificarUsuario(email_u: string|undefined|null, pass_u:string|undefined|null){
+  let baseURL=environment.urlBAse+ environment.pathUrl.urlUsuarios.GetUsuarios+'Verificar';
+
+  const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  const body=JSON.stringify({
+    email: email_u,
+    password: pass_u
+  });
+  console.log(body)
+  return this.http.post<any>(baseURL, body,{'headers':headers});
+
+
+
 
 
 }
 
 
-
+}

@@ -21,6 +21,10 @@ export class RegistroUsuarioComponent implements OnInit {
 
   constructor(private router: Router, private dialogRef: MatDialogRef<RegistroUsuarioComponent>, private snackBar: MatSnackBar, private _dataProvincias: DataProvinciasService, private dataUsuarios: DataUsuariosService) { }
 
+ ModificarClave(){
+  
+ }
+ 
   ngOnInit(): void {
 
     this._dataProvincias.getProvincias().subscribe(data => {
