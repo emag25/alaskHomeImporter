@@ -1,18 +1,25 @@
 export const environment = {
-    
     urlBAse: "https://localhost:7014",
-    
+
     pathUrl: {
-
-        urlGetCategorias: "/api/Categorias/Get",
-        urlSetCategorias: "/api/Categorias/Get",
-        urlGetProductos: "/api/Proveedores/Get",
-        urlSetProductos: "/api/Productos/Get",
-        urlGetFavoritos: "/api/Favoritos/Get",
-        urlSetFavoritos: "/api/Favoritos/Get",
-
+        urlFavoritos:{
+            urlGetFavoritos: "/api/Favoritos/Get",
+            urlSetFavoritos: "/api/Favoritos/Get",
+        },
+        urlCategorias:{
+            urlObtenerCategorias: "/api/Categorias/ObtenerCategorias",
+            urlInsertarCategorias: "/api/Categorias/InsertarCategoria",
+            urlModificarCategorias: "/api/Categorias/ModificarCategoria",
+            urlModificarEstadoCategoria: "/api/Categorias/ModificarEstadoCategoria",
+        },
+        urlProductos:{
+            urlObtenerProductos: "/api/Productos/ConsultarProductos",
+            urlInsertarProductos: "/api/Productos/AgregarNuevoProducto",
+            urlModificarProductos: "/api/Productos/ModificarDatos",
+            urlModificarEstadoProductos: "/api/Productos/ModificarEstado",
+        },
         urlProveedores: {
-
+            SetProveedor: "",
             GetProveedores: "/api/Proveedores/Get",
             UpdateProveedor: "/api/Proveedores/Update",
             DeleteProveedor: "/api/Proveedores/Delete"
@@ -31,7 +38,7 @@ export const environment = {
         urlProvincias: {
 
             GetProvincias: "/api/Provincias/Get"
-            
+
         }
 
     }

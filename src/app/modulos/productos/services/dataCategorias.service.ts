@@ -1,60 +1,27 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Categoria } from './../models/categoria.model';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { Categoria } from '../interfaces/categoria.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataCategoriasService {
 
-
-  private categorias: Categoria[] = [
-    {
-      id: 1,
-      nombre: 'Technologia'
-    },
-    {
-      id: 2,
-      nombre: 'ElectroHogar'
-    },
-    {
-      id: 3,
-      nombre: 'Hogar'
-    },
-    {
-      id: 4,
-      nombre: 'Muebles'
-    },
-    {
-      id: 5,
-      nombre: 'Ferreteria'
-    },
-    {
-      id: 6,
-      nombre: 'Movilidad'
-    }
-  ];
-
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
 
-  getCategorias(): Categoria[] {
-    return this.categorias;
+  obtenerCategorias(): Observable<any> {    
+    const url = `${environment.urlBAse}${environment.pathUrl.urlCategorias.urlObtenerCategorias}`;    
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',        
+        'Access-Control-Allow-Origin': '*'
+      })
+    }    
+    return this.http.get(url,httpOptions);
   }
-
-
-  deletecategorias(id: number) {
-
-    let obj = this.categorias.find(categoria => categoria.id === id);
-
-    if (obj !== undefined) {
-      let index = this.categorias.indexOf(obj);
-      this.categorias.splice(index, 1);
-      return true;
-
-    } else {
-      return false;
-    }
-
-  }
+  
 
 }

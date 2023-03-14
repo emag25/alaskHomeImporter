@@ -22,11 +22,11 @@ export class DataVentasService {
           imagen: '../assets/img/lavadora.png',
           precio: 450.00,
           stock: 100,
-          categoriaId: 2,
+          categoria: 2,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1113
+          proveedor: 1113
         },
         {
           id: '2',
@@ -35,11 +35,11 @@ export class DataVentasService {
           imagen: '../assets/img/mesagrande.png',
           precio: 300.00,
           stock: 100,
-          categoriaId: 4,
+          categoria: 4,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1555
+          proveedor: 1555
         }
       ],
       total: 750.00
@@ -59,11 +59,11 @@ export class DataVentasService {
           imagen: 'https://pycca.vteximg.com.br/arquivos/ids/223006-600-600/A03892-1.png?v=637968850039570000',
           precio: 40.00,
           stock: 100,
-          categoriaId: 3,
+          categoria: 3,
           carrito: false,
           fav: false,
           cantidad: 10,
-          proveedorId: 1444
+          proveedor: 1444
         }
       ],
       total: 400.00
@@ -83,11 +83,11 @@ export class DataVentasService {
           imagen: '../assets/img/mesagrande.png',
           precio: 300.00,
           stock: 100,
-          categoriaId: 4,
+          categoria: 4,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1555
+          proveedor: 1555
         },
         {
           id: '5',
@@ -96,11 +96,11 @@ export class DataVentasService {
           imagen: '../assets/img/sofa.png',
           precio: 1200.00,
           stock: 100,
-          categoriaId: 4,
+          categoria: 4,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1555
+          proveedor: 1555
         },
         {
           id: '7',
@@ -109,11 +109,11 @@ export class DataVentasService {
           imagen: '../assets/img/bicicleta.png',
           precio: 900.00,
           stock: 100,
-          categoriaId: 6,
+          categoria: 6,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1555
+          proveedor: 1555
         },
         {
           id: '8',
@@ -122,11 +122,11 @@ export class DataVentasService {
           imagen: '../assets/img/mesa.png',
           precio: 900.00,
           stock: 100,
-          categoriaId: 4,
+          categoria: 4,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1777
+          proveedor: 1777
         },
       ],
       total: 3300.00
@@ -146,11 +146,11 @@ export class DataVentasService {
           imagen: 'https://images.samsung.com/common/galaxy-note20/feature/galaxy-tab-s7/images/galaxy-tab-s7-s7plus-keyboard-spen-mystic-bronze-mo.jpg',
           precio: 60.00,
           stock: 100,
-          categoriaId: 1,
+          categoria: 1,
           carrito: false,
           fav: false,
           cantidad: 4,
-          proveedorId: 1112
+          proveedor: 1112
         }
       ],
       total: 240.00
@@ -170,11 +170,11 @@ export class DataVentasService {
           imagen: 'https://resource.logitech.com/content/dam/gaming/en/products/pro-wireless-gaming-mouse/pro-wireless-carbon-gallery-1.png',
           precio: 99.00,
           stock: 100,
-          categoriaId: 1,
+          categoria: 1,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1222
+          proveedor: 1222
         },
         {
           id: '17',
@@ -183,11 +183,11 @@ export class DataVentasService {
           imagen: 'https://images.samsung.com/is/image/samsung/ph-galaxy-a51-a515-sm-a515fzbhxtc-front-thumb-204731256',
           precio: 250.00,
           stock: 100,
-          categoriaId: 1,
+          categoria: 1,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1122
+          proveedor: 1122
         }
       ],
       total: 349.00
@@ -207,11 +207,11 @@ export class DataVentasService {
           imagen: 'https://static.wixstatic.com/media/f8a5da_83f70ea1959b4c00b3587d9db2ad43cb~mv2.png/v1/fill/w_560,h_560,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/aire-acondicionado.png',
           precio: 500.00,
           stock: 100,
-          categoriaId: 2,
+          categoria: 2,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1113
+          proveedor: 1113
         },
         {
           id: '1',
@@ -220,11 +220,11 @@ export class DataVentasService {
           imagen: '../assets/img/lavadora.png',
           precio: 450.00,
           stock: 100,
-          categoriaId: 2,
+          categoria: 2,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1113
+          proveedor: 1113
         }
       ],
       total: 950.00
@@ -244,11 +244,11 @@ export class DataVentasService {
           imagen: '../assets/img/televisor.png',
           precio: 750.00,
           stock: 100,
-          categoriaId: 1,
+          categoria: 1,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1222
+          proveedor: 1222
         },
         {
           id: '29',
@@ -257,11 +257,11 @@ export class DataVentasService {
           imagen: 'https://pycca.vteximg.com.br/arquivos/ids/174880-600-600/Juego-Ollas-A00151.png?v=636991604269930000',
           precio: 134.00,
           stock: 100,
-          categoriaId: 3,
+          categoria: 3,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1444
+          proveedor: 1444
         }
       ],
       total: 884.00
@@ -281,11 +281,11 @@ export class DataVentasService {
           imagen: 'https://pycca.vteximg.com.br/arquivos/ids/158508-600-600/sarten-A28905.jpg?v=636300424844600000',
           precio: 20.00,
           stock: 100,
-          categoriaId: 3,
+          categoria: 3,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1444
+          proveedor: 1444
         }
       ],
       total: 20.00
@@ -305,11 +305,11 @@ export class DataVentasService {
           imagen: '../assets/img/televisor.png',
           precio: 750.00,
           stock: 100,
-          categoriaId: 1,
+          categoria: 1,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1222
+          proveedor: 1222
         },
         {
           id: '8',
@@ -318,11 +318,11 @@ export class DataVentasService {
           imagen: '../assets/img/mesa.png',
           precio: 900.00,
           stock: 100,
-          categoriaId: 4,
+          categoria: 4,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1777
+          proveedor: 1777
         },
         {
           id: '7',
@@ -331,11 +331,11 @@ export class DataVentasService {
           imagen: '../assets/img/bicicleta.png',
           precio: 900.00,
           stock: 100,
-          categoriaId: 6,
+          categoria: 6,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1555
+          proveedor: 1555
         }
       ],
       total: 2550.00
@@ -355,11 +355,11 @@ export class DataVentasService {
           imagen: '../assets/img/mesagrande.png',
           precio: 300.00,
           stock: 100,
-          categoriaId: 4,
+          categoria: 4,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1555
+          proveedor: 1555
         }
       ],
       total: 300.00
@@ -379,11 +379,11 @@ export class DataVentasService {
           imagen: 'https://pycca.vteximg.com.br/arquivos/ids/223006-600-600/A03892-1.png?v=637968850039570000',
           precio: 40.00,
           stock: 100,
-          categoriaId: 3,
+          categoria: 3,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1444
+          proveedor: 1444
         },
         {
           id: '5',
@@ -392,11 +392,11 @@ export class DataVentasService {
           imagen: '../assets/img/sofa.png',
           precio: 1200.00,
           stock: 100,
-          categoriaId: 4,
+          categoria: 4,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1555
+          proveedor: 1555
         },
         {
           id: '23',
@@ -405,11 +405,11 @@ export class DataVentasService {
           imagen: 'https://whirlpool-cdn.thron.com/delivery/public/thumbnail/whirlpool/pi-d3ec2da6-c375-4a3d-8ea6-a22cdf451d94/jsind9/std/1000x1000/859720301230.jpg?fill=zoom&fillcolor=rgba:255,255,255&scalemode=product',
           precio: 190.00,
           stock: 100,
-          categoriaId: 2,
+          categoria: 2,
           carrito: false,
           fav: false,
           cantidad: 1,
-          proveedorId: 1133
+          proveedor: 1133
         }
       ],
       total: 1430.00

@@ -2,9 +2,10 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
-import { Categoria } from 'src/app/modulos/productos/models/categoria.model';
-import { Producto } from 'src/app/modulos/productos/models/producto.model';
+import { Categoria } from 'src/app/modulos/productos/interfaces/categoria.interface';
+import { Producto } from 'src/app/modulos/productos/interfaces/producto.interface';
 import { DataCategoriasService } from 'src/app/modulos/productos/services/dataCategorias.service';
+import { DataProductosService } from 'src/app/modulos/productos/services/dataProductos.service';
 import { Proveedor } from 'src/app/modulos/proveedores/models/proveedor.model';
 import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dataProveedores.service';
 
@@ -16,24 +17,25 @@ import { DataProveedoresService } from 'src/app/modulos/proveedores/services/dat
 })
 export class ModificarProductoComponent implements OnInit {
 
-  id: string = this.data.producto.id;
+  id?: string = this.data.producto.id;
   nombre: string = this.data.producto.nombre;
-  categorias: Categoria[] = this.dataCategorias.getCategorias();
+  categorias: Categoria[] = [];
   proveedores: Proveedor[] = [];
   imagen: string = this.data.producto.imagen;
   precio: number = this.data.producto.precio;
   descripcion: string = this.data.producto.descripcion;
   stock: number = this.data.producto.stock;
-  categoriaId: number = this.data.producto.categoriaId;
-  proveedorId: number = this.data.producto.proveedorId;
+  categoria?: number = this.data.producto.categoria;
+  proveedor?: number = this.data.producto.proveedor;
 
   categoriaNombre = '';
   proveedorNombre = '';
+  snackbar: any;
 
 
   getCategoria(){
     for(let i=0; i<this.categorias.length;i++){                
-      const nombre = this.categorias.find(n => n.id == this.categoriaId); 
+      const nombre = this.categorias.find(n => n.id == this.categoria); 
       if(nombre){
         this.categoriaNombre = nombre.nombre;
         return nombre.nombre;
@@ -43,7 +45,7 @@ export class ModificarProductoComponent implements OnInit {
   }
   getProveedor(){
     for(let i=0; i<this.proveedores.length;i++){                
-      const nombre = this.proveedores.find(n => n.id == this.proveedorId); 
+      const nombre = this.proveedores.find(n => n.id == this.proveedor); 
       if(nombre){
         this.proveedorNombre = nombre.nombre;
         return nombre.nombre;
@@ -53,7 +55,7 @@ export class ModificarProductoComponent implements OnInit {
   }
   getCategoriaNombre(){
     for(let i=0; i<this.categorias.length;i++){                
-      const nombre = this.categorias.find(n => n.nombre == this.productoModificado.value.categoriaId); 
+      const nombre = this.categorias.find(n => n.nombre == this.productoModificado.value.categoria); 
       if(nombre){        
         return nombre.id;
       }      
@@ -62,7 +64,7 @@ export class ModificarProductoComponent implements OnInit {
   }
   getProveedorNombre(){
     for(let i=0; i<this.proveedores.length;i++){                
-      const nombre = this.proveedores.find(n => n.nombre == this.productoModificado.value.proveedorId); 
+      const nombre = this.proveedores.find(n => n.nombre == this.productoModificado.value.proveedor); 
       if(nombre){        
         return nombre.id;
       }      
@@ -72,29 +74,32 @@ export class ModificarProductoComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<ModificarProductoComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { producto: Producto}, private dataCategorias: DataCategoriasService, private _dataProveedores:DataProveedoresService) {
+  constructor(private router: Router, private dialogRef: MatDialogRef<ModificarProductoComponent>,private dataProductos: DataProductosService,
+    @Inject(MAT_DIALOG_DATA) public data: { producto: Producto}, private dataCategorias: DataCategoriasService, private _dataProveedores:DataProveedoresService) {      
     
-    this.productoModificado.setValue({
-      id: this.data.producto.id,
-      nombre: this.data.producto.nombre,
-      imagen: this.data.producto.imagen,
-      stock: this.data.producto.stock,
-      precio: this.data.producto.precio,
-      proveedorId: this.getProveedor(),
-      categoriaId: this.getCategoria(),
-      cantidad: this.data.producto.cantidad,
-      carrito: this.data.producto.carrito,
-      fav: this.data.producto.fav,
-      descripcion: this.data.producto.descripcion,
-    });
   }
 
-  ngOnInit(): void {
-
-    this._dataProveedores.getProveedores().subscribe(data => {
-      this.proveedores = data;
+  async ngOnInit(): Promise<void> { 
+    console.log(this.data.producto)   
+    await this.dataCategorias.obtenerCategorias().toPromise().then(resp => {
+      this.categorias = resp;
+      this._dataProveedores.getProveedores().subscribe(data => {
+        this.proveedores = data;                
+        this.productoModificado.setValue({
+          id: this.data.producto.id ?? '',
+          nombre: this.data.producto.nombre ?? '',
+          imagen: this.data.producto.imagen ?? '',
+          stock: this.data.producto.stock ?? '',
+          precio: this.data.producto.precio ?? '',
+          proveedor: this.getProveedor() ?? '',
+          categoria: this.getCategoria() ?? '',                  
+          descripcion: this.data.producto.descripcion ?? '',
+        });
+      });
+    }).catch(err =>{
+      console.error(err);
     });
+    
   }
 
   productoModificado = new FormGroup({
@@ -103,44 +108,31 @@ export class ModificarProductoComponent implements OnInit {
     imagen: new FormControl('', [Validators.required]),
     stock: new FormControl(0, [Validators.required, Validators.maxLength(10),  Validators.pattern('[0-9]*')]),
     precio: new FormControl(0, [Validators.required, Validators.maxLength(10),  Validators.pattern('^[0-9]+(,[0-9]+)?$')]),
-    proveedorId: new FormControl('', [Validators.required, ]),
-    categoriaId: new FormControl('', [Validators.required, ]),
-    cantidad: new FormControl(0, [Validators.required, ]),
-    carrito: new FormControl(false, [Validators.required, ]),
-    fav: new FormControl(false, [Validators.required, ]),
+    proveedor: new FormControl('', [Validators.required, ]),
+    categoria: new FormControl('', [Validators.required, ]),    
     descripcion: new FormControl('', [Validators.required, ])
   });
 
   onSubmit() {
 
-    let objToSend: NavigationExtras = {
-      queryParams: {
-        id: this.data.producto.id,        
-        nombre: this.productoModificado.value.nombre,
-        imagen: this.productoModificado.value.imagen,
-        stock: this.productoModificado.value.stock,
-        precio: this.productoModificado.value.precio,
-        proveedorId: this.getProveedorNombre(),
-        categoriaId: this.getCategoriaNombre(),
-        cantidad: this.productoModificado.value.cantidad,
-        carrito: this.productoModificado.value.carrito,
-        fav: this.productoModificado.value.fav,
-        descripcion: this.productoModificado.value.descripcion,
-      },
-      skipLocationChange: false,
-      fragment: 'top'
-    }
-    console.log(objToSend);
-    this.dialogRef.close();
-    this.redirectTo('/administracion/AdminProductos', objToSend);
-
+    let objToSend = {     
+      id: this.data.producto.id,        
+      nombre: this.productoModificado.value.nombre,
+      imagen: this.productoModificado.value.imagen,
+      stock: this.productoModificado.value.stock,
+      precio: this.productoModificado.value.precio,
+      proveedor: this.getProveedorNombre(),
+      categoria: this.getCategoriaNombre(),        
+      descripcion: this.productoModificado.value.descripcion      
+    } 
+    this.dataProductos.modificarProducto(objToSend).toPromise().then(resp =>{
+      this.dialogRef.close();
+    }).catch(error =>{
+      this.snackbar.open('Error al modificar', 'OK', { duration: 3000 });
+      console.error(error);
+    });
   }
-
-  redirectTo(uri: string, objToSend: NavigationExtras) {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
-    this.router.navigate([uri], { state: { datosProducto: objToSend } }));
-  }
-
+  
   cancelar() {
     this.dialogRef.close();
   }

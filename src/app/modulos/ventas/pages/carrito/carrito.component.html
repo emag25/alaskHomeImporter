@@ -29,11 +29,11 @@
                                     ${{product.precio}}
                                 </td>
                                 <td class="text-center cantidad">
-                                    <button class="menu-item" (click)="removeCantidad(product.id)">
+                                    <button class="menu-item" (click)="removeCantidad(product.id!)">
                                         <i class="fa-solid fa-minus"></i>
                                     </button>
                                     <input type="text" value="{{product.cantidad}}" readonly>
-                                    <button class="menu-item" (click)="addCantidad(product.id)">
+                                    <button class="menu-item" (click)="addCantidad(product.id!)">
                                         <i class="fa-solid fa-plus"></i>
                                     </button>
                                 </td>
@@ -41,7 +41,7 @@
                                     ${{product.precio * product.cantidad}}
                                 </td>
                                 <td class="text-center">
-                                    <button class="btn btn-danger" (click)="deleteProducto(product.id)">
+                                    <button class="btn btn-danger" (click)="deleteProducto(product.id!)">
                                         <i class="fa-solid fa-trash"></i>
                                     </button>
                                 </td>

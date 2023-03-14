@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Producto } from 'src/app/modulos/productos/models/producto.model';
+import { Producto } from 'src/app/modulos/productos/interfaces/producto.interface';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
 import { LoginService } from 'src/app/shared/services/login.service';
 import { DataProductosService } from '../../services/dataProductos.service';
@@ -11,9 +11,9 @@ import { DataProductosService } from '../../services/dataProductos.service';
 })
 export class FavoritosComponent {
 
-  favorito: any;
-  producto: any;
+  favorito: any;  
   productos: Producto[] = [];
+  products: Producto[] = [];
   idUsuario = 0;
 
   constructor(
@@ -23,13 +23,33 @@ export class FavoritosComponent {
   ) { }
 
   ngOnInit() {
-    this.idUsuario = this.login.getLoggedUserId();
-    this.favorito = this.dataUsuarios.getFavorito(this.idUsuario);
-    this.favorito.forEach((favorito: { id: any; }) => {
-      this.producto = this.dataProductos.findProductobyID(String(favorito.id));
-      this.productos.push(this.producto);
-    });
-
+    this.dataProductos.obtenerProductos().toPromise().then(
+      resp => {
+        console.log(resp);
+        this.products = resp;
+        this.idUsuario = this.login.getLoggedUserId();
+        this.favorito = this.dataUsuarios.getFavorito(this.idUsuario);
+        this.favorito.forEach((favorito: { id: any; }) => {
+          for(let i = 0;i<this.products.length; i++){
+            if(this.products[i].id == String(favorito.id)){
+              const product: Producto = {
+                id: this.products[i].id,
+                nombre: this.products[i].nombre,
+                descripcion: this.products[i].descripcion,
+                imagen: this.products[i].imagen,
+                precio: this.products[i].precio,
+                stock: this.products[i].stock,
+                cantidad: this.products[i].cantidad,
+                categoria: this.products[i].categoria,
+                proveedor: this.products[i].proveedor,
+                carrito: this.products[i].carrito,
+                fav: this.products[i].fav
+              }
+              this.productos.push(product);
+            }
+          }                    
+        });
+      });
   }
 
   deleteProducto(id: string) {

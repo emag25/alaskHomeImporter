@@ -1,4 +1,4 @@
-import { Producto } from "src/app/modulos/productos/models/producto.model";
+import { Producto } from "src/app/modulos/productos/interfaces/producto.interface";
 
 export interface Venta {
     id: number;

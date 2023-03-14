@@ -110,6 +110,7 @@ h2 {
     background-color: rgb(145, 70, 186); 
 }
 
+
 .proveedores .mat-icon{
     color: rgb(98, 42, 129);
 }
@@ -117,6 +118,19 @@ h2 {
 .proveedores .barra-inferior {
     background-color: rgb(98, 42, 129);
     color: rgb(98, 42, 129);
+}
+
+.categorias{
+    background-color: rgb(255, 0, 140); 
+}
+
+.categorias .mat-icon{
+    background-color: rgb(255, 0, 140); 
+}
+
+.categorias .barra-inferior{
+    background-color: rgb(160, 46, 109); 
+    color: rgb(160, 46, 109); 
 }
 
 
