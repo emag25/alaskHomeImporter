@@ -6,6 +6,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
 import { DataProvinciasService } from 'src/app/modulos/proveedores/services/dataProvincias.service';
 import { Provincia } from 'src/app/modulos/proveedores/models/provincia.model.ts';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -19,13 +20,23 @@ export class RegistroUsuarioComponent implements OnInit {
 
   provincias: Provincia[] = []
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<RegistroUsuarioComponent>, private snackBar: MatSnackBar, private _dataProvincias: DataProvinciasService, private dataUsuarios: DataUsuariosService) { }
+  constructor(private router: Router, private dialogRef: MatDialogRef<RegistroUsuarioComponent>, private snackBar: MatSnackBar, private _dataProvincias: DataProvinciasService, private dataUsuarios: DataUsuariosService, private http:HttpClient) { }
 
- ModificarClave(){
+ async RegistrarUsuario(){
+  let servicios = new DataUsuariosService(this.http);
+  await servicios.InsertarUsuario(this.registro.value.nombre, this.registro.value.apellido, this.registro.value.direccion,this.registro.value.contraseña,this.registro.value.email, this.registro.value.telefono,this.registro.value.provincia).subscribe((data:any) => {
+  console.log(data);
+  this.dialogRef.close();
+
+
+  });
+
+ 
   
  }
  
-  ngOnInit(): void {
+  ngOnInit(): void 
+{
 
     this._dataProvincias.getProvincias().subscribe(data => {
       this.provincias = data;
@@ -45,24 +56,9 @@ export class RegistroUsuarioComponent implements OnInit {
   });
 
 
-  onSubmit() {
-    let objToSend: NavigationExtras = {
-      queryParams: {
-        apellido: this.registro.value.apellido,
-        nombre: this.registro.value.nombre,
-        email: this.registro.value.email,
-        contraseña: this.registro.value.contraseña,
-        telefono: this.registro.value.telefono,
-        direccion: this.registro.value.direccion,
-        provincia: this.registro.value.provincia,
-      },
-      skipLocationChange: false,
-      fragment: 'top'
-    };
-
-    this.dialogRef.close();
-    this.redirectTo('/login', objToSend);
-
+  async onSubmit() {
+    await this.RegistrarUsuario();
+    
   }
 
   redirectTo(uri: string, objToSend: NavigationExtras) {

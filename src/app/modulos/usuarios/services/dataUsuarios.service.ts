@@ -203,11 +203,35 @@ VerificarUsuario(email_u: string|undefined|null, pass_u:string|undefined|null){
   console.log(body)
   return this.http.post<any>(baseURL, body,{'headers':headers});
 
-
-
-
-
 }
 
+InsertarUsuario(nombre_u: string|undefined|null, apellido_u:string|undefined|null, email_u: string|undefined|null, pass_u:string|undefined|null, telefono_u:string|undefined|null, direccion_u:string|undefined|null, provincia_u:string|undefined|null){
+  let baseURL=environment.urlBAse+ environment.pathUrl.urlUsuarios.SetUsuarios;
+
+  const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  const body=JSON.stringify({
+    nombre: nombre_u,
+    apellido: apellido_u,
+    email: email_u,
+    password: pass_u,
+    telefono: telefono_u,
+    direccion: direccion_u,
+    provincia: {
+      nombre: provincia_u
+    },
+    transaccion: "insertar"
+
+  
+    
+
+
+    
+
+});
+
+return this.http.post<any>(baseURL, body,{'headers':headers});
+
+
+  }
 
 }
