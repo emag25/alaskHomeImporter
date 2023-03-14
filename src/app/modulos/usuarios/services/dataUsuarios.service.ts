@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Carrito, Favorito, Usuario } from '../models/usuario.model';
+import { environment } from 'src/environments/environment';
+import { Carrito, Favorito, Usuario,User } from '../models/usuario.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,6 @@ export class DataUsuariosService {
 
   ]
 
-  constructor() { }
 
   
   getUsuario(): Usuario[] {
@@ -135,5 +136,78 @@ export class DataUsuariosService {
       this.item.favorito.splice(index-1, 1);
     }
   }
+/*usuario: Usuario = 
+{
+  nombre: "Juan",
+  apellido: "Caicedo",
+  email: "juanl@gmail.com",
+  password: "maria",
+  telefono: "0966544877",
+  direccion: "martha de roldos",
+  provincia: { "nombre": "Guayas" },
+  transaccion: "insertar"
+}
+InsertarUsuario(usuario: Usuario) {
+  let baseURL='http://167.71.26.121:5000/bot';
+  const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  const body=JSON.stringify({sms:mensaje});
+  console.log(body)
+  return this.http.post(baseURL, body,{'headers':headers , responseType: 'text' });
+
+}*/
+constructor(private http:HttpClient) { }
+
+GetUsuarios(){
+let baseURL=environment.urlBAse+ environment.pathUrl.urlUsuarios.GetUsuarios+'todo';
+console.log(baseURL);
+const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8'); //Json porque es un post
+return this.http.post<User[]>(baseURL,{'headers':headers  }); //Si tuviera GET se cambia por get, responseType no va porque no responde <> para indicar que la respuesta es de tipo usuario
+
+}
+EditRolUsuario(id_u: number|undefined, rol_u:string|undefined|null, transaccion_u:string){
+  let baseURL=environment.urlBAse+ environment.pathUrl.urlUsuarios.SetUsuarios;
+
+  const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  const body=JSON.stringify({
+    id: id_u,
+    rol: rol_u,
+    transaccion: transaccion_u
+  });
+  console.log(body)
+  return this.http.post<any>(baseURL, body,{'headers':headers});
+
+}
+
+EditClaveUsuario(id_u: number|undefined, pass_u:string|undefined|null, transaccion_u:string){
+  let baseURL=environment.urlBAse+ environment.pathUrl.urlUsuarios.SetUsuarios;
+
+  const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  const body=JSON.stringify({
+    id: id_u,
+    password: pass_u,
+    transaccion: transaccion_u
+  });
+  console.log(body)
+  return this.http.post<any>(baseURL, body,{'headers':headers});
+
+}
+
+VerificarUsuario(email_u: string|undefined|null, pass_u:string|undefined|null){
+  let baseURL=environment.urlBAse+ environment.pathUrl.urlUsuarios.GetUsuarios+'Verificar';
+
+  const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+  const body=JSON.stringify({
+    email: email_u,
+    password: pass_u
+  });
+  console.log(body)
+  return this.http.post<any>(baseURL, body,{'headers':headers});
+
+
+
+
+
+}
+
 
 }

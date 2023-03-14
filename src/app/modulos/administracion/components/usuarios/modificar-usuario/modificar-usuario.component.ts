@@ -2,8 +2,9 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router, NavigationExtras } from '@angular/router';
-import { Usuario } from 'src/app/modulos/usuarios/models/usuario.model';
+import { Usuario,User } from 'src/app/modulos/usuarios/models/usuario.model';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -12,23 +13,30 @@ import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuar
   styleUrls: ['./modificar-usuario.component.css']
 })
 export class ModificarUsuarioComponent implements OnInit {
-  id: number = this.data.usuario.id;
-  rol: string = this.data.usuario.rol;
-  nombre: string = this.data.usuario.nombre;
-  apellido: string= this.data.usuario.apellido;
-  email: string = this.data.usuario.email;
-  telefono: string = this.data.usuario.telefono;
-  direccion: string = this.data.usuario.direccion;
+
+  id: number|undefined;
+  rol: string|undefined;
+  nombre: string|undefined;
+  apellido: string|undefined;
+  email: string|undefined;
+  telefono: string|undefined;
+  direccion: string|undefined;
 
   
 
 
-  constructor(private router: Router, private dialogRef: MatDialogRef<ModificarUsuarioComponent>, @Inject(MAT_DIALOG_DATA) public data: { usuario: Usuario },private dataUsuarios: DataUsuariosService) {
-    this.usuarioModificado.setValue({
-      rol: this.data.usuario.rol,
-      nombre: this.data.usuario.nombre,
-      apellido: this.data.usuario.apellido
-    });
+  constructor(private router: Router, private dialogRef: MatDialogRef<ModificarUsuarioComponent>, @Inject(MAT_DIALOG_DATA) public data: { usuario: User },private dataUsuarios: DataUsuariosService,private http: HttpClient) {
+    this.id = this.data.usuario.id_usuario;
+    this.rol= this.data.usuario.rol_usuario;
+    this.nombre = this.data.usuario.nombre_usuario;
+    this.apellido= this.data.usuario.apellido_usuario;
+    this.email= this.data.usuario.email_usuario;
+    this.telefono= this.data.usuario.telefono_usuario;
+    this.direccion = this.data.usuario.direccion_usuario;
+  
+    
+    
+    
   }
 
   ngOnInit(): void {
@@ -41,27 +49,24 @@ export class ModificarUsuarioComponent implements OnInit {
 
   });
 
+  async ModificarRol() {
+    let roles = this.usuarioModificado.value.rol=="1"? "Cliente": "Administrador";
+    let servicios = new DataUsuariosService(this.http); //acceder funciones de dataUsuarios
+    await servicios.EditRolUsuario(this.id, roles,'actualizar_rol' ).subscribe((data:any) => {
+      console.log(data);
+
+    });
+
+
+
+  }
+
   onSubmit() {
 
-    let objToSend: NavigationExtras = {
-      queryParams: {
-        id: this.data.usuario.id,
-        nombre: this.usuarioModificado.value.nombre,
-        apellido: this.usuarioModificado.value.apellido,
-        email: this.data.usuario.email,
-        telefono: this.data.usuario.telefono,
-        direccion: this.data.usuario.direccion,
-        rol: this.usuarioModificado.value.rol,
-        provincia: this.data.usuario.provincia
-      },
-      skipLocationChange: false,
-      fragment: 'top'
-    }
-
+    this.ModificarRol();
+    window.location.reload();
     this.dialogRef.close();
-    console.log(objToSend);
 
-   this.redirectTo('/administracion/AdminUsuarios', objToSend);
    
 
   }

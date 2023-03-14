@@ -24,17 +24,18 @@ export class LoginService {
   }
 
 
-  login(email: string, contrasena: string): boolean {
+
+  login(email: string|undefined|null, contrasena: string|undefined|null, nombre: string|undefined|null, id: number, apellido: string|undefined|null): boolean {
     
-    if (this.dataUsuarios.findUserbyEmailPass(email, contrasena) !== undefined) {
+    if (email !=null && email !=undefined && contrasena !=null && contrasena !=undefined && nombre !=null && nombre !=undefined && id !=null && id !=undefined && apellido !=null && apellido !=undefined) {
 
-      let user: any = this.dataUsuarios.findUserbyEmailPass(email, contrasena);
+
+
       this.cookie.set('active', 'true');
-      this.cookie.set('username', user.nombre + ' ' + user.apellido);
-      this.cookie.set('id', user.id.toString());
-
+      this.cookie.set('username', nombre + ' ' + apellido);
+      this.cookie.set('id', id.toString());
+      this.cookie.set('contrasena',contrasena);
       return true;
-
     } else {
 
       return false;
@@ -48,6 +49,7 @@ export class LoginService {
     this.cookie.set('active', 'false');
     this.cookie.set('username', '');
     this.cookie.set('id', '');
+    this.cookie.set('contrasena','');
     window.open('/inicio', '_self');
 
   }

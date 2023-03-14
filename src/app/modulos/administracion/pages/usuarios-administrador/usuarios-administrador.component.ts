@@ -3,14 +3,14 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { Usuario } from 'src/app/modulos/usuarios/models/usuario.model';
+import { User, Usuario } from 'src/app/modulos/usuarios/models/usuario.model';
 import { ModificarUsuarioComponent } from '../../components/usuarios/modificar-usuario/modificar-usuario.component';
 import { FormControl, Validators } from '@angular/forms';
-import { Provincia } from 'src/app/modulos/proveedores/models/provincia.model.ts';
 import { MatSort } from '@angular/material/sort';
 import { DataProvinciasService } from 'src/app/modulos/proveedores/services/dataProvincias.service';
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
 import { LoginService } from 'src/app/shared/services/login.service';
+import { HttpClient } from '@angular/common/http';
 
 
 @Component({
@@ -20,17 +20,16 @@ import { LoginService } from 'src/app/shared/services/login.service';
 })
 export class UsuariosAdministradorComponent {
   active: boolean = this.loginService.getActive();
-  rol: number = 0;
-  selectFilter: string = 'Id';
+  rol_usuario: number = 0;
+  selectFilter: string = 'id_usuario';
 
-  provincias: Provincia[] = []
   datosRecibidos: any;
   nav: any;
 
   dataSource: any = [];
-  displayedColumns: string[] = ['id', 'nombre', 'apellido', 'email', 'telefono', 'direccion', 'rol', 'provincia', 'accion'];
+  displayedColumns: string[] = ['id_usuario', 'nombre_usuario', 'apellido_usuario', 'email_usuario', 'telefono_usuario', 'direccion_usuario', 'rol_usuario', 'provincia_usuario', 'accion'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
-  columnasFilter: string[] = ['Id', 'Nombre', 'Apellido', 'Email', 'Telefono', 'Direccion', 'Rol', 'Provincia'];
+  columnasFilter: string[] = ['id_usuario', 'nombre_usuario', 'apellido_usuario', 'email_usuario', 'telefono_usuario', 'direccion_usuario', 'rol_usuario', 'provincia_usuario'];
   minDate = new Date(2000, 1, 1);
   maxDate = new Date(Date.now());
 
@@ -65,20 +64,27 @@ export class UsuariosAdministradorComponent {
 
 
 
-  constructor(private router: Router, private dialog: MatDialog, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private _dataProvincias: DataProvinciasService) {
-    this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
+  constructor(private router: Router, private dialog: MatDialog, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private _dataProvincias: DataProvinciasService, private http: HttpClient) {
+    this.rol_usuario = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
     this.getDatosRecibidos();
   }
+  usuarios:User[]=[]; //array de usuarios
+
+  async obtenerUsuario(){ //se ejecuta en segundo plano
+    let servicios = new DataUsuariosService(this.http); //acceder funciones de dataUsuarios
+    await servicios.GetUsuarios().subscribe((data:User[]) => {
+      this.usuarios = data;
+      console.log("Hola",this.usuarios);
+      this.dataSource = new MatTableDataSource<User>(this.usuarios);
 
 
-  ngOnInit(): void {
-
-    this._dataProvincias.getProvincias().subscribe(data => {
-      this.provincias = data;
     });
+    console.log("Hola",this.usuarios);
+  }
+  ngOnInit(): void { //carga todos los datos apenas se carga la pagina luego el constructor posteriormete ngChanges se ejecuta cuando hay cambios en el componente
+    this.obtenerUsuario();
     
     this.onResize('');
-    this.dataSource = new MatTableDataSource<Usuario>(this.dataUsuarios.getlistaUsuarios());
   }
 
 
@@ -107,7 +113,7 @@ export class UsuariosAdministradorComponent {
 
 
 
-  openDialogModificar(usuario: Usuario) {
+  openDialogModificar(usuario: User) {
     this.dialog.open(ModificarUsuarioComponent, {
       data: { usuario: usuario },
       disableClose: true,
@@ -121,7 +127,7 @@ export class UsuariosAdministradorComponent {
     switch (true) {
 
       case window.matchMedia('(max-width: 600px)').matches || event?.target?.innerWidth <= 600:
-        this.columnsToDisplay = ['id', 'nombre', 'accion'];
+        this.columnsToDisplay = ['id_usuario', 'nombre_usuario', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = true;
         this.selectApellido = false; this.checkApellido = false;
@@ -135,7 +141,7 @@ export class UsuariosAdministradorComponent {
 
       case window.matchMedia('(max-width: 800px)').matches || event?.target?.innerWidth <= 800:
 
-        this.columnsToDisplay = ['id', 'nombre', 'apellido', 'accion'];
+        this.columnsToDisplay = ['id_usuario', 'nombre_usuario', 'apellido_usuario', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectApellido = true; this.checkApellido = false;
@@ -147,7 +153,7 @@ export class UsuariosAdministradorComponent {
         break;
 
       case window.matchMedia('(max-width: 900px)').matches || event?.target?.innerWidth <= 900:
-        this.columnsToDisplay = ['id', 'nombre', 'apellido', 'email', 'accion'];
+        this.columnsToDisplay = ['id_usuario', 'nombre_usuario', 'apellido_usuario', 'email_usuario', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectApellido = true; this.checkApellido = false;
@@ -159,7 +165,7 @@ export class UsuariosAdministradorComponent {
         break;
 
       case window.matchMedia('(max-width: 1000px)').matches || event?.target?.innerWidth <= 1000:
-        this.columnsToDisplay = ['id', 'nombre', 'apellido', 'email', 'telefono', 'accion'];
+        this.columnsToDisplay = ['id_usuario', 'nombre_usuario', 'apellido_usuario', 'email_usuario', 'telefono_usuario', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectApellido = true; this.checkApellido = false;
@@ -171,7 +177,7 @@ export class UsuariosAdministradorComponent {
         break;
 
       case window.matchMedia('(max-width: 1134px)').matches || event?.target?.innerWidth <= 1134:
-        this.columnsToDisplay = ['id', 'nombre', 'apellido', 'email', 'telefono', 'direccion', 'accion'];
+        this.columnsToDisplay = ['id_usuario', 'nombre_usuario', 'apellido_usuario', 'email_usuario', 'telefono_usuario', 'direccion_usuario', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectApellido = true; this.checkApellido = false;
@@ -184,7 +190,7 @@ export class UsuariosAdministradorComponent {
         break;
 
       case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth > 1134:
-        this.columnsToDisplay = ['id', 'nombre', 'apellido', 'email', 'telefono', 'direccion', 'rol', 'accion'];
+        this.columnsToDisplay = ['id_usuario', 'nombre_usuario', 'apellido_usuario', 'email_usuario', 'telefono_usuario', 'direccion_usuario', 'rol_usuario', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectApellido = true; this.checkApellido = false;
@@ -197,7 +203,7 @@ export class UsuariosAdministradorComponent {
         break;
 
       case window.matchMedia('(max-width: 1300px)').matches || event?.target?.innerWidth > 1134:
-        this.columnsToDisplay = ['id', 'nombre', 'apellido', 'email', 'telefono', 'direccion', 'rol', 'provincia', 'accion'];
+        this.columnsToDisplay = ['id_usuario', 'nombre_usuario', 'apellido_usuario', 'email_usuario', 'telefono_usuario', 'direccion_usuario', 'rol_usuario', 'provincia_usuario', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectApellido = true; this.checkApellido = false;
@@ -212,7 +218,7 @@ export class UsuariosAdministradorComponent {
 
 
       default:
-        this.columnsToDisplay = ['id', 'nombre', 'apellido', 'email', 'telefono', 'direccion', 'rol', 'provincia', 'accion'];
+        this.columnsToDisplay = ['id_usuario', 'nombre_usuario', 'apellido_usuario', 'email_usuario', 'telefono_usuario', 'direccion_usuario', 'rol_usuario', 'provincia_usuario', 'accion'];
         this.selectId = true; this.checkId = false;
         this.selectNombre = true; this.checkNombre = false;
         this.selectApellido = true; this.checkApellido = false;
@@ -282,30 +288,30 @@ export class UsuariosAdministradorComponent {
 
   disableColumn(columna: string) {
     switch (columna) {
-      case 'id':
+      case 'id_usuario':
         this.checkId = true;
         break;
-      case 'nombre':
+      case 'nombre_usuario':
         this.checkNombre = true;
         break;
-      case 'apellido':
+      case 'apellido_usuario':
         this.checkApellido = true;
         break;
 
-      case 'telefono':
+      case 'telefono_usuario':
         this.checkTelefono = true;
         break;
-      case 'email':
+      case 'email_usuario':
         this.checkEmail = true;
         break;
-      case 'direccion':
+      case 'direccion_usuario':
         this.checkDireccion = true;
         break;
-      case 'rol':
+      case 'rol_usuario':
         this.checkRol = true;
         break;
 
-      case 'provincia':
+      case 'provincia_usuario':
         this.checkProvincia = true;
         break;
       default:
@@ -332,7 +338,7 @@ export class UsuariosAdministradorComponent {
   filterById() {
     this.dataSource.filter = this.txtId.value.trim();
     this.dataSource.filterPredicate = function (data: any, filter:string) {
-      return data.id.toString().includes(filter);
+      return data.id_usuario.toString().includes(filter);
     }
   }
 
@@ -340,35 +346,35 @@ export class UsuariosAdministradorComponent {
   filterByApellido() {
     this.dataSource.filter = this.txtApellido.value.trim().toLowerCase();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.apellido.toLocaleLowerCase().includes(filter);
+      return data.apellido_usuario.toLocaleLowerCase().includes(filter);
     }
   }
 
   filterByNombre() {
     this.dataSource.filter = this.txtNombre.value.trim().toLowerCase();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.nombre.toLocaleLowerCase().includes(filter);
+      return data.nombre_usuario.toLocaleLowerCase().includes(filter);
     }
   }
 
   filterByEmail() {
     this.dataSource.filter = this.txtEmail.value.trim().toLowerCase();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.email.toLocaleLowerCase().includes(filter);
+      return data.email_usuario.toLocaleLowerCase().includes(filter);
     }
   }
 
   filterByTelefono() {
     this.dataSource.filter = this.txtTelefono.value.trim().toLowerCase();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.telefono.toLocaleLowerCase().includes(filter);
+      return data.telefono_usuario.toLocaleLowerCase().includes(filter);
     }
   }
 
   filterByDireccion() {
     this.dataSource.filter = this.txtDireccion.value.trim().toLowerCase();
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.direccion.toLocaleLowerCase().includes(filter);
+      return data.direccion_usuario.toLocaleLowerCase().includes(filter);
     }
   }
 
@@ -379,7 +385,7 @@ export class UsuariosAdministradorComponent {
       this.dataSource.filter = '';
     }
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.rol.toLocaleLowerCase().includes(filter);
+      return data.rol_usuario.toLocaleLowerCase().includes(filter);
     }
   }
 
@@ -391,18 +397,15 @@ export class UsuariosAdministradorComponent {
       this.dataSource.filter = '';
     }
     this.dataSource.filterPredicate = function (data: any, filter: string) {
-      return data.provincia.toLocaleLowerCase().includes(filter);
+      return data.provincia_usuario.toLocaleLowerCase().includes(filter);
     }
 
 
   }
 
-  convertir(rol: string) {
-    if (rol === "1") {
-      return "Cliente"
-    } else {
-      return "Administrador"
-    }
-  }
+  
+  
+
+  
 
 }

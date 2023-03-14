@@ -38,7 +38,10 @@ export const environment = {
         urlProvincias: {
 
             GetProvincias: "/api/Provincias/Get"
-
+        },
+        urlUsuarios:{
+            GetUsuarios: '/api/Usuarios/GetUsuarios/',//"/api/Usuarios/GetUsuarios?nombreprocedimiento=",//para pasar parámetro por ruta
+            SetUsuarios: "/api/Usuarios/Set",
         }
 
     }
