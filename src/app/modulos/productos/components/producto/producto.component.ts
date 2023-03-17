@@ -67,7 +67,7 @@ export class ProductoComponent {
 
   accionCarrito() {
     if(this.active){
-      if (!this.producto.carrito) {        
+      if (this.producto.carrito) {        
         this.addCarrito();
       }
       else {
@@ -91,7 +91,7 @@ export class ProductoComponent {
   // Controlador de agregar o eliminar favorito
   accionFavorito() {    
     if(this.active){      
-      if (!this.producto.fav) {
+      if (this.producto.fav) {
         console.log("Hola");
         console.log(this.producto.fav);
         this.addFavorito();

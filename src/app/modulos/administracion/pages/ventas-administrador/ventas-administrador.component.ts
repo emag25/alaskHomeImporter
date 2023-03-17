@@ -15,6 +15,8 @@ import { DataVentasService } from 'src/app/modulos/ventas/services/data-ventas.s
 import { LoginService } from 'src/app/shared/services/login.service';
 import { VentaService } from 'src/app/modulos/ventas/services/venta.service';
 import { CarritoService } from 'src/app/modulos/ventas/services/carrito.service';
+import { Ventas } from 'src/app/modulos/ventas/models/ventas.model';
+import { VerVentaComponent } from '../../components/ventas/ver-venta/ver-venta.component';
 
 @Component({
   selector: 'app-ventas-administrador',
@@ -80,7 +82,8 @@ export class VentasAdministradorComponent {
     private _dataProvincias: DataProvinciasService,
     private dataSolicitud: DataSolicitudProveedorService,
     private ventaService: VentaService,
-    private carritoService: CarritoService) {
+    private carritoService: CarritoService,
+    private matdialog: MatDialog) {
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
     this.getDatosRecibidos();
     
@@ -120,7 +123,7 @@ export class VentasAdministradorComponent {
     });
 
     this.onResize('');
-    this.dataSource = new MatTableDataSource<Venta>(this.dataVentas.getVentas());
+    this.dataSource = new MatTableDataSource<Ventas>(this.ventaService.getVentas());
   }
 
 
@@ -280,6 +283,10 @@ export class VentasAdministradorComponent {
     }
   }
 
+  mostrar(venta: Ventas) {
+    this.dialog.open(VerVentaComponent, {disableClose: false, width: "600px",
+    data: {venta: venta}});
+  }
 
   onclickColumn(index: number) {   
     if (this.columnsToDisplay.includes(this.displayedColumns[index])) {

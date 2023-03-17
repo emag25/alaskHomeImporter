@@ -14,7 +14,7 @@
       </mat-button-toggle>
       <!-- Botón de favoritos -->
       <mat-button-toggle class="menu-item" (click)="accionFavorito()" 
-      (change)="producto.fav = $event.source.checked" checked="{{producto.fav}}" *ngIf="active; else otro">
+      (change)="producto.fav = $event.source.checked" [checked]="producto.fav" *ngIf="active; else otro">
         <mat-icon *ngIf="!producto.fav"  style="color: #23212B;">favorite</mat-icon>
         <mat-icon *ngIf="producto.fav" style="color: #E45D4C;">favorite</mat-icon>
       </mat-button-toggle>
@@ -28,7 +28,7 @@
 
       <!-- Botón de carrito -->
       <mat-button-toggle class="menu-item" (click)="accionCarrito()"
-      (change)="producto.carrito = $event.source.checked" checked="{{producto.carrito}}"  *ngIf="active; else otro2">
+      (change)="producto.carrito = $event.source.checked" [checked]="producto.carrito"  *ngIf="active; else otro2">
       <mat-icon *ngIf="!producto.carrito">add{{iconCarrito}}</mat-icon>
       <mat-icon *ngIf="producto.carrito">remove{{iconCarrito}}</mat-icon>
       </mat-button-toggle>

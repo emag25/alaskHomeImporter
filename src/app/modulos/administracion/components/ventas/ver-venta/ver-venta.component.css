@@ -1,0 +1,49 @@
+.contenedor {
+    padding: 30px;
+}
+
+.titulo {
+    text-transform: uppercase;
+    font-weight: 500;
+    border-bottom: 3px solid grey;
+    padding: 0px 5px;
+}
+
+.personal {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 20px;
+    gap: 30px;
+}
+
+.tema {
+    font-weight: 600;
+}
+
+.tema1 {
+    font-weight: 600;
+    text-align: center;
+}
+
+.respuesta {
+    color: #555555;
+}
+
+.producto {
+    display: grid;
+    grid-template-rows: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    padding: 20px;
+    gap: 30px;
+}
+
+.contenido {
+    text-align: center;
+    color: #555555;
+}
+
+.detalles {
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+}

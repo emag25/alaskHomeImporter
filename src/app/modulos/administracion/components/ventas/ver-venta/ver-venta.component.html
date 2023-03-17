@@ -1,0 +1,40 @@
+<div class="contenedor">
+    <div class="titulo">
+        <h1>Detalles de la Venta</h1>
+    </div>
+    
+    <div class="personal">
+        <p class="tema">Usuario</p>
+        <p class="tema">Email</p>
+        <p class="tema">Telefono</p>
+        <p class="respuesta">{{data.venta.usuario}}</p>
+        <p class="respuesta">{{data.venta.email}}</p>
+        <p class="respuesta">{{data.venta.telefono}}</p>
+    </div>
+
+    <div class="productos">
+        <div class="titulo">
+            <h1>Productos</h1>
+        </div>
+            <p class="producto">
+                <span class="tema1">Nombre</span>
+                <span class="tema1">Cantidad</span>
+                <span class="tema1">Total</span>
+            </p>
+            <p class="producto" *ngFor="let product of data.venta.carritos">
+                <span class="contenido">{{product.nombre}}</span>
+                <span class="contenido">{{product.cantidad}}</span>
+                <span class="contenido">${{product.total}}</span>
+            </p>
+    </div>
+
+    <div class="total">
+        <div class="titulo">
+            <h1>Total</h1>
+        </div>
+        <div class="detalles">
+            <p class="tema">Total</p>
+            <p>${{data.venta.total}}</p>
+        </div>
+    </div>
+</div>

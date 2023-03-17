@@ -64,8 +64,8 @@
                     <mat-form-field appearance="fill" class="campos-field" style="grid-column: span 2;">
                       <mat-label>Provincia</mat-label>
                       <mat-select formControlName="provincia">
-                        <mat-option *ngFor="let provincia of provincias" [value]="provincia.nombre">
-                          {{provincia.nombre}}
+                        <mat-option value="Guayas">
+                          Guayas
                         </mat-option>
                       </mat-select>
                       <mat-error *ngIf="formDatosPersonales.controls['provincia'].hasError('required')">Provincia es requerida.</mat-error>

@@ -15,6 +15,7 @@ import { ModificarUsuarioComponent } from './components/usuarios/modificar-usuar
 import { ModificarProductoComponent } from './components/productos/modificar-producto/modificar-producto.component';
 import { AgregarProductoComponent } from './components/productos/agregar-producto/agregar-producto.component';
 import { DialogAdvertenciaComponent } from './components/proveedores/dialogAdvertencia/dialogAdvertencia.component';
+import { VerVentaComponent } from './components/ventas/ver-venta/ver-venta.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { DialogAdvertenciaComponent } from './components/proveedores/dialogAdver
     ModificarUsuarioComponent,
     ModificarProductoComponent,
     AgregarProductoComponent,
-    DialogAdvertenciaComponent
+    DialogAdvertenciaComponent,
+    VerVentaComponent
   ],
   imports: [
     CommonModule,
