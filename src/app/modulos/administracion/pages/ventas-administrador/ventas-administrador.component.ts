@@ -13,6 +13,8 @@ import { DataSolicitudProveedorService } from 'src/app/modulos/proveedores/servi
 import { DataUsuariosService } from 'src/app/modulos/usuarios/services/dataUsuarios.service';
 import { DataVentasService } from 'src/app/modulos/ventas/services/data-ventas.service';
 import { LoginService } from 'src/app/shared/services/login.service';
+import { VentaService } from 'src/app/modulos/ventas/services/venta.service';
+import { CarritoService } from 'src/app/modulos/ventas/services/carrito.service';
 
 @Component({
   selector: 'app-ventas-administrador',
@@ -68,7 +70,17 @@ export class VentasAdministradorComponent {
   selectTotal: boolean = true;
 
 
-  constructor(private router: Router, private dialog: MatDialog, private dataVentas: DataVentasService, private snackbar: MatSnackBar, private dataUsuarios: DataUsuariosService, private loginService: LoginService, private _dataProvincias: DataProvinciasService, private dataSolicitud: DataSolicitudProveedorService) {
+  constructor(
+    private router: Router,
+    private dialog: MatDialog, 
+    private dataVentas: DataVentasService,
+    private snackbar: MatSnackBar, 
+    private dataUsuarios: DataUsuariosService, 
+    private loginService: LoginService, 
+    private _dataProvincias: DataProvinciasService,
+    private dataSolicitud: DataSolicitudProveedorService,
+    private ventaService: VentaService,
+    private carritoService: CarritoService) {
     this.rol = Number(this.dataUsuarios.getRol(this.loginService.getLoggedUserId()));
     this.getDatosRecibidos();
     
@@ -97,8 +109,12 @@ export class VentasAdministradorComponent {
   }
 
   
-  ngOnInit(): void {
+  async ngOnInit() {
 
+    await this.ventaService.consumirVentasAPI();
+
+    await this.carritoService.consumirCarritosAPI();
+    
     this._dataProvincias.getProvincias().subscribe(data => {
       this.provincias = data;
     });

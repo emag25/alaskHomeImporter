@@ -92,9 +92,13 @@ export class ProductoComponent {
   accionFavorito() {    
     if(this.active){      
       if (!this.producto.fav) {
+        console.log("Hola");
+        console.log(this.producto.fav);
         this.addFavorito();
       }
       else {
+        console.log("Chao");
+        console.log(this.producto.fav);
         this.removeFavorito();
       }
     }else this.openDialogSesion();

@@ -42,6 +42,10 @@ export const environment = {
         urlUsuarios:{
             GetUsuarios: '/api/Usuarios/GetUsuarios/',//"/api/Usuarios/GetUsuarios?nombreprocedimiento=",//para pasar parámetro por ruta
             SetUsuarios: "/api/Usuarios/Set",
+        },
+        urlVentas: {
+            GetVentas: '/api/Ventas/Get',
+            GetCarritos: '/api/Carritos/Get'
         }
 
     }

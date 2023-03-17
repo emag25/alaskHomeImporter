@@ -18,6 +18,7 @@
         <mat-icon *ngIf="!producto.fav"  style="color: #23212B;">favorite</mat-icon>
         <mat-icon *ngIf="producto.fav" style="color: #E45D4C;">favorite</mat-icon>
       </mat-button-toggle>
+      
     <ng-template #otro>
       <mat-button-toggle class="menu-item" (click)="accionFavorito()"
        checked="{{producto.fav}}" >
