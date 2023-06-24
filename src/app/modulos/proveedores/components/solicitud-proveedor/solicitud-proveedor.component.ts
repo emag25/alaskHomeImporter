@@ -34,7 +34,7 @@ export class SolicitudProveedorComponent implements OnInit {
   onSubmit() {    
     
     this.dataSolicitudProveedor.setSolicitudProveedor(new SolicitudProveedor(
-      this.random(3000, 4000),
+      11, 
       this.formSolicitud.value.ruc ?? '',
       this.formSolicitud.value.nombre ?? '',
       this.formSolicitud.value.email ?? '',
